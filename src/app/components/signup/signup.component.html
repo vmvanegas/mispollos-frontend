@@ -1,0 +1,86 @@
+<div class="container-fluid">
+    <div class="row vh-100">
+        <div class="col-12 my-auto">
+            <div class="row">
+                <div class="col-12 col-xl-8 mx-auto">
+                    <div class="register">
+                        <section class="presentation-section text-center ms-bg-primary text-white">
+                            <img class="presentation-section__image" src="../../../assets/img-signup/logo-mispollos-white.svg" alt="">
+                            <div class="presentation-section__content">
+                                <h3 class="mb-5">Bienvenido</h3>
+                                <p>Crea tu cuenta y empieza <br>
+                                    a administrar <br>
+                                    tu negocio</p>
+                            </div>
+                            <img class="presentation-section__shape" src="../../../assets/img-signup/login-shape-1.svg" draggable="false"
+                                alt="">
+                            <img class="presentation-section__shape" src="../../../assets/img-signup/login-shape-2.svg" draggable="false"
+                                alt="">
+                        </section>
+                        <section class="form-section">
+                            <h3 class="text-center">Registro</h3>
+                            <form action="" class="ms-form" autocomplete="off" [formGroup]="profileForm" (ngSubmit)="signUp()">
+
+                                <label for="firstName" class="form-label">Nombre</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-icon"><i class="far fa-user"></i></span>
+                                    <input type="text" class="form-control" pattern="[a-zA-Z]{2,40}" name="firstName" formControlName="firstName"
+                                        id="firstName" placeholder="Jhon" autofocus required>
+                                </div>
+
+                                <label for="lastName" class="form-label">Apellido</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-icon"><i class="far fa-user"></i></span>
+                                    <input type="text" class="form-control" pattern="[a-zA-Z]{2,40}" name="lastName" formControlName="lastName"
+                                        id="lastName" placeholder="Doe" required>
+                                </div>
+
+                                <label for="email" class="form-label">Correo</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-icon">@</span>
+                                    <input type="email" class="form-control" name="email" id="email" formControlName="email"
+                                        placeholder="example@host.com" maxlength="60" required>
+                                </div>
+
+                                <label for="password" class="form-label">Contraseña</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-icon"><i class="fas fa-unlock-alt"></i></span>
+                                    <input type="password" class="form-control" name="password" id="password" formControlName="password"
+                                        placeholder="*********" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,16}$"
+                                        maxlength="16" minlength="8" required>
+                                </div>
+
+                                <label for="storeName" class="form-label">Nombre de tienda</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-icon"><i class="far fa-building"></i></span>
+                                    <input type="text" class="form-control" pattern="[a-zA-Z]{2,40}" name="storeName" formControlName="storeName"
+                                        id="storeName" placeholder="Nombre de tienda" required>
+                                </div>
+
+                                <label for="address" class="form-label">Direccion</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-icon"><i class="fas fa-map-marker-alt"></i></span>
+                                    <input type="text" class="form-control" name="address" required id="address" formControlName="address"
+                                        placeholder="Direccion de tienda">
+                                </div>
+
+                                <label for="password" class="form-label">Telefono</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-icon"><i class="fas fa-phone-alt"></i></span>
+                                    <input type="tel" class="form-control" name="telephone" id="telephone" formControlName="telephone"
+                                        placeholder="7777777" maxlength="20" required>
+                                </div>
+
+                                <div class="form-section__actions">
+                                    <a href="./login/login.html" class="ms-btn" style="min-width: 173px;">Regresar</a>
+                                    <input type="submit" class="ms-btn ms-btn-primary" style="min-width: 173px;"
+                                        value="Enviar">
+                                </div>
+                            </form>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

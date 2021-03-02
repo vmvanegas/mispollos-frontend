@@ -1,0 +1,128 @@
+
+.ms-bg-primary {
+    background: #F24C36;
+}
+
+
+.ms-btn {    
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
+}
+
+a.ms-btn {
+    text-align: center;
+    text-decoration: none;
+    color: #7a7a7a;
+    background-color: #F2F2F2;
+}
+
+.ms-btn-primary {
+    background: #F24C36;
+    color: #fff;
+}
+
+.register {    
+    display: flex;
+    flex-direction: row;
+    background-color: #fff;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+.presentation-section {   
+    position: relative; 
+    max-width: 500px;
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;    
+}
+
+@media (max-width: 568px) {
+    .presentation-section {    
+        display: none;  
+    }
+}
+
+.presentation-section__shape {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.presentation-section__content {
+    margin: auto;
+    transform: translateY(-25%);
+}
+
+/* .presentation-section::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 15%;
+} */
+
+.presentation-section__image {
+    width: 195px;
+    height: 95px;
+}
+
+.form-section {
+    padding: 2rem 4rem;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .form-section {
+        padding: 2rem 2rem;
+    }
+}
+
+.ms-form {
+    max-width: 400px;
+    width: 100%;
+    margin: auto;
+}
+
+.input-group-icon{
+    display: flex;
+    align-items: center;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #6d757d;
+    text-align: center;
+    white-space: nowrap;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+.form-control:focus{
+    box-shadow: none;
+    border-color: #F24C36;
+}
+
+.form-section .form-section__actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+    .form-section .form-section__actions {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .form-section .form-section__actions > * {
+        margin-bottom: 1rem;
+    }
+}
+
+.vh-100 {
+    min-height: 100vh;
+}
