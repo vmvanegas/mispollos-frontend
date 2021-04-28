@@ -1,0 +1,115 @@
+.administration {
+    display: flex;
+    flex-direction: column;
+    padding-left: 250px;
+    min-height: 100vh;
+    justify-content: space-between;
+}
+
+.ms-header {
+    position: sticky;
+    top: 0;
+    display: flex;
+    min-height: 60px;
+    width: 100%;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.10);
+    padding: 1rem;
+    justify-content: flex-end;
+    background-color: #fff;
+}
+
+.ms-header__menu {
+    display: flex;
+    align-items: center;
+}
+
+.ms-header__menu span {
+    color: #999999;
+}
+
+
+.side-nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.10);
+    background-color: #fff;
+    max-width: 250px; 
+    width: 100%;   
+    z-index: 1030;
+
+    &__logo {
+        padding: 3rem 1.5rem 1rem;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-self: center;
+        margin-bottom: 4rem;
+        img {
+            max-width: 100%;
+        }
+    }
+
+    &__menu {
+        list-style: none;
+        flex: 1;
+        margin: 0;
+        padding: 0;        
+        li {            
+            a {
+                display: block;
+                padding: 1rem 1.5rem;
+                text-decoration: none;
+                color: #999999;
+                &.active{
+                    background-color: #F24C36;
+                    color: #fff;
+                }
+            }
+        }
+
+    }
+
+    &__copy {
+        padding: 1.5rem;
+        color: #999999;
+        text-align: center;
+    }
+}
+
+.administration-content {
+    display: flex;
+    align-items: stretch;
+    flex: 1;
+    padding: 2rem;
+}
+
+.ms-footer {
+    padding: 1rem;
+    justify-self: flex-end;
+    min-height: 80px;
+    background-color: #F24C36;
+    font-size: 12px;
+    color: #fff;
+}
+
+.ms-footer__column {
+
+    .info {
+        margin-bottom: 0;
+        a{
+            text-decoration: none;
+            color: #fff;
+        }    
+    }
+
+    .title {
+        font-size: 12px;
+        font-weight: bold;
+        color: #fff;
+    }
+}

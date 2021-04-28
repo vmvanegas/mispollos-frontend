@@ -6,7 +6,9 @@ const url = "http://localhost:56610/api/"
 
 export const environment = {
   production: false,
-  url_userList: `${url}user`
+  url_userList: `${url}user`,
+  url_providerList: `${url}proveedor`,
+  url_validateUser: `${url}user/authenticate`
 };
 
 /*

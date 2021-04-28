@@ -1,0 +1,53 @@
+<div class="container-fluid">
+    <div class="row vh-100">
+        <div class="col-12 my-auto">
+            <div class="row">
+                <div class="col-12 col-xl-8 mx-auto">
+                    <div class="register">
+                        <section class="form-section">
+                            <h3 class="text-center mb-5">Inicio de sesión</h3>
+                            <form action="" autocomplete="off" class="ms-form" [formGroup]="loginForm"
+                                (ngSubmit)="login()">
+
+                                <label for="email" class="form-label">Correo</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-icon">@</span>
+                                    <input type="email" class="form-control" name="email"
+                                        formControlName="email" placeholder="example@host.com" maxlength="60" required>
+                                </div>
+
+                                <label for="password" class="form-label">Contraseña</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-icon"><i class="fas fa-unlock-alt"></i></span>
+                                    <input type="password" class="form-control" name="password" formControlName="password"
+                                        placeholder="*********" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,16}$"
+                                        maxlength="16" minlength="8" required>
+                                </div>
+
+                                <div class="form-section__actions">
+                                    <input type="submit" class="ms-btn ms-btn-primary" style="min-width: 173px;"
+                                        value="Enviar">
+                                </div>
+                            </form>
+                            <p class="text-center my-5">¿Aún no tienes cuenta?, creala <a routerLink="/registro"
+                                    class="ms-hightlight">aquí</a></p>
+                            <p class="text-center mt-5 mb-0">Mis Pollos © 2020</p>
+                        </section>
+                        <section class="presentation-section text-center ms-bg-primary text-white">
+                            <img class="presentation-section__image" src="../../../assets/img-signup/logo-mispollos-white.svg" alt="">
+                            <div class="presentation-section__content">
+                                <h3 class="mb-5">Bienvenido</h3>
+                                <p>Administra tu negocio de <br>
+                                    forma facil y eficiente</p>
+                            </div>
+                            <img class="presentation-section__shape" src="../../../assets/img-signup/login-shape-1.svg" draggable="false"
+                                alt="">
+                            <img class="presentation-section__shape" src="../../../assets/img-signup/login-shape-2.svg" draggable="false"
+                                alt="">
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="ms-card-container">
+    <div class="ms-card-container__header">
+        <h1>Categorias</h1>
+        <button class="btn btn-primary">Agregar producto</button>
+    </div>
+    <div class="table-responsive-md">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Accion</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let number of items">
+                <td>Lacteos</td>
+                <td>
+                    <button class="btn btn-edit"><i class="far fa-edit"></i></button>
+                    <button class="btn btn-delete"><i class="fas fa-trash-alt"></i></button>
+                </td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="table-pagination">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">4</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+        </nav>
+    </div>
+</div>

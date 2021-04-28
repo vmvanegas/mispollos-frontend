@@ -1,0 +1,49 @@
+<div class="administration">    
+    <header class="ms-header">
+        <div class="ms-header__menu">
+            <span>Nombre de usuario</span>
+        </div>
+    </header>
+
+    <nav class="side-nav">
+        <div class="side-nav__logo">
+            <img src="../../../assets/img-signup/logo-mispollos.svg" width="160px" height="80px" alt="">
+        </div>
+        <ul class="side-nav__menu">
+            <li><a routerLink="productos" routerLinkActive="active">Productos</a></li>
+            <li><a routerLink="pedidos" routerLinkActive="active">Pedidos</a></li>
+            <li><a routerLink="categorias" routerLinkActive="active">Categorias</a></li>
+            <li><a routerLink="clientes" routerLinkActive="active">Clientes</a></li>
+            <li><a routerLink="proveedores" routerLinkActive="active">Proveedores</a></li>
+            <li><a routerLink="empleados" routerLinkActive="active">Empleados</a></li>
+        </ul>
+        <div class="side-nav__copy">
+            <p>Mis Pollos © 2020</p>
+        </div>
+    </nav>    
+
+    <div class="administration-content">
+        <router-outlet></router-outlet>
+    </div>
+
+    <footer class="ms-footer">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="d-flex justify-content-center">
+                    <div class="ms-footer__column">
+                        <h3 class="title">Contactanos</h3>
+                        <p class="info">aprendiz@misena.edu.co | 3008947784</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 align-items-center">
+                <div class="d-flex justify-content-center">
+                    <div class="ms-footer__column">
+                        <h3 class="title">Sobre nosotros</h3>
+                        <p class="info"><a href="">Mision</a> | <a href="">Vision</a> | <a href="">Terminos y condiciones</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>

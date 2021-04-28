@@ -21,58 +21,92 @@
                             <h3 class="text-center">Registro</h3>
                             <form action="" class="ms-form" autocomplete="off" [formGroup]="profileForm" (ngSubmit)="signUp()">
 
-                                <label for="firstName" class="form-label">Nombre</label>
-                                <div class="input-group mb-3">
-                                    <span class="input-group-icon"><i class="far fa-user"></i></span>
-                                    <input type="text" class="form-control" pattern="[a-zA-Z]{2,40}" name="firstName" formControlName="firstName"
-                                        id="firstName" placeholder="Jhon" autofocus required>
+                                <div class="row">
+                                    <div class="col-md-6">                                    
+                                        <label for="firstName" class="form-label">Nombre</label>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-icon"><i class="far fa-user"></i></span>
+                                            <input type="text" class="form-control" pattern="[a-zA-Z ]{2,40}" name="firstName" formControlName="firstName"
+                                               placeholder="Jhon" autofocus required>
+                                        </div>
+                                    </div>
+    
+                                    <div class="col-md-6">
+                                        <label for="lastName" class="form-label">Apellido</label>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-icon"><i class="far fa-user"></i></span>
+                                            <input type="text" class="form-control" pattern="[a-zA-Z ]{2,40}" name="lastName" formControlName="lastName"
+                                               placeholder="Doe" required>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <label for="lastName" class="form-label">Apellido</label>
-                                <div class="input-group mb-3">
-                                    <span class="input-group-icon"><i class="far fa-user"></i></span>
-                                    <input type="text" class="form-control" pattern="[a-zA-Z]{2,40}" name="lastName" formControlName="lastName"
-                                        id="lastName" placeholder="Doe" required>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label">Correo</label>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-icon">@</span>
+                                            <input type="email" class="form-control" name="email" formControlName="email"
+                                                placeholder="example@host.com" maxlength="60" required>
+                                        </div>
+                                    </div>
+    
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label">Confirmacion de correo</label>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-icon">@</span>
+                                            <input type="email" class="form-control" name="email" formControlName="email"
+                                                placeholder="example@host.com" maxlength="60" required>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <label for="email" class="form-label">Correo</label>
-                                <div class="input-group mb-3">
-                                    <span class="input-group-icon">@</span>
-                                    <input type="email" class="form-control" name="email" id="email" formControlName="email"
-                                        placeholder="example@host.com" maxlength="60" required>
-                                </div>
-
-                                <label for="password" class="form-label">Contraseña</label>
-                                <div class="input-group mb-3">
-                                    <span class="input-group-icon"><i class="fas fa-unlock-alt"></i></span>
-                                    <input type="password" class="form-control" name="password" id="password" formControlName="password"
-                                        placeholder="*********" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,16}$"
-                                        maxlength="16" minlength="8" required>
+                                <div class="row">
+                                    <div class="col-md-6">                                    
+                                        <label for="password" class="form-label">Contraseña</label>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-icon"><i class="fas fa-unlock-alt"></i></span>
+                                            <input type="password" class="form-control" name="password" formControlName="password"
+                                                placeholder="*********" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,16}$"
+                                                maxlength="16" minlength="8" required>
+                                        </div>
+                                    </div>
+    
+                                    <div class="col-md-6">                                    
+                                        <label for="password" class="form-label">Confirmacion de contraseña</label>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-icon"><i class="fas fa-unlock-alt"></i></span>
+                                            <input type="password" class="form-control" name="password" formControlName="password"
+                                                placeholder="*********" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,16}$"
+                                                maxlength="16" minlength="8" required>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <label for="storeName" class="form-label">Nombre de tienda</label>
                                 <div class="input-group mb-3">
                                     <span class="input-group-icon"><i class="far fa-building"></i></span>
-                                    <input type="text" class="form-control" pattern="[a-zA-Z]{2,40}" name="storeName" formControlName="storeName"
-                                        id="storeName" placeholder="Nombre de tienda" required>
+                                    <input type="text" class="form-control" pattern="[a-zA-Z ]{2,40}" name="storeName" formControlName="storeName"
+                                        placeholder="Nombre de tienda" required>
                                 </div>
+
 
                                 <label for="address" class="form-label">Direccion</label>
                                 <div class="input-group mb-3">
                                     <span class="input-group-icon"><i class="fas fa-map-marker-alt"></i></span>
-                                    <input type="text" class="form-control" name="address" required id="address" formControlName="address"
+                                    <input type="text" class="form-control" name="address" required formControlName="address"
                                         placeholder="Direccion de tienda">
                                 </div>
 
                                 <label for="password" class="form-label">Telefono</label>
                                 <div class="input-group mb-3">
                                     <span class="input-group-icon"><i class="fas fa-phone-alt"></i></span>
-                                    <input type="tel" class="form-control" name="telephone" id="telephone" formControlName="telephone"
+                                    <input type="tel" class="form-control" name="telephone" formControlName="telephone"
                                         placeholder="7777777" maxlength="20" required>
                                 </div>
 
                                 <div class="form-section__actions">
-                                    <a href="./login/login.html" class="ms-btn" style="min-width: 173px;">Regresar</a>
+                                    <a routerLink="/login" class="ms-btn" style="min-width: 173px;">Regresar</a>
                                     <input type="submit" class="ms-btn ms-btn-primary" style="min-width: 173px;"
                                         value="Enviar">
                                 </div>

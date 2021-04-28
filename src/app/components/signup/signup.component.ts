@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AccountService } from '../../services/account.service'
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -14,7 +14,7 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private accountService : AccountService
+    private authService : AuthService
     ) { 
     this.profileForm = formBuilder.group({
       firstName: ['', [Validators.required]],
@@ -50,8 +50,8 @@ export class SignupComponent implements OnInit {
         }
       }
 
-      this.accountService.createUser(body).subscribe(response=>{
-        console.log(response)
+      this.authService.createUser(body).subscribe(response=>{
+        console.log(response)        
         this.profileForm.reset()
       }, err=>{
         console.log(err)

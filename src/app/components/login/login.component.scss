@@ -1,3 +1,13 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url("../../../assets/img-general/mp-background-pattern.svg");
+    min-height: 100vh;
+    background-size: 575px 400px;
+}
+
+*:focus {
+    outline: none;
+}
 
 .ms-bg-primary {
     background: #F24C36;
@@ -7,16 +17,10 @@
 .ms-btn {    
     cursor: pointer;
     padding: 8px 12px;
+    width: 100%;
     border-radius: 5px;
     border: none;
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
-}
-
-a.ms-btn {
-    text-align: center;
-    text-decoration: none;
-    color: #7a7a7a;
-    background-color: #F2F2F2;
 }
 
 .ms-btn-primary {
@@ -29,15 +33,16 @@ a.ms-btn {
     flex-direction: row;
     background-color: #fff;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    min-height: 661px;
 }
 
 .presentation-section {   
     position: relative; 
+    flex-direction: column;
     max-width: 500px;
     width: 100%;
     padding: 1rem;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;    
 }
@@ -65,19 +70,26 @@ a.ms-btn {
 }
 
 .form-section {
-    padding: 2rem 4rem;
+    padding: 4rem 6rem;
     width: 100%;
 }
 
 @media (max-width: 768px) {
     .form-section {
-        padding: 2rem 2rem;
+        padding: 4rem 2rem;
     }
 }
 
 .ms-form {
     width: 100%;
+    max-width: 400px;
     margin: auto;
+}
+
+.ms-hightlight {
+    color: #F24C36;
+    text-decoration: none;
+    text-align: center;
 }
 
 .input-group-icon{
@@ -101,18 +113,7 @@ a.ms-btn {
 
 .form-section .form-section__actions {
     display: flex;
-    justify-content: space-between;
-}
-
-@media (max-width: 768px) {
-    .form-section .form-section__actions {
-        display: flex;
-        flex-direction: column-reverse;
-    }
-
-    .form-section .form-section__actions > * {
-        margin-bottom: 1rem;
-    }
+    justify-content: flex-end;
 }
 
 .vh-100 {
