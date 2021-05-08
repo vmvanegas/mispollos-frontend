@@ -15,7 +15,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     ProductsComponent, 
-    AdministrationComponent, CategoryComponent, ProviderComponent, OrderComponent, CustomerComponent, EmployeeComponent
+    AdministrationComponent, 
+    CategoryComponent, 
+    ProviderComponent, 
+    OrderComponent, 
+    CustomerComponent, 
+    EmployeeComponent
   ],
   imports: [
     CommonModule,

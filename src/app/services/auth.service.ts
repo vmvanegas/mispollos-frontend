@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,7 +12,8 @@ export class AuthService {
   URL_VALIDATEUSER = environment.url_validateUser
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) { }
 
 
@@ -25,6 +27,11 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem("token")
+  }
+
+  logout() {
+    localStorage.removeItem('token')
+    this.router.navigate(['/login'])
   }
 
 }

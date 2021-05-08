@@ -16,6 +16,11 @@
     padding: 1rem;
     justify-content: flex-end;
     background-color: #fff;
+    &__menu {
+        button {
+            color: #999999;
+        }
+    }
 }
 
 .ms-header__menu {
@@ -70,8 +75,7 @@
                     color: #fff;
                 }
             }
-        }
-
+        }        
     }
 
     &__copy {

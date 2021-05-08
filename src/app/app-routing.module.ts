@@ -13,8 +13,8 @@ const routes: Routes = [
     loadChildren: () => import('./modules/administration/administration.module').then(m => m.AdministrationModule),
     canActivate: [AuthGuard]
   },
-  { path:'', pathMatch:'full', redirectTo: 'registro'},
-  { path:'**', redirectTo: 'registro'},
+  { path:'', pathMatch:'full', redirectTo: 'login'},
+  { path:'**', redirectTo: 'login'},
 ];
 
 @NgModule({

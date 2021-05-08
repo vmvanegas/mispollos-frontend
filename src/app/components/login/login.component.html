@@ -7,26 +7,53 @@
                         <section class="form-section">
                             <h3 class="text-center mb-5">Inicio de sesión</h3>
                             <form action="" autocomplete="off" class="ms-form" [formGroup]="loginForm"
-                                (ngSubmit)="login()">
+                                (ngSubmit)="login()" >
 
                                 <label for="email" class="form-label">Correo</label>
                                 <div class="input-group mb-3">
                                     <span class="input-group-icon">@</span>
                                     <input type="email" class="form-control" name="email"
                                         formControlName="email" placeholder="example@host.com" maxlength="60" required>
+                                </div>                                
+                                <div *ngIf="form.email.invalid && (form.email.dirty || form.email.touched)">
+
+                                    <div class="alert alert-danger" *ngIf="form.email.errors.required">
+                                        Este campo es obligatorio.
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="form.email.errors.maxlength">
+                                        El correo no puede contener mas de 60 caracteres.
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="form.email.errors.email">
+                                        El correo es invalido.
+                                    </div>
                                 </div>
 
                                 <label for="password" class="form-label">Contraseña</label>
                                 <div class="input-group mb-3">
                                     <span class="input-group-icon"><i class="fas fa-unlock-alt"></i></span>
                                     <input type="password" class="form-control" name="password" formControlName="password"
-                                        placeholder="*********" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,16}$"
+                                        placeholder="*********" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{0,}$"
                                         maxlength="16" minlength="8" required>
+                                </div>
+                                <div *ngIf="form.password.invalid && (form.password.dirty || form.password.touched)">
+
+                                    <div class="alert alert-danger" *ngIf="form.password.errors.required">
+                                        Este campo es obligatorio.
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="form.password.errors.maxlength">
+                                        La contraseña solo puede contener maximo 16 caracteres.
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="form.password.errors.minlength">
+                                        La contraseña solo puede contener minimo 8 caracteres.
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="form.password.errors.pattern">
+                                        La contraseña debe tener 1 mayuscula 1 minuscula y un numero.
+                                    </div>
                                 </div>
 
                                 <div class="form-section__actions">
                                     <input type="submit" class="ms-btn ms-btn-primary" style="min-width: 173px;"
-                                        value="Enviar">
+                                        value="Enviar">                                    
                                 </div>
                             </form>
                             <p class="text-center my-5">¿Aún no tienes cuenta?, creala <a routerLink="/registro"
@@ -49,5 +76,34 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+
+<button type="button" #modalToggle data-toggle="modal" [hidden]="true" data-target="#myModal"></button>
+<div class="modal fade" tabindex="-1" id="myModal" data-backdrop="static" #myModal>
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-form text-center">
+          <h3>{{wrongUser? 'Usuario incorrecto': 'Inicio de sesion satisfactorio'}}</h3>
+          <div *ngIf="!wrongUser; else elseBlock">
+            <svg version="1.1" class="svg-modal" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+              </svg>
+          </div>
+          <ng-template #elseBlock>
+            <svg class="svg-modal" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+                <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+                <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+            </svg>
+          </ng-template>        
+          <button *ngIf="!wrongUser; else wrongButton" class="btn btn-primary mt-5" data-dismiss="modal" (click)="redirectToAdmin()" style="min-width: 150px;">OK</button>
+          <ng-template #wrongButton>
+            <button class="btn btn-primary mt-5" data-dismiss="modal" style="min-width: 150px;">OK</button>
+          </ng-template>
+        </div>
+      </div>
     </div>
 </div>

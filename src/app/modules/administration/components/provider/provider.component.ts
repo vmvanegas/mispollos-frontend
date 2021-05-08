@@ -11,6 +11,7 @@ import { ProviderService } from '../../services/provider.service';
 export class ProviderComponent implements OnInit {
 
   @ViewChild('myModal') public myModal: ElementRef;  
+  @ViewChild('myModalQuestion') public myModalQuestion: ElementRef;  
 
   public providers = []
   public providerForm: FormGroup
@@ -18,6 +19,7 @@ export class ProviderComponent implements OnInit {
   public editingProvider: any = {}
   public page = 1
   public totalProviders = []
+  public idToDelete = ""
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,6 +34,11 @@ export class ProviderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+  
+
+  public setIdToDelete(id) {
+    this.idToDelete = id;
   }
 
 
@@ -100,12 +107,16 @@ export class ProviderComponent implements OnInit {
     this.providerService.deleteProvider(id).subscribe(
       res=>{
       console.log(res)
+      this.idToDelete = "";
+      this.myModalQuestion.nativeElement.click()
       this.getProvidersList()
     }, err=>{
       console.log(err)
     })
     
   }
+
+
 
   public editProvider(provider) {
     this.editing = true

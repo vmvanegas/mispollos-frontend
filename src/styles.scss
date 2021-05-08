@@ -108,6 +108,22 @@ p {
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.10);
 }
 
+.modal-alert {
+  padding: 1rem;
+  h3 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  &__actions{
+    display: flex;
+    justify-content: space-between;
+    button {
+      min-width: 150px;
+    }
+  }
+}
+
 .modal-form {
     padding: 1rem;
     &__actions {
@@ -152,3 +168,93 @@ p {
     }
 
 }
+
+
+/* ALERTS */ 
+
+.alert {
+    font-size: 0.75rem;
+    margin-top: -.9rem;
+    padding: .30rem 0rem;
+    background-color: transparent;
+    border: none;       
+}
+
+.alert-danger {
+    color: #C62632 ;
+} 
+
+
+/* SVG CHECK MARK */
+
+.svg-modal {
+    width: 100px;
+    display: block;
+    margin: 40px auto 0;
+    .path {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 0;
+        &.circle {
+          -webkit-animation: dash .9s ease-in-out;
+          animation: dash .9s ease-in-out;
+        }
+        &.line {
+          stroke-dashoffset: 1000;
+          -webkit-animation: dash .9s .35s ease-in-out forwards;
+          animation: dash .9s .35s ease-in-out forwards;
+        }
+        &.check {
+          stroke-dashoffset: -100;
+          -webkit-animation: dash-check .9s .35s ease-in-out forwards;
+          animation: dash-check .9s .35s ease-in-out forwards;
+        }
+      }
+      
+      p {
+        text-align: center;
+        margin: 20px 0 60px;
+        font-size: 1.25em;
+        &.success {
+          color: #73AF55;
+        }
+        &.error {
+          color: #D06079;
+        }
+      }
+}
+  
+  @-webkit-keyframes dash {
+    0% {
+      stroke-dashoffset: 1000;
+    }
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+  
+  @keyframes dash {
+    0% {
+      stroke-dashoffset: 1000;
+    }
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+  
+  @-webkit-keyframes dash-check {
+    0% {
+      stroke-dashoffset: -100;
+    }
+    100% {
+      stroke-dashoffset: 900;
+    }
+  }
+  
+  @keyframes dash-check {
+    0% {
+      stroke-dashoffset: -100;
+    }
+    100% {
+      stroke-dashoffset: 900;
+    }
+  }

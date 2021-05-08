@@ -106,6 +106,12 @@ body {
     border-radius: .25rem;
 }
 
+.form-control {
+    &::placeholder {
+        color: #999;
+    }
+}
+
 .form-control:focus{
     box-shadow: none;
     border-color: #F24C36;

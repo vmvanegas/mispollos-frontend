@@ -1,7 +1,7 @@
 <div class="ms-card-container">
     <div class="ms-card-container__header">
         <h1>Proveedores</h1>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Agregar proveedor</button>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Agregar proveedor</button>
     </div>
     <div class="table-responsive-md">
         <table class="table">
@@ -17,8 +17,8 @@
                 <td>{{provider.nombre}}</td>
                 <td>{{provider.telefono}}</td>
                 <td>
-                    <button class="btn btn-edit" (click)="editProvider(provider)" data-bs-toggle="modal" data-bs-target="#myModal"><i class="far fa-edit"></i></button>
-                    <button class="btn btn-delete" (click)="deleteProvider(provider.id)"><i class="fas fa-trash-alt"></i></button>
+                    <button class="btn btn-edit" (click)="editProvider(provider)" data-toggle="modal" data-target="#myModal"><i class="far fa-edit"></i></button>
+                    <button class="btn btn-delete" data-toggle="modal" data-target="#myModalQuestion" (click)="setIdToDelete(provider.id)"><i class="fas fa-trash-alt"></i></button>
                 </td>
               </tr>
             </tbody>
@@ -62,7 +62,7 @@
                   formControlName="telephone" placeholder="Telefono de proveedor" maxlength="60" required>
           </div>
           <div class="modal-form__actions">
-            <button type="button" class="btn" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
             <button type="submit" class="btn btn-primary">{{editing? 'Editar': 'Agregar'}}</button>
           </div>
         </form>
@@ -70,3 +70,20 @@
     </div>
   </div>
 </div>
+
+
+<div class="modal fade" tabindex="-1" id="myModalQuestion" #myModalQuestion>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-alert">
+        <h3>¿Estas seguro que deseas eliminar este registro?</h3>
+        <div class="modal-alert__actions">
+          <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-danger" (click)="deleteProvider(idToDelete)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

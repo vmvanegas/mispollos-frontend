@@ -36,6 +36,10 @@ const routes: Routes = [
     {
       path: 'empleados',
       component: EmployeeComponent
+    },
+    {
+      path: '',
+      redirectTo: 'productos'
     }
   ]
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -8,9 +8,13 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
 export class LoginComponent implements OnInit {
 
-  loginForm: FormGroup
+  @ViewChild('modalToggle') modalToggle: ElementRef
+  @ViewChild('myModal') myModal: ElementRef
+  public loginForm: FormGroup
+  public wrongUser: boolean = false
   
 
   constructor(
@@ -19,21 +23,19 @@ export class LoginComponent implements OnInit {
     private router: Router
     ) { 
     this.loginForm = formBuilder.group({
-      email: ['', [Validators.required]],
-      password: ['', [Validators.required]]
+      email: ['', [Validators.required, Validators.maxLength(60), Validators.email]],
+      password: ['', [Validators.required, Validators.maxLength(16), Validators.minLength(8) ,Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{0,}$")]]
     })
   }
 
   ngOnInit(): void {
   }
+  get form() {
+    return this.loginForm.controls
+  }
 
-
-  login() {   
-
-    this.loginForm.markAllAsTouched()
-    console.log(this.loginForm)
+  login() {     
     if(this.loginForm.valid) {
-      console.log("funciona el metodo hasta aqui")
 
       const body = {
         Email: this.loginForm.controls['email'].value,
@@ -41,16 +43,27 @@ export class LoginComponent implements OnInit {
       }
 
       this.authService.validateUser(body).subscribe(response=>{
-        console.log(response)
-        localStorage.setItem("token", JSON.stringify(response.token))        
-        this.loginForm.reset()
-        this.router.navigate(['/administracion/productos'])
+        this.wrongUser = false
+        localStorage.setItem("token", JSON.stringify(response.token))     
+        this.loginForm.reset()     
+        this.showModal()
       }, err=>{
-        alert("Usuario Incorrecto")
+        this.wrongUser = true
+        this.showModal()
         console.log(err)
       })
     }
 
+  }
+
+
+  showModal() {
+    this.modalToggle.nativeElement.click()
+  }
+
+
+  redirectToAdmin() {
+    this.router.navigate(['/administracion/productos'])
   }
 
 }
