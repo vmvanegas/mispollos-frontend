@@ -1,12 +1,13 @@
-<div class="administration">    
+<div class="administration" #admin>    
     <header class="ms-header">
+        <button class="btn btn-toggle" #btnToggle (click)="toggleSideBar()"><i class="fas fa-bars"></i></button>
         <div class="ms-header__menu">
             <span>Nombre de usuario</span>
-            <button class="btn" (click)="logout()">Salir</button>
+            <button class="btn"(click)="logout()">Salir</button>
         </div>
     </header>
 
-    <nav class="side-nav">
+    <nav class="side-nav" #sideNav (window:click)="closeSideBar($event)">
         <div class="side-nav__logo">
             <img src="../../../assets/img-signup/logo-mispollos.svg" width="160px" height="80px" alt="">
         </div>
@@ -48,3 +49,5 @@
         </div>
     </footer>
 </div>
+
+<div class="bg-shadow" #bgShadow (window:resize)="resize()"></div>

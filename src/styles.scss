@@ -68,6 +68,12 @@ p {
 
 /* BUTTON STYLES */
 
+.btn {
+  &:hover, &:active, &:focus, &:active:focus {
+    box-shadow: none;
+  }
+}
+
 .btn-primary {
     background-color: #F24C36;
     border-color:#F24C36;
