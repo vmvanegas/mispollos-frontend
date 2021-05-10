@@ -13,69 +13,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr >
-                <td>Rafael Moreno</td>
-                <td>3197854648</td>
+              <tr *ngFor="let provider of providers">
+                <td>{{provider.nombre}}</td>
+                <td>{{provider.telefono}}</td>
                 <td>
-                    <button class="btn btn-edit"><i class="far fa-edit"></i></button>
-                    <button class="btn btn-delete"><i class="fas fa-trash-alt"></i></button>
+                    <button class="btn btn-edit" (click)="editProvider(provider)" data-toggle="modal" data-target="#myModal"><i class="far fa-edit"></i></button>
+                    <button class="btn btn-delete" data-toggle="modal" data-target="#myModalQuestion" (click)="setIdToDelete(provider.id)"><i class="fas fa-trash-alt"></i></button>
                 </td>
               </tr>
-
-              <tr >
-                <td>Rafael Moreno</td>
-                <td>3197854648</td>
-                <td>
-                    <button class="btn btn-edit"><i class="far fa-edit"></i></button>
-                    <button class="btn btn-delete"><i class="fas fa-trash-alt"></i></button>
-                </td>
-              </tr>
-
-              <tr >
-                <td>Rafael Moreno</td>
-                <td>3197854648</td>
-                <td>
-                    <button class="btn btn-edit"><i class="far fa-edit"></i></button>
-                    <button class="btn btn-delete"><i class="fas fa-trash-alt"></i></button>
-                </td>
-              </tr>
-
-              <tr >
-                <td>Rafael Moreno</td>
-                <td>3197854648</td>
-                <td>
-                    <button class="btn btn-edit"><i class="far fa-edit"></i></button>
-                    <button class="btn btn-delete"><i class="fas fa-trash-alt"></i></button>
-                </td>
-              </tr>
-
-              <tr >
-                <td>Rafael Moreno</td>
-                <td>3197854648</td>
-                <td>
-                    <button class="btn btn-edit"><i class="far fa-edit"></i></button>
-                    <button class="btn btn-delete"><i class="fas fa-trash-alt"></i></button>
-                </td>
-              </tr>
-
-              <tr >
-                <td>Rafael Moreno</td>
-                <td>3197854648</td>
-                <td>
-                    <button class="btn btn-edit"><i class="far fa-edit"></i></button>
-                    <button class="btn btn-delete"><i class="fas fa-trash-alt"></i></button>
-                </td>
-              </tr>
-
-              <tr >
-                <td>Rafael Moreno</td>
-                <td>3197854648</td>
-                <td>
-                    <button class="btn btn-edit"><i class="far fa-edit"></i></button>
-                    <button class="btn btn-delete"><i class="fas fa-trash-alt"></i></button>
-                </td>
-              </tr>
-
             </tbody>
         </table>
     </div>
