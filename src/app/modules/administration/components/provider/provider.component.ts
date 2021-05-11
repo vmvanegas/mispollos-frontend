@@ -14,28 +14,35 @@ export class ProviderComponent implements OnInit {
   @ViewChild('myModalQuestion') public myModalQuestion: ElementRef;  
 
   public providers = []
-  public providerForm: FormGroup
   public editing: boolean = false
   public editingProvider: any = {}
   public page = 1
   public totalProviders = []
   public idToDelete = ""
+  public loading = true;
+
+  providerForm: FormGroup = this.formBuilder.group({
+    name: ['', [Validators.required]],
+    telephone: ['', [Validators.required]]
+  })
 
   constructor(
     private formBuilder: FormBuilder,
-    private providerService: ProviderService
+    private providerService: ProviderService,
+    private elementRef: ElementRef
     ) { 
-    this.providerForm = formBuilder.group({
-      name: ['', [Validators.required]],
-      telephone: ['', [Validators.required]]
-    })
-
     this.getProvidersList()
+    console.log("constructor")
   }
 
   ngOnInit(): void {
+    console.log("ngOnInit")
   }
-  
+
+  ngAfterViewInit() {
+    console.log(this.page)
+    
+  }
 
   public setIdToDelete(id) {
     this.idToDelete = id;
@@ -47,7 +54,8 @@ export class ProviderComponent implements OnInit {
       (res: any)=>{
         console.log(res)
         this.providers = res.data
-        this.totalProviders = new Array(Math.ceil(res.total/10))        
+        this.totalProviders = new Array(Math.ceil(res.total/10))   
+        this.loading = false; 
       }, 
       err=>{
         console.log(err)
@@ -128,19 +136,33 @@ export class ProviderComponent implements OnInit {
   }
 
 
-  public changePage(page) {    
-    if(page <= this.totalProviders.length && page > 0){
-      this.page = page
-      this.providerService.getProviders(this.page).subscribe(
-        (res: any)=>{
-          console.log(res)
-          this.providers = res.data
-        }, 
-        err=>{
-          console.log(err)
-        }
-        )
+  public changePage(page) {  
+    if(!this.loading) {
+      if(page <= this.totalProviders.length && page > 0){
+        this.page = page
+        this.setTableNavigationLinkActive()
+        this.providerService.getProviders(this.page).subscribe(
+          (res: any)=>{
+            this.providers = res.data
+          }, 
+          err=>{
+            console.log(err)
+          }
+          )
+      }
     }
+  }
+
+
+  setTableNavigationLinkActive() {
+    let elements = []
+    this.elementRef.nativeElement.querySelectorAll('.page-link').forEach(item => {
+      if(item.classList.contains("active")){
+        item.classList.remove("active")
+      }
+      elements.push(item)
+    })
+    elements[this.page].classList.add("active")
   }
 
 }

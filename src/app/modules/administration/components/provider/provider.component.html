@@ -28,13 +28,13 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination">
               <li class="page-item">
-                <a class="page-link" aria-label="Previous" (click)="changePage(page - 1)">
+                <a class="page-link" [class.disabled]="page == 1" aria-label="Previous" [attr.disabled]="true" (click)="changePage(page - 1)">
                   <span aria-hidden="true">&laquo;</span>
                 </a>
               </li>
-              <li class="page-item" *ngFor="let page of totalProviders; let i = index"><a class="page-link" (click)="changePage(i+1)">{{i + 1}}</a></li>
+              <li class="page-item" *ngFor="let page of totalProviders; let i = index"><a class="page-link" [attr.disabled]="loading" [class.active]="i == 0" (click)="changePage(i+1)">{{i + 1}}</a></li>
               <li class="page-item">
-                <a class="page-link" aria-label="Next" (click)="changePage(page + 1)">
+                <a class="page-link" [class.disabled]="page == totalProviders.length" aria-label="Next" (click)="changePage(page + 1)">
                   <span aria-hidden="true">&raquo;</span>
                 </a>
               </li>

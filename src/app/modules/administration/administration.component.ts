@@ -17,7 +17,8 @@ export class AdministrationComponent implements OnInit {
   public innerWidth
 
   constructor(
-    private authService : AuthService
+    private authService : AuthService,
+    private elementRef: ElementRef
   ) { }
 
   ngOnInit(): void {
