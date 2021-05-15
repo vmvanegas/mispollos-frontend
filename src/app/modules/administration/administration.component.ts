@@ -24,7 +24,6 @@ export class AdministrationComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
   logout() {
     this.authService.logout()
   }
@@ -48,6 +47,10 @@ export class AdministrationComponent implements OnInit {
   resize() {
     if(window.innerWidth > 991) {
       this.bgShadow.nativeElement.classList.remove("show")
+    }
+
+    if(window.innerWidth <= 991) {
+      this.admin.nativeElement.classList.add("hide-sideNav")
     }
   }
 

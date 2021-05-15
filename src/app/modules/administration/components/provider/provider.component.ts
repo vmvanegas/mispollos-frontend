@@ -10,8 +10,8 @@ import { ProviderService } from '../../services/provider.service';
 })
 export class ProviderComponent implements OnInit {
 
-  @ViewChild('myModal') public myModal: ElementRef;  
-  @ViewChild('myModalQuestion') public myModalQuestion: ElementRef;  
+  @ViewChild('myModal') public myModal: ElementRef;
+  @ViewChild('myModalQuestion') public myModalQuestion: ElementRef;
 
   public providers = []
   public editing: boolean = false
@@ -20,6 +20,7 @@ export class ProviderComponent implements OnInit {
   public totalProviders = []
   public idToDelete = ""
   public loading = true;
+  public error = false
 
   providerForm: FormGroup = this.formBuilder.group({
     name: ['', [Validators.required]],
@@ -30,18 +31,11 @@ export class ProviderComponent implements OnInit {
     private formBuilder: FormBuilder,
     private providerService: ProviderService,
     private elementRef: ElementRef
-    ) { 
+  ) {
     this.getProvidersList()
-    console.log("constructor")
   }
 
   ngOnInit(): void {
-    console.log("ngOnInit")
-  }
-
-  ngAfterViewInit() {
-    console.log(this.page)
-    
   }
 
   public setIdToDelete(id) {
@@ -51,35 +45,37 @@ export class ProviderComponent implements OnInit {
 
   public getProvidersList() {
     this.providerService.getProviders(this.page).subscribe(
-      (res: any)=>{
-        console.log(res)
+      (res: any) => {
         this.providers = res.data
-        this.totalProviders = new Array(Math.ceil(res.total/10))   
-        this.loading = false; 
-      }, 
-      err=>{
+        this.totalProviders = new Array(Math.ceil(res.total / 10))
+        this.error = false
+        this.loading = false;
+      },
+      err => {
         console.log(err)
+        this.loading = false;
+        this.error = true
       }
-      )
+    )
   }
 
   public sendProvider() {
-    if(this.providerForm.valid){
+    if (this.providerForm.valid) {
 
-      if(!this.editing){
+      if (!this.editing) {
 
         const provider = {
           Nombre: this.providerForm.controls['name'].value,
           Telefono: this.providerForm.controls['telephone'].value
         }
-        
+
         this.providerService.createProvider(provider).subscribe(
           res => {
             console.log(res)
             this.providerForm.reset()
             this.myModal.nativeElement.click();
             this.getProvidersList()
-          }, 
+          },
           err => {
             console.log(err)
           }
@@ -94,18 +90,18 @@ export class ProviderComponent implements OnInit {
 
         console.log("editado?")
         this.providerService.updateProvider(provider).subscribe(
-          res=>{
+          res => {
             console.log(res)
             this.editing = false
             this.editingProvider = {}
             this.providerForm.reset()
             this.myModal.nativeElement.click();
             this.getProvidersList()
-          }, 
-          err=>{
+          },
+          err => {
             console.log(err)
           }
-          )
+        )
       }
     }
   }
@@ -113,15 +109,15 @@ export class ProviderComponent implements OnInit {
 
   public deleteProvider(id) {
     this.providerService.deleteProvider(id).subscribe(
-      res=>{
-      console.log(res)
-      this.idToDelete = "";
-      this.myModalQuestion.nativeElement.click()
-      this.getProvidersList()
-    }, err=>{
-      console.log(err)
-    })
-    
+      res => {
+        console.log(res)
+        this.idToDelete = "";
+        this.myModalQuestion.nativeElement.click()
+        this.getProvidersList()
+      }, err => {
+        console.log(err)
+      })
+
   }
 
 
@@ -136,20 +132,21 @@ export class ProviderComponent implements OnInit {
   }
 
 
-  public changePage(page) {  
-    if(!this.loading) {
-      if(page <= this.totalProviders.length && page > 0){
-        this.page = page
-        this.setTableNavigationLinkActive()
-        this.providerService.getProviders(this.page).subscribe(
-          (res: any)=>{
-            this.providers = res.data
-          }, 
-          err=>{
-            console.log(err)
-          }
-          )
-      }
+  public changePage(page) {
+    this.loading = true
+    if (page <= this.totalProviders.length && page > 0) {
+      this.page = page
+      this.setTableNavigationLinkActive()
+      this.providerService.getProviders(this.page).subscribe(
+        (res: any) => {
+          this.providers = res.data
+          this.loading = false
+        },
+        err => {
+          console.log(err)
+          this.loading = false
+        }
+      )
     }
   }
 
@@ -157,7 +154,7 @@ export class ProviderComponent implements OnInit {
   setTableNavigationLinkActive() {
     let elements = []
     this.elementRef.nativeElement.querySelectorAll('.page-link').forEach(item => {
-      if(item.classList.contains("active")){
+      if (item.classList.contains("active")) {
         item.classList.remove("active")
       }
       elements.push(item)

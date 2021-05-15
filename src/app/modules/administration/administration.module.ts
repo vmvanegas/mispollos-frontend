@@ -10,7 +10,7 @@ import { OrderComponent } from './components/order/order.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { EmployeeComponent } from './components/employee/employee.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ProviderComponent, 
     OrderComponent, 
     CustomerComponent, 
-    EmployeeComponent
+    EmployeeComponent, 
+    DashboardComponent
   ],
   imports: [
     CommonModule,

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdministrationComponent } from './administration.component';
 import { CategoryComponent } from './components/category/category.component';
 import { CustomerComponent } from './components/customer/customer.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EmployeeComponent } from './components/employee/employee.component';
 import { OrderComponent } from './components/order/order.component';
 import { ProductsComponent } from './components/products/products.component';
@@ -13,35 +14,40 @@ const routes: Routes = [
   {
     path: '',
     component: AdministrationComponent,
-    children: [{
-      path: 'productos',
-      component: ProductsComponent
-    },
-    {
-      path: 'pedidos',
-      component: OrderComponent
-    },
-    {
-      path: 'categorias',
-      component: CategoryComponent
-    },
-    {
-      path: 'clientes',
-      component: CustomerComponent
-    },
-    {
-      path: 'proveedores',
-      component: ProviderComponent
-    },
-    {
-      path: 'empleados',
-      component: EmployeeComponent
-    },
-    {
-      path: '',
-      redirectTo: 'productos'
-    }
-  ]
+    children: [
+      {
+        path: 'dashboard',
+        component: DashboardComponent
+      },
+      {
+        path: 'productos',
+        component: ProductsComponent
+      },
+      {
+        path: 'pedidos',
+        component: OrderComponent
+      },
+      {
+        path: 'categorias',
+        component: CategoryComponent
+      },
+      {
+        path: 'clientes',
+        component: CustomerComponent
+      },
+      {
+        path: 'proveedores',
+        component: ProviderComponent
+      },
+      {
+        path: 'empleados',
+        component: EmployeeComponent
+      },
+      {
+        path: '',
+        redirectTo: 'productos'
+      }
+    ]
   }
 ];
 
