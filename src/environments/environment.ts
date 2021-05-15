@@ -8,6 +8,10 @@ export const environment = {
   production: false,
   url_userList: `${url}user`,
   url_providerList: `${url}proveedor`,
+  url_categoryList: `${url}categoria`,
+  url_productList: `${url}producto`,
+  url_orderList: `${url}pedido`,
+  url_customerList: `${url}cliente`,
   url_validateUser: `${url}user/authenticate`
 };
 

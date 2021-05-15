@@ -46,8 +46,36 @@ p {
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.10);
 }
 
+.loading-table {
+  span {
+    width: 200px;
+    display: block;
+    height: 20px;
+    background: #dadada;
+    background: linear-gradient(-45deg, #fcfcfc, #dddddd, #fcfcfc, #dddddd);
+    background-size: 400% 400%;
+    animation: gradient 3s ease infinite;
+  }
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
 .table thead th:last-child,  table tbody tr td:last-child{
   text-align: right;
+}
+
+.table tr td:only-child {
+  text-align: center;
 }
 
 .table tbody td {
@@ -62,19 +90,18 @@ p {
     .page-link {
         border: none;
         color: #999999;
+        transition: all .3s ease-in-out;
         &.active {
           background-color: #F24C36;
           color: #fff;
         }
         &.disabled {
-          opacity: 0;
+          opacity: .5;
+          pointer-events: none;
         }
     }
 }
 
-.page-link:disabled{
-  opacity: 0;
-}
 
 .pagination {
     a {

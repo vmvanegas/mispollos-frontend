@@ -1,4 +1,4 @@
-<div class="administration" #admin>    
+<div class="administration" #admin (window:resize)="resize()">    
     <header class="ms-header">
         <button class="btn btn-toggle" #btnToggle (click)="toggleSideBar()"><i class="fas fa-bars"></i></button>
         <div class="ms-header__menu">
@@ -50,4 +50,4 @@
     </footer>
 </div>
 
-<div class="bg-shadow" #bgShadow (window:resize)="resize()"></div>
+<div class="bg-shadow" #bgShadow></div>
