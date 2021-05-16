@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ProductService {
 
-  URL_PROVIDERLIST = environment.url_productList
+  URL_PRODUCTLIST = environment.url_productList
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`
@@ -17,18 +17,18 @@ export class ProductService {
 
 
   getCategories(page) {
-    return this.http.get(`${this.URL_PROVIDERLIST}/p/${page}`, {headers: this.headers})
+    return this.http.get(`${this.URL_PRODUCTLIST}/p/${page}`, {headers: this.headers})
   }
 
   createProduct(product) {
-    return this.http.post(this.URL_PROVIDERLIST, product, {headers: this.headers})
+    return this.http.post(this.URL_PRODUCTLIST, product, {headers: this.headers})
   }
 
   deleteProduct(id) {
-    return this.http.delete(`${this.URL_PROVIDERLIST}/${id}`, {headers: this.headers})
+    return this.http.delete(`${this.URL_PRODUCTLIST}/${id}`, {headers: this.headers})
   }
 
   updateProduct(product) {
-    return this.http.put(`${this.URL_PROVIDERLIST}/${product.id}`, product, {headers: this.headers})
+    return this.http.put(`${this.URL_PRODUCTLIST}/${product.id}`, product, {headers: this.headers})
   }
 }
