@@ -16,7 +16,7 @@ export class ProductService {
   constructor(private http: HttpClient) {}
 
 
-  getCategories(page) {
+  getProducts(page) {
     return this.http.get(`${this.URL_PROVIDERLIST}/p/${page}`, {headers: this.headers})
   }
 
