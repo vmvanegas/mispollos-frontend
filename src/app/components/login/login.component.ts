@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
       this.authService.validateUser(body).subscribe(response=>{
         this.wrongUser = false
         localStorage.setItem("token", JSON.stringify(response.token))     
+        localStorage.setItem("user", JSON.stringify(response))     
         this.loginForm.reset()     
         this.showModal()
       }, err=>{
