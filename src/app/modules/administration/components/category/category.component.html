@@ -1,7 +1,7 @@
 <div class="ms-card-container">
     <div class="ms-card-container__header">
         <h1>Categorias</h1>
-        <button class="btn btn-primary">Agregar Categoria</button>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Agregar Categoria</button>
     </div>
     <div class="table-responsive-md">
         <table class="table">
@@ -13,35 +13,75 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>338799d1-64e0-4f50-8e93-b83aab66a0f0</td>
-                <td>Lacteos</td>
+              <tr *ngFor="let category of categories">
+                <td>{{category.id}}</td>
+                <td>{{category.nombre}}</td>
                 <td>
-                    <button class="btn btn-edit"><i class="far fa-edit"></i></button>
-                    <button class="btn btn-delete"><i class="fas fa-trash-alt"></i></button>
+                    <button class="btn btn-edit" (click)="editCategory(category)" data-toggle="modal" data-target="#myModal"><i class="far fa-edit"></i></button>
+                    <button class="btn btn-delete" data-toggle="modal" data-target="#myModalQuestion"
+                    (click)="setIdToDelete(category.id)"><i class="fas fa-trash-alt"></i></button>
                 </td>
               </tr>
             </tbody>
         </table>
     </div>
     <div class="table-pagination">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">4</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-        </nav>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" [class.disabled]="page == 1 || loading" aria-label="Previous" [attr.disabled]="true"
+              (click)="changePage(page - 1)">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item" *ngFor="let page of totalCategories; let i = index"><a class="page-link"
+              [attr.disabled]="loading" [class.active]="i == 0" [class.disabled]="loading" (click)="changePage(i+1)">{{i +
+              1}}</a></li>
+          <li class="page-item">
+            <a class="page-link" [class.disabled]="page == totalCategories.length || loading" aria-label="Next"
+              (click)="changePage(page + 1)">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" id="myModal" #myModal>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-form">
+        <h3>{{editing? 'Editar categoria': 'Agregar categoria'}}</h3>
+        <form action="" [formGroup]="categoryForm" (ngSubmit)="sendCategory()">
+          <label for="email" class="form-label">Nombre</label>
+          <div class="input-group mb-3">
+            <span class="input-group-icon"><i class="far fa-user"></i></span>
+            <input type="text" class="form-control" name="name" formControlName="name" placeholder="Nombre de la categoria"
+              maxlength="60" required>
+          </div>
+          <div class="modal-form__actions">
+            <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">{{editing? 'Editar': 'Agregar'}}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" id="myModalQuestion" #myModalQuestion>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-alert">
+        <h3>¿Estas seguro que deseas eliminar este registro?</h3>
+        <div class="modal-alert__actions">
+          <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-danger" (click)="deleteCategory(idToDelete)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
