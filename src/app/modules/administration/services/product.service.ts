@@ -16,9 +16,9 @@ export class ProductService {
   constructor(private http: HttpClient) {}
 
 
-  getCategories(page) {
-    return this.http.get(`${this.URL_PRODUCTLIST}/p/${page}`, {headers: this.headers})
-  }
+
+  getProducts(page) {
+    return this.http.get(`${this.URL_PROVIDERLIST}/p/${page}`, {headers: this.headers})
 
   createProduct(product) {
     return this.http.post(this.URL_PRODUCTLIST, product, {headers: this.headers})
