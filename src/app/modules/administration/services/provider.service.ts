@@ -15,6 +15,9 @@ export class ProviderService {
 
   constructor(private http: HttpClient) {}
 
+  getProvidersList() {
+    return this.http.get(this.URL_PROVIDERLIST, {headers: this.headers})
+  }
 
   getProviders(page) {
     return this.http.get(`${this.URL_PROVIDERLIST}/p/${page}`, {headers: this.headers})

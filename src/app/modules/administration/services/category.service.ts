@@ -15,6 +15,9 @@ export class CategoryService {
 
   constructor(private http: HttpClient) {}
 
+  getCategoriesList() {
+    return this.http.get(this.URL_CATEGORYLIST, {headers: this.headers})
+  }
 
   getCategories(page) {
     return this.http.get(`${this.URL_CATEGORYLIST}/p/${page}`, {headers: this.headers})

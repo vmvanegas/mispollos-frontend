@@ -1,0 +1,72 @@
+<div class="ms-card-container">
+    <div class="ms-card-container__header">
+        <h1>Productos</h1>
+        <a class="btn btn-primary" routerLink="crear">Agregar producto</a>
+    </div>
+    <div class="table-responsive-md">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Proveedor</th>
+                <th scope="col">Fecha de vencimiento</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Accion</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of products">
+                <td>{{product.nombre}}</td>
+                <td>{{product.categoria.nombre}}</td>
+                <td>{{product.precio}}</td>
+                <td>{{product.proveedor.nombre}}</td>
+                <td>{{product.fechaVencimiento}}</td>
+                <td>{{product.stock}}</td>
+                <td>
+                    <a class="btn btn-edit" [routerLink]="['crear', product.id]"><i class="far fa-edit"></i></a>
+                    <button class="btn btn-delete" data-toggle="modal" data-target="#myModalQuestion"
+                    (click)="setIdToDelete(product.id)"><i class="fas fa-trash-alt"></i></button>
+                </td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="table-pagination">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" [class.disabled]="page == 1 || loading" aria-label="Previous" [attr.disabled]="true"
+              (click)="changePage(page - 1)">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item" *ngFor="let page of totalProducts; let i = index"><a class="page-link"
+              [attr.disabled]="loading" [class.active]="i == 0" [class.disabled]="loading" (click)="changePage(i+1)">{{i +
+              1}}</a></li>
+          <li class="page-item">
+            <a class="page-link" [class.disabled]="page == totalProducts.length || loading" aria-label="Next"
+              (click)="changePage(page + 1)">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" id="myModalQuestion" #myModalQuestion>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-alert">
+        <h3>¿Estas seguro que deseas eliminar este registro?</h3>
+        <div class="modal-alert__actions">
+          <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-danger" (click)="deleteProduct(idToDelete)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
