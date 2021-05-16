@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -18,10 +18,16 @@ export class AdministrationComponent implements OnInit {
 
   constructor(
     private authService : AuthService,
-    private elementRef: ElementRef
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
+  }
+
+
+  ngAfterViewInit() {
+    if(window.innerWidth <= 991) {
+      this.admin.nativeElement.classList.add("hide-sideNav")
+    }
   }
 
   logout() {
@@ -38,7 +44,7 @@ export class AdministrationComponent implements OnInit {
   closeSideBar(e) {
     if(e.target === this.bgShadow.nativeElement){
       if(window.innerWidth <= 991) {
-        this.admin.nativeElement.classList.remove("hide-sideNav")
+        this.admin.nativeElement.classList.add("hide-sideNav")
         this.bgShadow.nativeElement.classList.remove("show")
       }
     }
