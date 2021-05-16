@@ -119,6 +119,12 @@
     padding: 2rem;
 }
 
+@media (max-width: 991px) {
+    .administration-content {
+        padding: 1rem;
+    }
+}
+
 .ms-footer {
     padding: 1rem;
     justify-self: flex-end;

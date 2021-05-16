@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-employee',
@@ -15,7 +16,7 @@ export class EmployeeComponent implements OnInit {
 
 
   constructor(
-    private employeeService: EmployeeService //Objeto instanciado
+    private employeeService: UserService //Objeto instanciado
   ) { }
 
   ngOnInit(): void {
@@ -23,7 +24,7 @@ export class EmployeeComponent implements OnInit {
 
 
   public getEmployeeList() {
-    this.EmployeeService.getCustomers(this.page).subscribe(
+    this.employeeService.getUsers(this.page).subscribe(
       (res:any) =>{/*Respuesta Positiva*/
       this.employeers = res.data
       this.totalEmployeers = new Array(Math.ceil(res.total/10))

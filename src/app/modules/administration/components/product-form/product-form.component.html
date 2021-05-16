@@ -1,0 +1,81 @@
+<div class="ms-card-container">
+  <div class="ms-card-container__header">
+    <h1>{{editing? 'Editar producto':'Agregar producto'}}</h1>
+  </div>
+  <form class="modal-form" [formGroup]="productForm" (ngSubmit)="sendProduct()">
+    <div class="row">
+      <div class="col-md-6">
+        <label for="name" class="form-label">Nombre</label>
+          <div class="input-group mb-3">
+            <span class="input-group-icon"><i class="far fa-user"></i></span>
+            <input type="text" class="form-control" name="name" formControlName="name"
+              maxlength="60" required>
+          </div>
+      </div>
+      <div class="col-md-6">
+        <label for="category" class="form-label">Categoria</label>
+          <div class="input-group mb-3">
+            <span class="input-group-icon"><i class="fas fa-shapes"></i></span>
+            <select class="form-control" id="exampleFormControlSelect1" name="category" formControlName="category">
+              <option *ngFor="let category of categoryList" value={{category.id}}>{{category.nombre}}</option>
+            </select>
+            <span class="select-arrow"><i class="fas fa-caret-down"></i></span>
+          </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="price" class="form-label">Precio</label>
+          <div class="input-group mb-3">
+            <span class="input-group-icon"><i class="fas fa-dollar-sign"></i></span>
+            <input type="number" class="form-control" name="price" formControlName="price"
+              maxlength="60" required>
+          </div>
+      </div>
+      <div class="col-md-6">
+        <label for="provider" class="form-label">Proveedor</label>
+          <div class="input-group mb-3">
+            <span class="input-group-icon"><i class="far fa-building"></i></span>
+            <select class="form-control" id="exampleFormControlSelect1" name="provider" formControlName="provider">
+              <option *ngFor="let provider of providerList" value={{provider.id}}>{{provider.nombre}}</option>
+            </select>
+            <span class="select-arrow"><i class="fas fa-caret-down"></i></span>
+          </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="dueDate" class="form-label">Fecha de vencimiento</label>
+          <div class="input-group mb-3">
+            <span class="input-group-icon"><i class="far fa-calendar-alt"></i></span>
+            <input type="text" class="form-control" name="dueDate" formControlName="dueDate"
+              maxlength="60" required>
+          </div>
+      </div>
+      <div class="col-md-6">
+        <label for="quantity" class="form-label">Cantidad</label>
+          <div class="input-group mb-3">
+            <span class="input-group-icon"><i class="fas fa-sort-amount-up-alt"></i></span>
+            <input type="number" class="form-control" name="quantity" formControlName="quantity"
+              maxlength="60" required>
+          </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <label for="description" class="form-label">Descripcion</label>
+          <div class="input-group mb-3">
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description" formControlName="description"></textarea>
+          </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="modal-form__actions">
+          <a class="btn btn-secondary" style="min-width: 172px;" routerLink="administracion/productos">Cancelar</a>
+          <button type="submit" class="btn btn-primary" style="min-width: 172px;">{{editing? 'Editar': 'Agregar'}}</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
