@@ -13,6 +13,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EmployeeComponent } from './components/employee/employee.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { ProductsListComponent } from './components/products-list/products-list.component';
+import { TableComponent } from './components/table/table.component';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -23,13 +25,17 @@ import { ProductsListComponent } from './components/products-list/products-list.
     OrderComponent, 
     CustomerComponent, 
     EmployeeComponent, 
-    DashboardComponent, ProductFormComponent, ProductsListComponent
+    DashboardComponent, 
+    ProductFormComponent, 
+    ProductsListComponent, 
+    TableComponent    
   ],
   imports: [
     CommonModule,
     AdministrationRoutingModule,
     ReactiveFormsModule
   ],
+  providers:[UserService],
   bootstrap: [AdministrationComponent]
 })
 export class AdministrationModule { }

@@ -1,90 +1,50 @@
 <div class="ms-card-container">
   <div class="ms-card-container__header">
-      <h1>Clientes</h1>
-      <button class="btn btn-primary">Agregar un Cliente</button>
+    <h1>Clientes</h1>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Agregar cliente</button>
   </div>
-  <div class="table-responsive-md">
-      <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Nombre</th>
-              <th scope="col">Apellido</th>
-              <th scope="col">Telefono</th>
-              <th scope="col">Accion</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr >
-              <td>Carlos Andres</td>
-              <td>Perez</td>
-              <td>3148521597</td>
-              <td>
-                  <button class="btn btn-edit"><i class="far fa-edit"></i></button>
-                  <button class="btn btn-delete"><i class="fas fa-trash-alt"></i></button>
-              </td>
-            </tr>
+  <app-table *ngIf="!loading" 
+  [list]="list"
+  [totalItems]="totalItems" 
+  [page]="page" 
+  [serviceGet]="customerService.getCustomers" 
+  [serviceDelete]="customerService.deleteCustomer" 
+  [colums]="tableColums" 
+  (onEdit)="editItem($event)">
+  </app-table>
+</div>
 
-            <tr >
-              <td>Carlos Andres</td>
-              <td>Perez</td>
-              <td>3148521597</td>
-              <td>
-                  <button class="btn btn-edit"><i class="far fa-edit"></i></button>
-                  <button class="btn btn-delete"><i class="fas fa-trash-alt"></i></button>
-              </td>
-            </tr>
 
-            <tr >
-              <td>Carlos Andres</td>
-              <td>Perez</td>
-              <td>3148521597</td>
-              <td>
-                  <button class="btn btn-edit"><i class="far fa-edit"></i></button>
-                  <button class="btn btn-delete"><i class="fas fa-trash-alt"></i></button>
-              </td>
-            </tr>
-
-            <tr >
-              <td>Carlos Andres</td>
-              <td>Perez</td>
-              <td>3148521597</td>
-              <td>
-                  <button class="btn btn-edit"><i class="far fa-edit"></i></button>
-                  <button class="btn btn-delete"><i class="fas fa-trash-alt"></i></button>
-              </td>
-            </tr>
-
-            <tr >
-              <td>Carlos Andres</td>
-              <td>Perez</td>
-              <td>3148521597</td>
-              <td>
-                  <button class="btn btn-edit"><i class="far fa-edit"></i></button>
-                  <button class="btn btn-delete"><i class="fas fa-trash-alt"></i></button>
-              </td>
-            </tr>
-
-          </tbody>
-      </table>
-  </div>
-  <div class="table-pagination">
-      <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-      </nav>
+<div class="modal fade" tabindex="-1" id="myModal" #myModal>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-form">
+        <h3>{{editing? 'Editar empleado': 'Agregar empleado'}}</h3>
+        <form action="" [formGroup]="form" (ngSubmit)="sendCustomer()">
+          <label for="name" class="form-label">Nombre</label>
+          <div class="input-group mb-3">
+            <span class="input-group-icon"><i class="far fa-user"></i></span>
+            <input type="text" class="form-control" name="name" formControlName="name" placeholder="Nombre de cliente"
+              maxlength="60" required>
+          </div>
+          <label for="lastName" class="form-label">Apellido</label>
+          <div class="input-group mb-3">
+            <span class="input-group-icon"><i class="far fa-user"></i></span>
+            <input type="text" class="form-control" name="lastName" formControlName="lastName" placeholder="Apellido del cliente"
+              maxlength="60" required>
+          </div>
+          <label for="telephone" class="form-label">Telefono</label>
+          <div class="input-group mb-3">
+            <span class="input-group-icon"><i class="fas fa-phone-alt"></i></span>
+            <input type="text" class="form-control" name="telephone" formControlName="telephone"
+              placeholder="Telefono del cliente" maxlength="60" required>
+          </div>
+          <div class="modal-form__actions">
+            <button type="button" class="btn" data-dismiss="modal" (click)="resetForm()">Cancelar</button>
+            <button type="submit" class="btn btn-primary">{{editing? 'Editar': 'Agregar'}}</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </div>

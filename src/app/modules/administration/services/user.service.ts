@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import {  map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,16 +16,18 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-
-
-  getUsers(page) {
+  getUsers = (page) => {    
     return this.http.get(`${this.URL_USERLIST}/p/${page}`, {headers: this.headers})
   }
   createUser(user) {
     return this.http.post(this.URL_USERLIST, user, {headers: this.headers})
   }
 
-  deleteUser(id) {
+  createUserEmployee(user) {
+    return this.http.post(`${this.URL_USERLIST}/empleado`, user, {headers: this.headers})
+  }
+
+  deleteUser = (id) => {
     return this.http.delete(`${this.URL_USERLIST}/${id}`, {headers: this.headers})
   }
 

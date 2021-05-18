@@ -16,7 +16,7 @@ export class CustomerService {
   constructor(private http: HttpClient) {}
 
 
-  getCustomers(page) {
+  getCustomers = (page) => {
     return this.http.get(`${this.URL_PROVIDERLIST}/p/${page}`, {headers: this.headers})
   }
 
@@ -24,7 +24,7 @@ export class CustomerService {
     return this.http.post(this.URL_PROVIDERLIST, customer, {headers: this.headers})
   }
 
-  deleteCustomer(id) {
+  deleteCustomer = (id) =>{
     return this.http.delete(`${this.URL_PROVIDERLIST}/${id}`, {headers: this.headers})
   }
 

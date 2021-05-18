@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomerService } from '../../services/customer.service';
 
 @Component({
@@ -9,37 +9,118 @@ import { CustomerService } from '../../services/customer.service';
 })
 export class CustomerComponent implements OnInit {
 
+  @ViewChild('myModal') public myModal: ElementRef;
+  
   public page = 1
-  public customers = []
-  public totalCustomers = []
-  error: boolean= false
-  loading: boolean = true
+  public list = []
+  public editing: boolean = false
+  public editingItem: any = {}
+  public totalItems = []
+  public loading = true;
+  public error = false
+  public form: FormGroup
+  public tableColums = [{ title: "Nombre", field: "nombre" }, { title: "Apellido", field: "apellido" }, { title: "Telefono", field: "telefono" }]
+
 
 
   constructor(
-    private customerService: CustomerService //obj instanciado
-
-  ) {
-
-    }
+    public customerService: CustomerService, //Objeto instanciado
+    private formBuilder: FormBuilder, //Objeto instanciado
+  ) { 
+    this.form = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      telephone: ['', [Validators.required]],
+    })
+    this.getList()
+  }
 
   ngOnInit(): void {
   }
 
-  public getCustomerList(){/*Funcion para entrar o llamar la lista Customer*/
-      this.customerService.getCustomers(this.page).subscribe(
-        (res:any) =>{/*Respuesta Positiva*/
-        this.customers = res.data
-        this.totalCustomers = new Array(Math.ceil(res.total/10))
-        this.error = false
-        this.loading = false
-        console.log(this.customers);
-      },err=>{/*respuestaNegativa*/
-        (console.log(err))
-        this.loading= false
-        this.error = true
+  public sendCustomer() {
+    if (this.form.valid) {
+
+      if (!this.editing) {
+
+        const customer = {
+          IdTienda: JSON.parse(localStorage.getItem('user')).idTienda,
+          Nombre: this.form.controls['name'].value,
+          Apellido: this.form.controls['lastName'].value,
+          Telefono: this.form.controls['telephone'].value,
+        }
+
+        this.customerService.createCustomer(customer).subscribe(
+          res => {
+            this.form.reset()
+            this.myModal.nativeElement.click();
+            this.getList()
+          },
+          err => {
+            console.log(err)
+          }
+        )
+      } else {
+
+        const customer = {
+          Id: this.editingItem.id,
+          IdTienda: JSON.parse(localStorage.getItem('user')).idTienda,
+          Nombre: this.form.controls['name'].value,
+          Apellido: this.form.controls['lastName'].value,
+          Telefono: this.form.controls['telephone'].value,
+        }
+        
+        this.customerService.updateCustomer(customer).subscribe(
+          res => {
+            this.editing = false
+            this.editingItem = {}
+            this.form.reset()
+            this.myModal.nativeElement.click();
+            this.getList()
+            console.log("editado?")
+          },
+          err => {
+            console.log(err)
+          }
+        )
       }
-    )
+    }
+  }
+
+
+  public getList = () => {
+    return this.customerService.getCustomers(this.page).subscribe(
+
+       (res:any) =>{
+       this.list = res.data
+       this.totalItems = new Array(Math.ceil(res.total/10))
+       this.error = false
+       this.loading = false 
+       console.log(this.list);
+
+     },err=>{
+
+       (console.log(err))
+       this.loading= false
+       this.error = true
+
+     })
+
+  }
+
+  public editItem(customer) {
+    this.editing = true
+    this.editingItem = customer
+    this.form.patchValue({
+      name: customer.nombre,
+      lastName: customer.apellido,
+      email: customer.correo,
+      password: customer.clave,
+    })
+  }
+
+  public resetForm() {
+    this.form.reset()
   }
 
 }
