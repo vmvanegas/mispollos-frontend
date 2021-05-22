@@ -15,23 +15,23 @@ export class ProviderService {
 
   constructor(private http: HttpClient) {}
 
-  getProvidersList() {
+  getList() {
     return this.http.get(this.URL_PROVIDERLIST, {headers: this.headers})
   }
 
-  getProviders(page) {
+  get(page) {
     return this.http.get(`${this.URL_PROVIDERLIST}/p/${page}`, {headers: this.headers})
   }
 
-  createProvider(provider) {
+  create(provider) {
     return this.http.post(this.URL_PROVIDERLIST, provider, {headers: this.headers})
   }
 
-  deleteProvider(id) {
+  delete(id) {
     return this.http.delete(`${this.URL_PROVIDERLIST}/${id}`, {headers: this.headers})
   }
 
-  updateProvider(provider) {
+  update(provider) {
     return this.http.put(`${this.URL_PROVIDERLIST}/${provider.id}`, provider, {headers: this.headers})
   }
 

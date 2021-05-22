@@ -15,23 +15,23 @@ export class CategoryService {
 
   constructor(private http: HttpClient) {}
 
-  getCategoriesList() {
+  getList() {
     return this.http.get(this.URL_CATEGORYLIST, {headers: this.headers})
   }
 
-  getCategories(page) {
+  get(page) {
     return this.http.get(`${this.URL_CATEGORYLIST}/p/${page}`, {headers: this.headers})
   }//LEER CATEGORIA
 
-  createCategory(category) {
+  create(category) {
     return this.http.post(this.URL_CATEGORYLIST, category, {headers: this.headers})
   }//CREAR CATEGORIA
 
-  deleteCategory(id) {
+  delete(id) {
     return this.http.delete(`${this.URL_CATEGORYLIST}/${id}`, {headers: this.headers})
   }//BORRAR CATEGORIA
 
-  updateCategory(category) {
+  update(category) {
     return this.http.put(`${this.URL_CATEGORYLIST}/${category.id}`, category, {headers: this.headers})
   }//ACTUALIZAR CATEGORIA
 

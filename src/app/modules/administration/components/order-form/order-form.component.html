@@ -1,0 +1,114 @@
+<div class="ms-card-container">
+    <div class="ms-card-container__header">
+        <h1>Crear pedido</h1>
+        <a class="btn btn-primary" data-toggle="modal" data-target="#myModal">Agregar producto</a>
+    </div>
+    <div class="table-responsive-md">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of list">
+                    <td>{{item.name}}</td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>
+                        <button class="btn btn-edit" data-toggle="modal" data-target="#myModal"><i
+                                class="far fa-edit"></i></button>
+                        <button class="btn btn-delete" data-toggle="modal" data-target="#myModalQuestion"><i
+                                class="fas fa-trash-alt"></i></button>
+                    </td>
+                </tr>
+                <tr *ngIf="list.length == 0">
+                    <td colspan="4" >
+                        <p>Aún no has agregado productos da click en el boton "Agregar Producto"</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-form">
+        <form action="" [formGroup]="form" (ngSubmit)="send()">
+            <label for="customer" class="form-label">Cliente</label>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="input-group mb-3">
+                        <span class="input-group-icon"><i class="far fa-user"></i></span>
+                        <select class="form-control" name="customer" formControlName="customer">
+                            <option value="null">Selecciona un producto</option>
+                            <option *ngFor="let customer of customersList" value={{customer.id}}>{{customer.nombre}}</option>
+                        </select>
+                        <span class="select-arrow"><i class="fas fa-caret-down"></i></span>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <a type="button" class="btn btn-primary" routerLink="/administracion/clientes">Agregar cliente</a>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <div class="modal-form__actions">
+                        <button type="button" class="btn btn-secondary" routerLink="/administracion/pedidos">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">{{editing? 'Editar': 'Agregar'}}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="myModal" #myModal>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-form">
+                <h3>{{editing? 'Editar proveedor': 'Agregar producto'}}</h3>
+                <form action="" [formGroup]="itemForm" (ngSubmit)="addItem()">
+                    <label for="product" class="form-label">Producto</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-icon"><i class="far fa-user"></i></span>
+                        <select class="form-control" name="product" formControlName="product">
+                            <option *ngFor="let product of productsList" value={{product.id}}>{{product.nombre}}</option>
+                        </select>
+                        <span class="select-arrow"><i class="fas fa-caret-down"></i></span>
+                    </div>
+                    <label for="quantity" class="form-label">Cantidad</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-icon"><i class="fas fa-phone-alt"></i></span>
+                        <input type="number" class="form-control" name="quantity" formControlName="quantity"
+                        maxlength="60" required>
+                    </div>
+                    <div *ngIf="itemForm.invalid && (itemForm.dirty && itemForm.touched)">
+                        <div class="alert alert-danger" *ngIf="itemForm.errors?.quantityExceeded">
+                            No puedes realizar un pedido con esta cantidad del producto
+                        </div>
+                    </div>
+                    <div class="modal-form__actions">
+                        <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">{{editing? 'Editar': 'Agregar'}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--  <div class="modal fade" tabindex="-1" id="myModalQuestion" #myModalQuestion>
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-alert">
+          <h3>¿Estas seguro que deseas eliminar este registro?</h3>
+          <div class="modal-alert__actions">
+            <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-danger" (click)="deleteProvider(idToDelete)">Eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->

@@ -1,7 +1,7 @@
-import { createUrlResolverWithoutPackagePrefix } from '@angular/compiler';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from '../../services/category.service';
+import { UserInfoService } from '../../services/user-info.service';
 
 @Component({
   selector: 'app-category',
@@ -31,8 +31,11 @@ export class CategoryComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private formBuilder: FormBuilder,
-    private elementRef : ElementRef
-  ) { 
+    private elementRef : ElementRef,
+    private userInfo : UserInfoService
+    ) { 
+      console.clear()
+    console.log(this.userInfo.User)
     this.getCategoryList()
   }
 
@@ -40,7 +43,7 @@ export class CategoryComponent implements OnInit {
   }
 
   getCategoryList() {
-    this.categoryService.getCategories(this.page).subscribe(
+    this.categoryService.get(this.page).subscribe(
       (res: any) => {
         this.categories = res.data
         this.totalCategories = new Array(Math.ceil(res.total / 10))
@@ -65,7 +68,7 @@ export class CategoryComponent implements OnInit {
           IdTienda: JSON.parse(localStorage.getItem('user')).idTienda
         }
 
-        this.categoryService.createCategory(category).subscribe(
+        this.categoryService.create(category).subscribe(
           res => {
             console.log(res)
             this.categoryForm.reset()
@@ -85,7 +88,7 @@ export class CategoryComponent implements OnInit {
         }
 
         console.log("editado?")
-        this.categoryService.updateCategory(category).subscribe(
+        this.categoryService.update(category).subscribe(
           res => {
             console.log(res)
             this.editing = false
@@ -107,7 +110,7 @@ export class CategoryComponent implements OnInit {
   }
 
   public deleteCategory(id) {
-    this.categoryService.deleteCategory(id).subscribe(
+    this.categoryService.delete(id).subscribe(
       res => {
         console.log(res)
         this.idToDelete = "";
@@ -135,7 +138,7 @@ export class CategoryComponent implements OnInit {
     if (page <= this.totalCategories.length && page > 0) {
       this.page = page
       this.setTableNavigationLinkActive()
-      this.categoryService.getCategories(this.page).subscribe(
+      this.categoryService.get(this.page).subscribe(
         (res: any) => {
           this.categories = res.data
           this.loading = false

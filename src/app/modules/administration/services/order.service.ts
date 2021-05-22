@@ -1,6 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { catchError, map } from 'rxjs/operators'
+import { throwError } from 'rxjs';
+import { DatePipeService } from './date-pipe.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,22 +16,34 @@ export class OrderService {
     'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`
   })
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private datePipe: DatePipeService
+    ) {}
 
 
-  getOrders(page) {
-    return this.http.get(`${this.URL_PROVIDERLIST}/p/${page}`, {headers: this.headers})
+  get(page) {
+    return this.http.get(`${this.URL_PROVIDERLIST}/p/${page}`, {headers: this.headers}).
+    pipe( 
+       map((data: any) => {
+         data.data.forEach(item => {
+           item.fecha = this.datePipe.transform(item.fecha, "yyyy-MM-dd")
+         });
+         return data;
+       })
+    )
+
   }
 
-  createOrder(order) {
+  create(order) {
     return this.http.post(this.URL_PROVIDERLIST, order, {headers: this.headers})
   }
 
-  deleteOrder(id) {
+  delete(id) {
     return this.http.delete(`${this.URL_PROVIDERLIST}/${id}`, {headers: this.headers})
   }
 
-  updateOrder(order) {
+  update(order) {
     return this.http.put(`${this.URL_PROVIDERLIST}/${order.id}`, order, {headers: this.headers})
   }
 }

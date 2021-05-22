@@ -11,8 +11,7 @@ export class TableComponent implements OnInit {
   @ViewChild('myModalQuestion') public myModalQuestion: ElementRef;
 
   @Input() list;
-  @Input() serviceGet;
-  @Input() serviceDelete;
+  @Input() service;
   @Input() page;
   @Input() totalItems;
   @Input() colums;
@@ -30,15 +29,15 @@ export class TableComponent implements OnInit {
   }
 
   public getList() {
-    this.serviceGet(this.page).subscribe(
-       (res:any) =>{
-       this.list = res.data
-       this.totalItems = new Array(Math.ceil(res.total/10))
-       this.loading = false 
-     },err=>{
-       (console.log(err))
-       this.loading= false
-     })
+    this.service.get(this.page).subscribe(
+      (res: any) => {
+        this.list = res.data
+        this.totalItems = new Array(Math.ceil(res.total / 10))
+        this.loading = false
+      }, err => {
+        (console.log(err))
+        this.loading = false
+      })
   }
 
 
@@ -51,8 +50,8 @@ export class TableComponent implements OnInit {
   }
 
 
-   public deleteEmployee(id) {
-    this.serviceDelete(id).subscribe(
+  public deleteEmployee(id) {
+    this.service.delete(id).subscribe(
       res => {
         console.log(res)
         this.idToDelete = "";
@@ -73,4 +72,14 @@ export class TableComponent implements OnInit {
     this.idToDelete = id;
   }
 
+
+  public getField(field, item) {
+    var split = field.split(".");
+    if (split.length > 1) {
+      item = item[split[0]];
+      split.shift();
+      return this.getField(split.join("."), item);
+    }
+    return item[split[0]];
+  }
 }

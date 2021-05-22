@@ -44,7 +44,7 @@ export class ProviderComponent implements OnInit {
 
 
   public getProvidersList() {
-    this.providerService.getProviders(this.page).subscribe(
+    this.providerService.get(this.page).subscribe(
       (res: any) => {
         this.providers = res.data
         this.totalProviders = new Array(Math.ceil(res.total / 10))
@@ -69,7 +69,7 @@ export class ProviderComponent implements OnInit {
           Telefono: this.providerForm.controls['telephone'].value
         }
 
-        this.providerService.createProvider(provider).subscribe(
+        this.providerService.create(provider).subscribe(
           res => {
             console.log(res)
             this.providerForm.reset()
@@ -89,7 +89,7 @@ export class ProviderComponent implements OnInit {
         }
 
         console.log("editado?")
-        this.providerService.updateProvider(provider).subscribe(
+        this.providerService.update(provider).subscribe(
           res => {
             console.log(res)
             this.editing = false
@@ -108,7 +108,7 @@ export class ProviderComponent implements OnInit {
 
 
   public deleteProvider(id) {
-    this.providerService.deleteProvider(id).subscribe(
+    this.providerService.delete(id).subscribe(
       res => {
         console.log(res)
         this.idToDelete = "";
@@ -137,7 +137,7 @@ export class ProviderComponent implements OnInit {
     if (page <= this.totalProviders.length && page > 0) {
       this.page = page
       this.setTableNavigationLinkActive()
-      this.providerService.getProviders(this.page).subscribe(
+      this.providerService.get(this.page).subscribe(
         (res: any) => {
           this.providers = res.data
           this.loading = false

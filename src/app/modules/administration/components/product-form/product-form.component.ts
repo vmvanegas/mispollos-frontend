@@ -72,7 +72,7 @@ export class ProductFormComponent implements OnInit {
 
   getProduct(id) {
     return new Observable(observer => {
-      this.productService.getProduct(id).subscribe(
+      this.productService.getById(id).subscribe(
         (res: any)=>{
           this.editingProduct = res
           this.editing = true
@@ -82,7 +82,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   getProviderList() {
-    this.providerService.getProvidersList().subscribe(
+    this.providerService.getList().subscribe(
       (res :any) => {
         this.providerList = res.data
         this.getCategoryList()
@@ -94,7 +94,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   getCategoryList() {
-    this.categoryService.getCategoriesList().subscribe(
+    this.categoryService.getList().subscribe(
       (res :any) => {
         this.categoryList = res.data
       }, 
@@ -120,7 +120,7 @@ export class ProductFormComponent implements OnInit {
           Precio: this.productForm.controls['price'].value
         }
 
-        this.productService.createProduct(product).subscribe(
+        this.productService.create(product).subscribe(
           res => {
             this.productForm.reset()
             this.router.navigate(['administracion/productos'])
@@ -143,7 +143,7 @@ export class ProductFormComponent implements OnInit {
           Precio: this.productForm.controls['price'].value
         }
 
-        this.productService.updateProduct(product).subscribe(
+        this.productService.update(product).subscribe(
           res => {
             this.editing = false
             this.editingProduct = {}

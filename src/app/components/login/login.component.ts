@@ -1,12 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserInfoService } from 'src/app/modules/administration/services/user-info.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 
 export class LoginComponent implements OnInit {
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService : AuthService,
-    private router: Router
+    private router: Router,
+    private userInfo: UserInfoService
     ) { 
     this.loginForm = formBuilder.group({
       email: ['', [Validators.required, Validators.maxLength(60), Validators.email]],
@@ -45,7 +47,8 @@ export class LoginComponent implements OnInit {
       this.authService.validateUser(body).subscribe(response=>{
         this.wrongUser = false
         localStorage.setItem("token", JSON.stringify(response.token))     
-        localStorage.setItem("user", JSON.stringify(response))     
+        localStorage.setItem("user", JSON.stringify(response))  
+        this.userInfo.User = response
         this.loginForm.reset()     
         this.showModal()
       }, err=>{
