@@ -7,8 +7,7 @@
   [list]="list"
   [totalItems]="totalItems" 
   [page]="page" 
-  [serviceGet]="customerService.getCustomers" 
-  [serviceDelete]="customerService.deleteCustomer" 
+  [service]="customerService" 
   [colums]="tableColums" 
   (onEdit)="editItem($event)">
   </app-table>

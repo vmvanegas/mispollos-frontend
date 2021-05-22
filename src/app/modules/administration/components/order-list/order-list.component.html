@@ -1,0 +1,14 @@
+<div class="ms-card-container">
+    <div class="ms-card-container__header">
+      <h1>Pedidos</h1>
+      <a class="btn btn-primary" routerLink="crear">Agregar pedido</a>
+    </div>
+    <app-table *ngIf="!loading" 
+    [list]="list"
+    [totalItems]="totalItems" 
+    [page]="page" 
+    [service]="orderService" 
+    [colums]="tableColums" 
+    (onEdit)="editItem($event)">
+    </app-table>
+</div>  

@@ -5,6 +5,8 @@ import { CategoryComponent } from './components/category/category.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EmployeeComponent } from './components/employee/employee.component';
+import { OrderFormComponent } from './components/order-form/order-form.component';
+import { OrderListComponent } from './components/order-list/order-list.component';
 import { OrderComponent } from './components/order/order.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { ProductsListComponent } from './components/products-list/products-list.component';
@@ -34,14 +36,28 @@ const routes: Routes = [
             component: ProductFormComponent
           },
           {
-            path: 'crear/:id',
+            path: 'editar/:id',
             component: ProductFormComponent
           }
         ]
       },
       {
         path: 'pedidos',
-        component: OrderComponent
+        component: OrderComponent,
+        children: [
+          {
+            path: '',
+            component: OrderListComponent
+          },
+          {
+            path: 'crear',
+            component: OrderFormComponent
+          },
+          {
+            path: 'editar/:id',
+            component: OrderFormComponent
+          }
+        ]
       },
       {
         path: 'categorias',

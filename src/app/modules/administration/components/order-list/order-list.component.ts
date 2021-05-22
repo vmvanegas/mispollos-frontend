@@ -1,16 +1,15 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { UserService } from '../../services/user.service';
+import { Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { OrderService } from '../../services/order.service';
 
 @Component({
-  selector: 'app-employee',
-  templateUrl: './employee.component.html',
-  styleUrls: ['./employee.component.scss']
+  selector: 'app-order-list',
+  templateUrl: './order-list.component.html',
+  styleUrls: ['./order-list.component.scss']
 })
-export class EmployeeComponent implements OnInit {
+export class OrderListComponent implements OnInit {
 
-  @ViewChild('myModal') public myModal: ElementRef;
-  
   public page = 1
   public list = []
   public editing: boolean = false
@@ -19,13 +18,14 @@ export class EmployeeComponent implements OnInit {
   public loading = true;
   public error = false
   public form: FormGroup
-  public tableColums = [{ title: "Nombre", field: "nombre" }, { title: "Apellido", field: "apellido" }, { title: "Correo", field: "correo" }]
+  public tableColums = [{ title: "Valor total", field: "valorTotal" }, { title: "Empleado", field: "usuario.nombre" }, { title: "Cliente", field: "cliente.nombre" } , { title: "Fecha", field: "fecha" }]
 
 
 
   constructor(
-    public employeeService: UserService, //Objeto instanciado
+    public orderService: OrderService, //Objeto instanciado
     private formBuilder: FormBuilder, //Objeto instanciado
+    private router: Router
   ) { 
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
@@ -39,7 +39,7 @@ export class EmployeeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public sendEmployee() {
+  public sendOrder() {
     if (this.form.valid) {
 
       if (!this.editing) {
@@ -52,10 +52,9 @@ export class EmployeeComponent implements OnInit {
           Clave: this.form.controls['password'].value,
         }
 
-        this.employeeService.create(employee).subscribe(
+        this.orderService.create(employee).subscribe(
           res => {
             this.form.reset()
-            this.myModal.nativeElement.click();
             this.getList()
           },
           err => {
@@ -74,12 +73,11 @@ export class EmployeeComponent implements OnInit {
           Clave: this.form.controls['password'].value,
         }
         
-        this.employeeService.update(employee).subscribe(
+        this.orderService.update(employee).subscribe(
           res => {
             this.editing = false
             this.editingItem = {}
             this.form.reset()
-            this.myModal.nativeElement.click();
             this.getList()
             console.log("editado?")
           },
@@ -93,7 +91,7 @@ export class EmployeeComponent implements OnInit {
 
 
   public getList = () => {
-    return this.employeeService.get(this.page).subscribe(
+    return this.orderService.get(this.page).subscribe(
 
        (res:any) =>{
        this.list = res.data
@@ -113,18 +111,10 @@ export class EmployeeComponent implements OnInit {
   }
 
   public editItem(employee) {
-    this.editing = true
-    this.editingItem = employee
-    this.form.patchValue({
-      name: employee.nombre,
-      lastName: employee.apellido,
-      email: employee.correo,
-      password: employee.clave,
-    })
+    this.router.navigate(['administracion/pedidos/editar', employee.id])
   }
 
   public resetForm() {
     this.form.reset()
   }
-
 }

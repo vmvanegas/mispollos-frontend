@@ -50,7 +50,7 @@ export class CustomerComponent implements OnInit {
           Telefono: this.form.controls['telephone'].value,
         }
 
-        this.customerService.createCustomer(customer).subscribe(
+        this.customerService.create(customer).subscribe(
           res => {
             this.form.reset()
             this.myModal.nativeElement.click();
@@ -70,7 +70,7 @@ export class CustomerComponent implements OnInit {
           Telefono: this.form.controls['telephone'].value,
         }
         
-        this.customerService.updateCustomer(customer).subscribe(
+        this.customerService.update(customer).subscribe(
           res => {
             this.editing = false
             this.editingItem = {}
@@ -89,7 +89,7 @@ export class CustomerComponent implements OnInit {
 
 
   public getList = () => {
-    return this.customerService.getCustomers(this.page).subscribe(
+    return this.customerService.get(this.page).subscribe(
 
        (res:any) =>{
        this.list = res.data

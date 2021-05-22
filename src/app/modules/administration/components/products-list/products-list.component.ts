@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
+import { UserInfoService } from '../../services/user-info.service';
 
 @Component({
   selector: 'app-products-list',
@@ -29,8 +30,10 @@ export class ProductsListComponent implements OnInit {
   constructor(
     private productsService: ProductService,
     private formBuilder: FormBuilder,
-    private elementRef : ElementRef
+    private elementRef : ElementRef,
+    private userInfo : UserInfoService
   ) {
+    console.log(this.userInfo.User)
     this.getProductsList()
   }
 
@@ -38,7 +41,7 @@ export class ProductsListComponent implements OnInit {
   }
 
   getProductsList() {
-    this.productsService.getProducts(this.page).subscribe(
+    this.productsService.get(this.page).subscribe(
       (res: any) => {
         this.products = res.data
         this.totalProducts = new Array(Math.ceil(res.total / 10))
@@ -59,7 +62,7 @@ export class ProductsListComponent implements OnInit {
   }
 
   public deleteProduct(id) {
-    this.productsService.deleteProduct(id).subscribe(
+    this.productsService.delete(id).subscribe(
       res => {
         console.log(res)
         this.idToDelete = "";
@@ -72,22 +75,12 @@ export class ProductsListComponent implements OnInit {
   }
 
 
-
-  public editProduct(products) {
-    this.editing = true
-    this.editingProducts = products
-    this.productForm.patchValue({
-      name: products.nombre
-    })
-  }
-
-
   public changePage(page) {
     this.loading = true
     if (page <= this.totalProducts.length && page > 0) {
       this.page = page
       this.setTableNavigationLinkActive()
-      this.productsService.getProducts(this.page).subscribe(
+      this.productsService.get(this.page).subscribe(
         (res: any) => {
           this.products = res.data
           this.loading = false
