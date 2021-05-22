@@ -60,6 +60,15 @@
             <input type="text" class="form-control" name="name" formControlName="name" placeholder="Nombre de la categoria"
               maxlength="60" required>
           </div>
+          <div *ngIf="form.name.invalid && (form.name.dirty || form.name.touched)">
+
+            <div class="alert alert-danger" *ngIf="form.name.errors.required">
+                Este campo es obligatorio.
+            </div>
+            <div class="alert alert-danger" *ngIf="form.name.errors.maxlength">
+                El correo no puede contener mas de 40 caracteres.
+            </div>
+        </div>
           <div class="modal-form__actions">
             <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
             <button type="submit" class="btn btn-primary">{{editing? 'Editar': 'Agregar'}}</button>

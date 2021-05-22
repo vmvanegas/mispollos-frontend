@@ -25,7 +25,7 @@ export class CategoryComponent implements OnInit {
   public error = false
 
   categoryForm: FormGroup = this.formBuilder.group({
-    name: ['', [Validators.required]]
+    name: ['', [Validators.required, Validators.maxLength(40)]]
   })
 
   constructor(
@@ -38,6 +38,11 @@ export class CategoryComponent implements OnInit {
     console.log(this.userInfo.User)
     this.getCategoryList()
   }
+
+  get form() {
+    return this.categoryForm.controls
+  }
+
 
   ngOnInit(): void {
   }
