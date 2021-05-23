@@ -1,7 +1,7 @@
 <div class="ms-card-container">
     <div class="ms-card-container__header">
         <h1>Crear pedido</h1>
-        <a class="btn btn-primary" data-toggle="modal" data-target="#myModal">Agregar producto</a>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" (click)="resetModalForm()">Agregar producto</button>
     </div>
     <div class="table-responsive-md">
         <table class="table">
@@ -10,7 +10,7 @@
                     <th scope="col">Nombre</th>
                     <th scope="col">Precio</th>
                     <th scope="col">Cantidad</th>
-                    <th scope="col">Acciones</th>
+                    <th scope="col" class="text-right">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -18,15 +18,15 @@
                     <td>{{item.name}}</td>
                     <td>{{item.price}}</td>
                     <td>{{item.quantity}}</td>
-                    <td>
-                        <button class="btn btn-edit" data-toggle="modal" data-target="#myModal"><i
+                    <td class="text-right">
+                        <button class="btn btn-edit" data-toggle="modal" data-target="#myModal" (click)="editItem(item)"><i
                                 class="far fa-edit"></i></button>
-                        <button class="btn btn-delete" data-toggle="modal" data-target="#myModalQuestion"><i
+                        <button class="btn btn-delete" data-toggle="modal" data-target="#myModalQuestion" (click)="setIdToDelete = item.id"><i
                                 class="fas fa-trash-alt"></i></button>
                     </td>
                 </tr>
                 <tr *ngIf="list.length == 0">
-                    <td colspan="4" >
+                    <td colspan="4">
                         <p>Aún no has agregado productos da click en el boton "Agregar Producto"</p>
                     </td>
                 </tr>
@@ -41,21 +41,25 @@
                     <div class="input-group mb-3">
                         <span class="input-group-icon"><i class="far fa-user"></i></span>
                         <select class="form-control" name="customer" formControlName="customer">
-                            <option value="null">Selecciona un producto</option>
-                            <option *ngFor="let customer of customersList" value={{customer.id}}>{{customer.nombre}}</option>
+                            <option *ngFor="let customer of customersList" value={{customer.id}}>{{customer.nombre}}
+                            </option>
                         </select>
                         <span class="select-arrow"><i class="fas fa-caret-down"></i></span>
                     </div>
                 </div>
-                <div class="col-md-8">
-                    <a type="button" class="btn btn-primary" routerLink="/administracion/clientes">Agregar cliente</a>
+                <div class="col-md-12">
+                    <p>
+                        ¿No encuentras a tu cliente? crealo <a class="ms-hightlight" routerLink="/administracion/clientes">aquí</a>
+                    </p>
+                    
                 </div>
             </div>
             <div class="row mt-5">
-                <div class="col-md-4">
+                <div class="col-lg-4">
                     <div class="modal-form__actions">
-                        <button type="button" class="btn btn-secondary" routerLink="/administracion/pedidos">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">{{editing? 'Editar': 'Agregar'}}</button>
+                        <button type="button" class="btn btn-secondary"
+                            routerLink="/administracion/pedidos">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">{{editingOrder? 'Editar': 'Realizar pedido'}}</button>
                     </div>
                 </div>
             </div>
@@ -67,13 +71,14 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-form">
-                <h3>{{editing? 'Editar proveedor': 'Agregar producto'}}</h3>
+                <h3>{{editingItem? 'Editar proveedor': 'Agregar producto'}}</h3>
                 <form action="" [formGroup]="itemForm" (ngSubmit)="addItem()">
                     <label for="product" class="form-label">Producto</label>
                     <div class="input-group mb-3">
                         <span class="input-group-icon"><i class="far fa-user"></i></span>
-                        <select class="form-control" name="product" formControlName="product">
-                            <option *ngFor="let product of productsList" value={{product.id}}>{{product.nombre}}</option>
+                        <select class="form-control" [class.disabled]="editingItem == true" name="product" formControlName="product">
+                            <option *ngFor="let product of productsList" value={{product.id}}>{{product.nombre}}
+                            </option>
                         </select>
                         <span class="select-arrow"><i class="fas fa-caret-down"></i></span>
                     </div>
@@ -81,7 +86,7 @@
                     <div class="input-group mb-3">
                         <span class="input-group-icon"><i class="fas fa-phone-alt"></i></span>
                         <input type="number" class="form-control" name="quantity" formControlName="quantity"
-                        maxlength="60" required>
+                            maxlength="60" required>
                     </div>
                     <div *ngIf="itemForm.invalid && (itemForm.dirty && itemForm.touched)">
                         <div class="alert alert-danger" *ngIf="itemForm.errors?.quantityExceeded">
@@ -90,7 +95,7 @@
                     </div>
                     <div class="modal-form__actions">
                         <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">{{editing? 'Editar': 'Agregar'}}</button>
+                        <button type="submit" class="btn btn-primary">{{editingItem? 'Guardar': 'Agregar'}}</button>
                     </div>
                 </form>
             </div>
@@ -98,17 +103,36 @@
     </div>
 </div>
 
-
-<!--  <div class="modal fade" tabindex="-1" id="myModalQuestion" #myModalQuestion>
+<button type="button" #alertToggle data-toggle="modal" [hidden]="true" data-target="#myAlert"></button>
+<div class="modal fade" tabindex="-1" id="myAlert" data-backdrop="static" #myAlert>
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-alert">
-          <h3>¿Estas seguro que deseas eliminar este registro?</h3>
-          <div class="modal-alert__actions">
-            <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-danger" (click)="deleteProvider(idToDelete)">Eliminar</button>
-          </div>
+        <div class="modal-content">
+            <div class="modal-form text-center">
+                <h3>Cantidad excedida</h3>
+                <svg class="svg-modal" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                    <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10"
+                        cx="65.1" cy="65.1" r="62.1" />
+                    <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round"
+                        stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3" />
+                    <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round"
+                        stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2" />
+                </svg>
+                <button class="btn btn-primary mt-5" data-dismiss="modal" style="min-width: 150px;">OK</button>
+            </div>
         </div>
-      </div>
     </div>
-  </div> -->
+</div>
+
+<div class="modal fade" tabindex="-1" id="myModalQuestion" #myModalQuestion>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-alert">
+                <h3>¿Estas seguro que deseas eliminar este producto?</h3>
+                <div class="modal-alert__actions">
+                    <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger" data-dismiss="modal" (click)="deleteItem(idToDelete)" >Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -36,6 +36,7 @@ export class EmployeeComponent implements OnInit {
     this.getList()
   }
 
+
   ngOnInit(): void {
   }
 
@@ -123,7 +124,8 @@ export class EmployeeComponent implements OnInit {
     })
   }
 
-  public resetForm() {
+  public resetModalForm() {
+    this.editing = false
     this.form.reset()
   }
 

@@ -71,7 +71,7 @@
     width: 100%;   
     z-index: 1030;
     transition: all .5s ease-in-out;
-    z-index: 1030;
+    z-index: 1040;
 
     &__logo {
         padding: 3rem 1.5rem 1rem;
@@ -162,6 +162,7 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.20);
     transition: opacity .5s ease-in-out, visibility 0s .5s;
+    z-index: 1030;
     &.show {
         visibility: visible;
         opacity: 1;

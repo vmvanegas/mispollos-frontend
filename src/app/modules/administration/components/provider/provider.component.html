@@ -1,52 +1,17 @@
 <div class="ms-card-container">
   <div class="ms-card-container__header">
     <h1>Proveedores</h1>
-    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Agregar proveedor</button>
-  </div>
-  <div class="table-responsive-md">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Nombre</th>
-          <th scope="col">Telefono</th>
-          <th scope="col">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let provider of providers">
-          <td>{{provider.nombre}}</td>
-          <td>{{provider.telefono}}</td>
-          <td>
-            <button class="btn btn-edit" (click)="editProvider(provider)" data-toggle="modal" data-target="#myModal"><i
-                class="far fa-edit"></i></button>
-            <button class="btn btn-delete" data-toggle="modal" data-target="#myModalQuestion"
-              (click)="setIdToDelete(provider.id)"><i class="fas fa-trash-alt"></i></button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="table-pagination">
-    <nav aria-label="Page navigation example">
-      <ul class="pagination">
-        <li class="page-item">
-          <a class="page-link" [class.disabled]="page == 1 || loading" aria-label="Previous" [attr.disabled]="true"
-            (click)="changePage(page - 1)">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li class="page-item" *ngFor="let page of totalProviders; let i = index"><a class="page-link"
-            [attr.disabled]="loading" [class.active]="i == 0" [class.disabled]="loading" (click)="changePage(i+1)">{{i +
-            1}}</a></li>
-        <li class="page-item">
-          <a class="page-link" [class.disabled]="page == totalProviders.length || loading" aria-label="Next"
-            (click)="changePage(page + 1)">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </div>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" (click)="resetModalForm()">Agregar proveedor</button>
+  </div>  
+  <app-table *ngIf="!loading" 
+  [list]="list"
+  [totalItems]="totalItems" 
+  [page]="page" 
+  [service]="providerService" 
+  [colums]="tableColums" 
+  (onEdit)="editItem($event)"
+  (onChangePage)="page = $event">
+  </app-table>
 </div>
 
 <div class="modal fade" tabindex="-1" id="myModal" #myModal>
@@ -54,7 +19,7 @@
     <div class="modal-content">
       <div class="modal-form">
         <h3>{{editing? 'Editar proveedor': 'Agregar proveedor'}}</h3>
-        <form action="" [formGroup]="providerForm" (ngSubmit)="sendProvider()">
+        <form action="" [formGroup]="form" (ngSubmit)="send()">
           <label for="email" class="form-label">Nombre</label>
           <div class="input-group mb-3">
             <span class="input-group-icon"><i class="far fa-user"></i></span>
@@ -69,24 +34,9 @@
           </div>
           <div class="modal-form__actions">
             <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary">{{editing? 'Editar': 'Agregar'}}</button>
+            <button type="submit" class="btn btn-primary">{{editing? 'Guardar': 'Agregar'}}</button>
           </div>
         </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="modal fade" tabindex="-1" id="myModalQuestion" #myModalQuestion>
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-alert">
-        <h3>¿Estas seguro que deseas eliminar este registro?</h3>
-        <div class="modal-alert__actions">
-          <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-danger" (click)="deleteProvider(idToDelete)">Eliminar</button>
-        </div>
       </div>
     </div>
   </div>

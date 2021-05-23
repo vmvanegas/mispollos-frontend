@@ -3,13 +3,13 @@
         <thead>
           <tr>
             <th scope="col" *ngFor="let thead of colums">{{thead.title}}</th>
-            <th scope="col">Acciones</th>
+            <th scope="col" *ngIf="actions" class="text-right">Acciones</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of list">
             <td *ngFor="let data of colums">{{getField(data.field, item)}}</td>
-            <td>
+            <td *ngIf="actions" class="text-right">
               <button class="btn btn-edit" data-toggle="modal" data-target="#myModal" (click)="editItem(item)" ><i class="far fa-edit"></i></button>
               <button class="btn btn-delete" data-toggle="modal" data-target="#myModalQuestion" (click)="setIdToDelete(item.id)"><i class="fas fa-trash-alt"></i></button>
             </td>

@@ -1,7 +1,7 @@
 <div class="ms-card-container">
   <div class="ms-card-container__header">
     <h1>Clientes</h1>
-    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Agregar cliente</button>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" (click)="resetForm()">Agregar cliente</button>
   </div>
   <app-table *ngIf="!loading" 
   [list]="list"
@@ -9,7 +9,8 @@
   [page]="page" 
   [service]="customerService" 
   [colums]="tableColums" 
-  (onEdit)="editItem($event)">
+  (onEdit)="editItem($event)"
+  (onChangePage)="page = $event">
   </app-table>
 </div>
 
@@ -18,7 +19,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-form">
-        <h3>{{editing? 'Editar empleado': 'Agregar empleado'}}</h3>
+        <h3>{{editing? 'Editar cliente': 'Agregar cliente'}}</h3>
         <form action="" [formGroup]="form" (ngSubmit)="sendCustomer()">
           <label for="name" class="form-label">Nombre</label>
           <div class="input-group mb-3">
@@ -39,8 +40,8 @@
               placeholder="Telefono del cliente" maxlength="60" required>
           </div>
           <div class="modal-form__actions">
-            <button type="button" class="btn" data-dismiss="modal" (click)="resetForm()">Cancelar</button>
-            <button type="submit" class="btn btn-primary">{{editing? 'Editar': 'Agregar'}}</button>
+            <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">{{editing? 'Guardar': 'Agregar'}}</button>
           </div>
         </form>
       </div>

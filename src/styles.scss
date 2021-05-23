@@ -78,9 +78,9 @@ p {
 	}
 }
 
-.table thead th:last-child,  table tbody tr td:last-child{
+/* .table thead th:last-child,  table tbody tr td:last-child{
   text-align: right;
-}
+} */
 
 .table tr td:only-child {
   text-align: center;
@@ -170,6 +170,13 @@ p {
 }
 
 
+/* LINK STYLES */
+.ms-hightlight {
+  color: #F24C36;
+  text-decoration: none;
+  text-align: center;
+}
+
 /* MODAL STYLES */
 .modal-content {
     border: none;
@@ -233,6 +240,10 @@ p {
             }
             &::placeholder {
                 color: #999999;
+            }
+            &.disabled {
+              pointer-events: none;
+              opacity: .5;
             }
         }
 
