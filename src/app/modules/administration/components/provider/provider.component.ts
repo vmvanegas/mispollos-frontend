@@ -13,27 +13,29 @@ export class ProviderComponent implements OnInit {
   @ViewChild('myModal') public myModal: ElementRef;
   @ViewChild('myModalQuestion') public myModalQuestion: ElementRef;
 
-  public providers = []
+  public list = []
   public editing: boolean = false
-  public editingProvider: any = {}
+  public editingItem: any = {}
   public page = 1
-  public totalProviders = []
+  public totalItems = []
   public idToDelete = ""
   public loading = true;
   public error = false
+  public tableColums = [{ title: "Nombre", field: "nombre" }, { title: "Telefono", field: "telefono" }]
 
-  providerForm: FormGroup = this.formBuilder.group({
+
+  form: FormGroup = this.formBuilder.group({
     name: ['', [Validators.required]],
     telephone: ['', [Validators.required]]
   })
 
   constructor(
     private formBuilder: FormBuilder,
-    private providerService: ProviderService,
-    private elementRef: ElementRef
+    public providerService: ProviderService,
   ) {
-    this.getProvidersList()
+    this.getList()
   }
+
 
   ngOnInit(): void {
   }
@@ -43,11 +45,12 @@ export class ProviderComponent implements OnInit {
   }
 
 
-  public getProvidersList() {
+  public getList() {
+    console.log(this.page)
     this.providerService.get(this.page).subscribe(
       (res: any) => {
-        this.providers = res.data
-        this.totalProviders = new Array(Math.ceil(res.total / 10))
+        this.list = res.data
+        this.totalItems = new Array(Math.ceil(res.total / 10))
         this.error = false
         this.loading = false;
       },
@@ -59,22 +62,21 @@ export class ProviderComponent implements OnInit {
     )
   }
 
-  public sendProvider() {
-    if (this.providerForm.valid) {
+  public send() {
+    if (this.form.valid) {
 
       if (!this.editing) {
 
         const provider = {
-          Nombre: this.providerForm.controls['name'].value,
-          Telefono: this.providerForm.controls['telephone'].value
+          Nombre: this.form.controls['name'].value,
+          Telefono: this.form.controls['telephone'].value
         }
 
         this.providerService.create(provider).subscribe(
           res => {
-            console.log(res)
-            this.providerForm.reset()
+            this.form.reset()
             this.myModal.nativeElement.click();
-            this.getProvidersList()
+            this.getList()
           },
           err => {
             console.log(err)
@@ -83,9 +85,9 @@ export class ProviderComponent implements OnInit {
       } else {
 
         const provider = {
-          Id: this.editingProvider.id,
-          Nombre: this.providerForm.controls['name'].value,
-          Telefono: this.providerForm.controls['telephone'].value
+          Id: this.editingItem.id,
+          Nombre: this.form.controls['name'].value,
+          Telefono: this.form.controls['telephone'].value
         }
 
         console.log("editado?")
@@ -93,10 +95,10 @@ export class ProviderComponent implements OnInit {
           res => {
             console.log(res)
             this.editing = false
-            this.editingProvider = {}
-            this.providerForm.reset()
+            this.editingItem = {}
+            this.form.reset()
             this.myModal.nativeElement.click();
-            this.getProvidersList()
+            this.getList()
           },
           err => {
             console.log(err)
@@ -106,60 +108,21 @@ export class ProviderComponent implements OnInit {
     }
   }
 
-
-  public deleteProvider(id) {
-    this.providerService.delete(id).subscribe(
-      res => {
-        console.log(res)
-        this.idToDelete = "";
-        this.myModalQuestion.nativeElement.click()
-        this.getProvidersList()
-      }, err => {
-        console.log(err)
-      })
-
-  }
-
-
-
-  public editProvider(provider) {
+  public editItem(provider) {
     this.editing = true
-    this.editingProvider = provider
-    this.providerForm.patchValue({
+    this.editingItem = provider
+    this.form.patchValue({
       name: provider.nombre,
       telephone: provider.telefono
     })
   }
 
 
-  public changePage(page) {
-    this.loading = true
-    if (page <= this.totalProviders.length && page > 0) {
-      this.page = page
-      this.setTableNavigationLinkActive()
-      this.providerService.get(this.page).subscribe(
-        (res: any) => {
-          this.providers = res.data
-          this.loading = false
-        },
-        err => {
-          console.log(err)
-          this.loading = false
-        }
-      )
-    }
+  public resetModalForm() {
+    this.editing = false
+    this.form.reset()
   }
 
 
-  setTableNavigationLinkActive() {
-    let elements = []
-    this.elementRef.nativeElement.querySelectorAll('.page-link').forEach(item => {
-      if (item.classList.contains("active")) {
-        item.classList.remove("active")
-      }
-      elements.push(item)
-    })
-    elements[this.page].classList.add("active")
-  }
 
 }

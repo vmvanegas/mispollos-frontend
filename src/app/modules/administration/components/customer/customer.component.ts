@@ -114,12 +114,12 @@ export class CustomerComponent implements OnInit {
     this.form.patchValue({
       name: customer.nombre,
       lastName: customer.apellido,
-      email: customer.correo,
-      password: customer.clave,
+      telephone: customer.telefono
     })
   }
 
   public resetForm() {
+    this.editing = false
     this.form.reset()
   }
 
