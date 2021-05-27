@@ -1,7 +1,7 @@
 <div class="ms-card-container">
     <div class="ms-card-container__header">
-        <h1>Crear pedido</h1>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" (click)="resetModalForm()">Agregar producto</button>
+        <h1>{{editingOrder? "Editar pedido" : "Crear pedido"}}</h1>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#myModalForm" (click)="resetModalForm()">Agregar producto</button>
     </div>
     <div class="table-responsive-md">
         <table class="table">
@@ -19,7 +19,7 @@
                     <td>{{item.price}}</td>
                     <td>{{item.quantity}}</td>
                     <td class="text-right">
-                        <button class="btn btn-edit" data-toggle="modal" data-target="#myModal" (click)="editItem(item)"><i
+                        <button class="btn btn-edit" data-toggle="modal" data-target="#myModalForm" (click)="editItem(item)"><i
                                 class="far fa-edit"></i></button>
                         <button class="btn btn-delete" data-toggle="modal" data-target="#myModalQuestion" (click)="setIdToDelete = item.id"><i
                                 class="fas fa-trash-alt"></i></button>
@@ -33,7 +33,7 @@
             </tbody>
         </table>
     </div>
-    <div class="modal-form">
+    <div class="ms-form">
         <form action="" [formGroup]="form" (ngSubmit)="send()">
             <label for="customer" class="form-label">Cliente</label>
             <div class="row">
@@ -55,11 +55,11 @@
                 </div>
             </div>
             <div class="row mt-5">
-                <div class="col-lg-4">
-                    <div class="modal-form__actions">
+                <div class="col-md-12">
+                    <div class="ms-form__actions">
                         <button type="button" class="btn btn-secondary"
                             routerLink="/administracion/pedidos">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">{{editingOrder? 'Editar': 'Realizar pedido'}}</button>
+                        <button type="submit" class="btn btn-primary">{{editingOrder? 'Guardar': 'Realizar pedido'}}</button>
                     </div>
                 </div>
             </div>
@@ -67,7 +67,7 @@
     </div>
 </div>
 
-<div class="modal fade" tabindex="-1" id="myModal" #myModal>
+<div class="modal fade" tabindex="-1" id="myModalForm" #myModal>
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-form">
