@@ -1,15 +1,24 @@
 <div class="ms-card-container">
   <div class="ms-card-container__header">
     <h1>Empleados</h1>
-    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Agregar empleado</button>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" (click)="resetModalForm()">Agregar empleado</button>
   </div>
   <app-table *ngIf="!loading"
   [list]="list"
+<<<<<<< HEAD
   [totalItems]="totalItems"
   [page]="page"
   [service]="employeeService"
   [colums]="tableColums"
   (onEdit)="editItem($event)">
+=======
+  [totalItems]="totalItems"
+  [page]="page"
+  [service]="employeeService"
+  [colums]="tableColums"
+  (onEdit)="editItem($event)"
+  (onChangePage)="page = $event">
+>>>>>>> c5899a099c1e2e680a46748bdad077bebea11d6f
   </app-table>
 </div>
 
@@ -29,15 +38,15 @@
           </div><!--Final Caja Nombre -->
 
           <!-- Caja o funcion para mostrar errores para nombre-->
-          <div *ngIf="employeeForm.nameinvalid && (employeeForm.name.dirty || employeeForm.nametouched)">
+          <div *ngIf="employeeForm.name.invalid && (f.name.dirty || f.nametouched)">
 
-            <div class="alert alert-danger" *ngIf="employeeForm.name.errors.required">
+            <div class="alert alert-danger" *ngIf="f.name.errors.required">
                 Este campo es obligatorio.
             </div>
-            <div class="alert alert-danger" *ngIf="employeeForm.name.errors.maxlength">
+            <div class="alert alert-danger" *ngIf="f.name.errors.maxlength">
                 El Nombre ingresado no puede contener mas de 40 caracteres.
             </div>
-            <div class="alert alert-danger" *ngIf="employeeForm.name.errors.name">
+            <div class="alert alert-danger" *ngIf="f.name.errors.pattern">
               El Nombre es invalido.
             </div>
 
@@ -51,15 +60,15 @@
           </div><!--Final caja apellido-->
 
           <!-- Caja o funcion para mostrar errores para Apellido-->
-          <div *ngIf="employeeForm.nameinvalid && (employeeForm.name.dirty || employeeForm.nametouched)">
+          <div *ngIf="f.name.invalid && (f.name.dirty ||f.nametouched)">
 
-            <div class="alert alert-danger" *ngIf="employeeForm.name.errors.required">
+            <div class="alert alert-danger" *ngIf="f.name.errors.required">
                 Este campo es obligatorio.
             </div>
-            <div class="alert alert-danger" *ngIf="employeeForm.name.errors.maxlength">
+            <div class="alert alert-danger" *ngIf="f.name.errors.maxlength">
                 El Apellido ingresado no puede contener mas de 40 caracteres.
             </div>
-            <div class="alert alert-danger" *ngIf="employeeForm.name.errors.name">
+            <div class="alert alert-danger" *ngIf="f.errors.pattern">
               El apellido es invalido.
             </div>
 
@@ -73,15 +82,15 @@
           </div><!--Final caja correo-->
 
            <!-- Caja o funcion para mostrar errores para Correo-->
-          <div *ngIf="employeeForm.email.invalid && (employeeForm.email.dirty || employeeForm.email.touched)">
+          <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)">
 
-            <div class="alert alert-danger" *ngIf="employeeForm.email.errors.required">
+            <div class="alert alert-danger" *ngIf="f.email.errors.required">
                 Este campo es obligatorio.
             </div>
-            <div class="alert alert-danger" *ngIf="employeeForm.email.errors.maxlength">
+            <div class="alert alert-danger" *ngIf="f.email.errors.maxlength">
                 El correo no puede contener mas de 60 caracteres.
             </div>
-            <div class="alert alert-danger" *ngIf="employeeForm.email.errors.email">
+            <div class="alert alert-danger" *ngIf="f.email.errors.email">
                 El correo es invalido.
             </div>
         </div>
@@ -94,23 +103,26 @@
           </div><!--Final caja contraseña-->
 
             <!-- Caja o funcion para mostrar errores para Contraseña-->
-            <div *ngIf="employeeForm.password.invalid && (employeeForm.password.dirty || employeeForm.password.touched)">
+            <div *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)">
 
-              <div class="alert alert-danger" *ngIf="employeeForm.password.errors.required">
+              <div class="alert alert-danger" *ngIf="f.password.errors.required">
                   Este campo es obligatorio.
               </div>
-              <div class="alert alert-danger" *ngIf="employeeForm.password.errors.maxlength">
-                  La contraseña debe tener minimo 8 y maximo 16 caracteres
+              <div class="alert alert-danger" *ngIf="f.password.errors.maxlength">
+                  La contraseña debe contener maximo 16 caracteres
               </div>
-              <div class="alert alert-danger" *ngIf="employeeForm.password.errors.email">
-                  La contraseña es invalida.
+              <div class="alert alert-danger" *ngIf="f.password.errors.minlength">
+                  La contraseña debe tener contener minimo 8 caracteres
+              </div>
+              <div class="alert alert-danger" *ngIf="f.password.errors.pattern">
+                  La contraseña es invalida debe tener contener 1 mayuscula 1 minuscula y un numero.
               </div>
           </div>
 
 
           <div class="modal-form__actions">
-            <button type="button" class="btn" data-dismiss="modal" (click)="resetForm()">Cancelar</button>
-            <button type="submit" class="btn btn-primary">{{editing? 'Editar': 'Agregar'}}</button>
+            <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">{{editing? 'Guardar': 'Agregar'}}</button>
           </div>
         </form>
       </div>

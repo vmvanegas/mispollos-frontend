@@ -15,44 +15,45 @@ export class CategoryComponent implements OnInit {
   @ViewChild('myModalQuestion') myModalQuestion: ElementRef
 
 
-  public categories = [];//GENERAR FILAS  DINAMICAS
+  public list = [];//GENERAR FILAS  DINAMICAS
   public page = 1;
   public editing: boolean = false
   public editingCategory: any = {}
-  public totalCategories = []
+  public totalItems = []
   public idToDelete = ""
   public loading = true;
   public error = false
+  public tableColums = [{ title: "Id", field: "id" }, { title: "Nombre", field: "nombre" }]
 
-  categoryForm: FormGroup = this.formBuilder.group({
+  form: FormGroup = this.formBuilder.group({
     name: ['', [Validators.required, Validators.maxLength(40)]]
   })
 
   constructor(
-    private categoryService: CategoryService,
+    public categoryService: CategoryService,
     private formBuilder: FormBuilder,
     private elementRef : ElementRef,
     private userInfo : UserInfoService
     ) { 
       console.clear()
     console.log(this.userInfo.User)
-    this.getCategoryList()
+    this.getList()
   }
 
-  get form() {
-    return this.categoryForm.controls
+  get f() {
+    return this.form.controls
   }
 
 
   ngOnInit(): void {
   }
 
-  getCategoryList() {
+  getList() {
     this.categoryService.get(this.page).subscribe(
       (res: any) => {
-        this.categories = res.data
-        this.totalCategories = new Array(Math.ceil(res.total / 10))
-        console.log(this.categories);
+        this.list = res.data
+        this.totalItems = new Array(Math.ceil(res.total / 10))
+        console.log(this.list);
         this.error = false
         this.loading = false;
       },
@@ -63,22 +64,22 @@ export class CategoryComponent implements OnInit {
     })
   }
 
-  public sendCategory() {
-    if (this.categoryForm.valid) {
+  public sendItem() {
+    if (this.form.valid) {
 
       if (!this.editing) {
 
         const category = {
-          Nombre: this.categoryForm.controls['name'].value,
+          Nombre: this.form.controls['name'].value,
           IdTienda: JSON.parse(localStorage.getItem('user')).idTienda
         }
 
         this.categoryService.create(category).subscribe(
           res => {
             console.log(res)
-            this.categoryForm.reset()
+            this.form.reset()
             this.myModal.nativeElement.click();
-            this.getCategoryList()
+            this.getList()
           },
           err => {
             console.log(err)
@@ -88,7 +89,7 @@ export class CategoryComponent implements OnInit {
 
         const category = {
           Id: this.editingCategory.id,
-          Nombre: this.categoryForm.controls['name'].value,
+          Nombre: this.form.controls['name'].value,
           IdTienda: JSON.parse(localStorage.getItem('user')).idTienda
         }
 
@@ -98,9 +99,9 @@ export class CategoryComponent implements OnInit {
             console.log(res)
             this.editing = false
             this.editingCategory = {}
-            this.categoryForm.reset()
+            this.form.reset()
             this.myModal.nativeElement.click();
-            this.getCategoryList()
+            this.getList()
           },
           err => {
             console.log(err)
@@ -120,7 +121,7 @@ export class CategoryComponent implements OnInit {
         console.log(res)
         this.idToDelete = "";
         this.myModalQuestion.nativeElement.click()
-        this.getCategoryList()
+        this.getList()
       }, err => {
         console.log(err)
       })
@@ -128,44 +129,18 @@ export class CategoryComponent implements OnInit {
   }
 
 
-
-  public editCategory(provider) {
+  public editItem(provider) {
     this.editing = true
     this.editingCategory = provider
-    this.categoryForm.patchValue({
+    this.form.patchValue({
       name: provider.nombre
     })
   }
 
 
-  public changePage(page) {
-    this.loading = true
-    if (page <= this.totalCategories.length && page > 0) {
-      this.page = page
-      this.setTableNavigationLinkActive()
-      this.categoryService.get(this.page).subscribe(
-        (res: any) => {
-          this.categories = res.data
-          this.loading = false
-        },
-        err => {
-          console.log(err)
-          this.loading = false
-        }
-      )
-    }
-  }
-
-
-  setTableNavigationLinkActive() {
-    let elements = []
-    this.elementRef.nativeElement.querySelectorAll('.page-link').forEach(item => {
-      if (item.classList.contains("active")) {
-        item.classList.remove("active")
-      }
-      elements.push(item)
-    })
-    elements[this.page].classList.add("active")
+  resetModalForm() {
+    this.editing = false
+    this.form.reset()
   }
 
 }

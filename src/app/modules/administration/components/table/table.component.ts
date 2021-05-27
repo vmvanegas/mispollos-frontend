@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-table',
@@ -15,7 +15,9 @@ export class TableComponent implements OnInit {
   @Input() page;
   @Input() totalItems;
   @Input() colums;
+  @Input() actions = true;
   @Output() onEdit = new EventEmitter<number>();
+  @Output() onChangePage = new EventEmitter<number>();
 
   public loading = true;
   public idToDelete
@@ -47,6 +49,7 @@ export class TableComponent implements OnInit {
       this.page = page
       this.getList()
     }
+    this.onChangePage.emit(this.page);
   }
 
 
