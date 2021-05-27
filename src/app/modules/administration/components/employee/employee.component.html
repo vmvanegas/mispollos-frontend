@@ -3,48 +3,123 @@
     <h1>Empleados</h1>
     <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" (click)="resetModalForm()">Agregar empleado</button>
   </div>
-  <app-table *ngIf="!loading" 
+  <app-table *ngIf="!loading"
   [list]="list"
-  [totalItems]="totalItems" 
-  [page]="page" 
-  [service]="employeeService" 
-  [colums]="tableColums" 
+<<<<<<< HEAD
+  [totalItems]="totalItems"
+  [page]="page"
+  [service]="employeeService"
+  [colums]="tableColums"
+  (onEdit)="editItem($event)">
+=======
+  [totalItems]="totalItems"
+  [page]="page"
+  [service]="employeeService"
+  [colums]="tableColums"
   (onEdit)="editItem($event)"
   (onChangePage)="page = $event">
+>>>>>>> c5899a099c1e2e680a46748bdad077bebea11d6f
   </app-table>
 </div>
 
-
+<!--Formulario registro empleados-->
 <div class="modal fade" tabindex="-1" id="myModal" #myModal>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-form">
         <h3>{{editing? 'Editar empleado': 'Agregar empleado'}}</h3>
         <form action="" [formGroup]="form" (ngSubmit)="sendEmployee()">
+
           <label for="name" class="form-label">Nombre</label>
-          <div class="input-group mb-3">
+          <div class="input-group mb-3"><!--Caja Nombre-->
             <span class="input-group-icon"><i class="far fa-user"></i></span>
             <input type="text" class="form-control" name="name" formControlName="name" placeholder="Nombre de empleado"
-              maxlength="60" required>
+              maxlength="60"  required>
+          </div><!--Final Caja Nombre -->
+
+          <!-- Caja o funcion para mostrar errores para nombre-->
+          <div *ngIf="employeeForm.name.invalid && (f.name.dirty || f.nametouched)">
+
+            <div class="alert alert-danger" *ngIf="f.name.errors.required">
+                Este campo es obligatorio.
+            </div>
+            <div class="alert alert-danger" *ngIf="f.name.errors.maxlength">
+                El Nombre ingresado no puede contener mas de 40 caracteres.
+            </div>
+            <div class="alert alert-danger" *ngIf="f.name.errors.pattern">
+              El Nombre es invalido.
+            </div>
+
           </div>
+
           <label for="lastName" class="form-label">Apellido</label>
-          <div class="input-group mb-3">
+          <div class="input-group mb-3"><!--Caja Apellido-->
             <span class="input-group-icon"><i class="far fa-user"></i></span>
             <input type="text" class="form-control" name="lastName" formControlName="lastName" placeholder="Apellido del empleado"
               maxlength="60" required>
-          </div>
+          </div><!--Final caja apellido-->
+
+          <!-- Caja o funcion para mostrar errores para Apellido-->
+          <div *ngIf="f.name.invalid && (f.name.dirty ||f.nametouched)">
+
+            <div class="alert alert-danger" *ngIf="f.name.errors.required">
+                Este campo es obligatorio.
+            </div>
+            <div class="alert alert-danger" *ngIf="f.name.errors.maxlength">
+                El Apellido ingresado no puede contener mas de 40 caracteres.
+            </div>
+            <div class="alert alert-danger" *ngIf="f.errors.pattern">
+              El apellido es invalido.
+            </div>
+
+        </div>
+
           <label for="email" class="form-label">Correo</label>
-          <div class="input-group mb-3">
+          <div class="input-group mb-3"><!--Caja Correo-->
             <span class="input-group-icon"><i class="fas fa-phone-alt"></i></span>
             <input type="text" class="form-control" name="email" formControlName="email"
               placeholder="Correo del empleado" maxlength="60" required>
-          </div>
+          </div><!--Final caja correo-->
+
+           <!-- Caja o funcion para mostrar errores para Correo-->
+          <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)">
+
+            <div class="alert alert-danger" *ngIf="f.email.errors.required">
+                Este campo es obligatorio.
+            </div>
+            <div class="alert alert-danger" *ngIf="f.email.errors.maxlength">
+                El correo no puede contener mas de 60 caracteres.
+            </div>
+            <div class="alert alert-danger" *ngIf="f.email.errors.email">
+                El correo es invalido.
+            </div>
+        </div>
+
           <label for="password" class="form-label">Contraseña</label>
-          <div class="input-group mb-3">
+          <div class="input-group mb-3"><!--Caja contraseña-->
             <span class="input-group-icon"><i class="fas fa-phone-alt"></i></span>
             <input type="password" class="form-control" name="password" formControlName="password"
-              placeholder="Contraseña" maxlength="60" required>
+              placeholder="Contraseña" maxlength="60" pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" required>
+          </div><!--Final caja contraseña-->
+
+            <!-- Caja o funcion para mostrar errores para Contraseña-->
+            <div *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)">
+
+              <div class="alert alert-danger" *ngIf="f.password.errors.required">
+                  Este campo es obligatorio.
+              </div>
+              <div class="alert alert-danger" *ngIf="f.password.errors.maxlength">
+                  La contraseña debe contener maximo 16 caracteres
+              </div>
+              <div class="alert alert-danger" *ngIf="f.password.errors.minlength">
+                  La contraseña debe tener contener minimo 8 caracteres
+              </div>
+              <div class="alert alert-danger" *ngIf="f.password.errors.pattern">
+                  La contraseña es invalida debe tener contener 1 mayuscula 1 minuscula y un numero.
+              </div>
           </div>
+
+
           <div class="modal-form__actions">
             <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
             <button type="submit" class="btn btn-primary">{{editing? 'Guardar': 'Agregar'}}</button>

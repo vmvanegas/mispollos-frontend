@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class EmployeeComponent implements OnInit {
 
   @ViewChild('myModal') public myModal: ElementRef;
-  
+
   public page = 1
   public list = []
   public editing: boolean = false
@@ -26,18 +26,24 @@ export class EmployeeComponent implements OnInit {
   constructor(
     public employeeService: UserService, //Objeto instanciado
     private formBuilder: FormBuilder, //Objeto instanciado
-  ) { 
-    this.form = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      password: ['', [Validators.required]],
+  ) {
+    this.form = this.formBuilder.group({///Validaciones de formulario empleados
+      name: ['', [Validators.required,Validators.maxLength(40),Validators.name,Validators.pattern("/^([A-Z]{1}[a-zñáéíóú]+[\s]*)+$/")]],
+      lastName: ['', [Validators.required,Validators.maxLength(40),Validators.name,Validators.pattern("/^([A-Z]{1}[a-zñáéíóú]+[\s]*)+$/")]],
+      email: ['', [Validators.required,Validators.maxLength(60),Validators.email]],
+      password: ['', [Validators.required,Validators.maxLength(16),Validators.minLength(8),Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{0,}$")]]
     })
     this.getList()
   }
 
 
   ngOnInit(): void {
+  }
+
+  get f(){
+
+    return this.form.controls
+
   }
 
   public sendEmployee() {
@@ -74,7 +80,7 @@ export class EmployeeComponent implements OnInit {
           Correo: this.form.controls['email'].value,
           Clave: this.form.controls['password'].value,
         }
-        
+
         this.employeeService.update(employee).subscribe(
           res => {
             this.editing = false
@@ -100,7 +106,7 @@ export class EmployeeComponent implements OnInit {
        this.list = res.data
        this.totalItems = new Array(Math.ceil(res.total/10))
        this.error = false
-       this.loading = false 
+       this.loading = false
        console.log(this.list);
 
      },err=>{
