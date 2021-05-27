@@ -28,10 +28,10 @@ export class EmployeeComponent implements OnInit {
     private formBuilder: FormBuilder, //Objeto instanciado
   ) {
     this.form = this.formBuilder.group({///Validaciones de formulario empleados
-      name: ['', [Validators.required,Validators.maxLength(40),Validators.name,Validators.pattern("/^([A-Z]{1}[a-zñáéíóú]+[\s]*)+$/")]],
-      lastName: ['', [Validators.required,Validators.maxLength(40),Validators.name,Validators.pattern("/^([A-Z]{1}[a-zñáéíóú]+[\s]*)+$/")]],
-      email: ['', [Validators.required,Validators.maxLength(60),Validators.email]],
-      password: ['', [Validators.required,Validators.maxLength(16),Validators.minLength(8),Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{0,}$")]]
+      name: ['', [Validators.required, Validators.maxLength(40)]],
+      lastName: ['', [Validators.required, Validators.maxLength(40)]],
+      email: ['', [Validators.required, Validators.maxLength(60), Validators.email]],
+      password: ['', [Validators.required, Validators.maxLength(16), Validators.minLength(8), Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{0,}$")]]
     })
     this.getList()
   }
@@ -47,6 +47,7 @@ export class EmployeeComponent implements OnInit {
   }
 
   public sendEmployee() {
+    console.log(this.form)
     if (this.form.valid) {
 
       if (!this.editing) {

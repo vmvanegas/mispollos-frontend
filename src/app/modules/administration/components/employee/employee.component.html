@@ -5,20 +5,12 @@
   </div>
   <app-table *ngIf="!loading"
   [list]="list"
-<<<<<<< HEAD
-  [totalItems]="totalItems"
-  [page]="page"
-  [service]="employeeService"
-  [colums]="tableColums"
-  (onEdit)="editItem($event)">
-=======
   [totalItems]="totalItems"
   [page]="page"
   [service]="employeeService"
   [colums]="tableColums"
   (onEdit)="editItem($event)"
   (onChangePage)="page = $event">
->>>>>>> c5899a099c1e2e680a46748bdad077bebea11d6f
   </app-table>
 </div>
 
@@ -38,16 +30,13 @@
           </div><!--Final Caja Nombre -->
 
           <!-- Caja o funcion para mostrar errores para nombre-->
-          <div *ngIf="employeeForm.name.invalid && (f.name.dirty || f.nametouched)">
+          <div *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)">
 
             <div class="alert alert-danger" *ngIf="f.name.errors.required">
                 Este campo es obligatorio.
             </div>
             <div class="alert alert-danger" *ngIf="f.name.errors.maxlength">
                 El Nombre ingresado no puede contener mas de 40 caracteres.
-            </div>
-            <div class="alert alert-danger" *ngIf="f.name.errors.pattern">
-              El Nombre es invalido.
             </div>
 
           </div>
@@ -60,16 +49,13 @@
           </div><!--Final caja apellido-->
 
           <!-- Caja o funcion para mostrar errores para Apellido-->
-          <div *ngIf="f.name.invalid && (f.name.dirty ||f.nametouched)">
+          <div *ngIf="f.lastName.invalid && (f.lastName.dirty ||f.lastName.touched)">
 
-            <div class="alert alert-danger" *ngIf="f.name.errors.required">
+            <div class="alert alert-danger" *ngIf="f.lastName.errors.required">
                 Este campo es obligatorio.
             </div>
-            <div class="alert alert-danger" *ngIf="f.name.errors.maxlength">
+            <div class="alert alert-danger" *ngIf="f.lastName.errors.maxlength">
                 El Apellido ingresado no puede contener mas de 40 caracteres.
-            </div>
-            <div class="alert alert-danger" *ngIf="f.errors.pattern">
-              El apellido es invalido.
             </div>
 
         </div>
