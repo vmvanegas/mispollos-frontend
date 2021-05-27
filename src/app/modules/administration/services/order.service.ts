@@ -32,7 +32,10 @@ export class OrderService {
          return data;
        })
     )
+  }
 
+  getById(id) {
+    return this.http.get(`${this.URL_PROVIDERLIST}/${id}`, {headers: this.headers})
   }
 
   create(order) {
