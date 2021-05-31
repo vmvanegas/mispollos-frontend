@@ -33,13 +33,13 @@ export class ProductFormComponent implements OnInit {
     private router: Router
   ) {
     this.productForm = this.formBuilder.group({
-      name: ["", [Validators.required]],
-      category: ["", [Validators.required]],
-      price: ["", [Validators.required]],
-      provider: ["", [Validators.required]],
-      dueDate: ["", [Validators.required]],
-      quantity: ["", [Validators.required]],
-      description: ["", [Validators.required]],
+      name: ["", [Validators.required, Validators.maxLength(50)]],
+      category: ["", [Validators.required, Validators.maxLength(60)]],
+      price: ["", [Validators.required, Validators.maxLength(120)]],
+      provider: ["", [Validators.required, Validators.maxLength(60)]],
+      dueDate: ["", [Validators.required, Validators.maxLength(60)]],
+      quantity: ["", [Validators.required, Validators.maxLength(60)]],
+      description: ["", [Validators.required, Validators.maxLength(120)]],
     })
 
     const productId = this.activatedRoute.snapshot.paramMap.get('id');
@@ -68,6 +68,10 @@ export class ProductFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  get ff() {
+    return this.productForm.controls
   }
 
   getProduct(id) {
