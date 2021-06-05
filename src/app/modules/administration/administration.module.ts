@@ -16,6 +16,7 @@ import { ProductsListComponent } from './components/products-list/products-list.
 import { TableComponent } from './components/table/table.component';
 import { OrderListComponent } from './components/order-list/order-list.component';
 import { OrderFormComponent } from './components/order-form/order-form.component';
+import { MyAccountComponent } from './components/my-account/my-account.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { OrderFormComponent } from './components/order-form/order-form.component
     DashboardComponent, 
     ProductFormComponent, 
     ProductsListComponent, 
-    TableComponent, OrderListComponent, OrderFormComponent    
+    TableComponent, OrderListComponent, OrderFormComponent, MyAccountComponent    
   ],
   imports: [
     CommonModule,

@@ -30,17 +30,27 @@ p {
     width: 100%;
     min-height: 100%;
     padding: 1.5rem;
+    @media (max-width: 576px) {
+      padding: 1.5rem 0;
+    } 
     &__header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 2rem;
+        @media (max-width: 576px) {
+          flex-direction: column;
+        } 
         h1 {
             color: #333333;
             font-weight: bold;
             font-size: 1.5rem;
             margin: 0;
-        }        
+            margin-bottom: 1rem;
+        }       
+        button, a {
+          margin-bottom: 1rem;
+        } 
     }
 }
 
@@ -205,6 +215,10 @@ p {
 
 .ms-form {
   padding: 1rem;
+  .subtitle {
+    font-size: 20px;
+    font-weight: 700;
+  }
   &__actions {
       display: flex;      
       margin-top: 2rem;

@@ -1,0 +1,80 @@
+<div class="ms-card-container">
+    <div class="ms-card-container__header">
+        <h1>Mi cuenta</h1>
+    </div>
+    <form class="ms-form" [formGroup]="form">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="subtitle">Datos de usuario</h2>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="name" class="form-label">Nombre</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-icon"><i class="far fa-user"></i></span>
+                            <input type="text" class="form-control" name="name" formControlName="name" maxlength="60"
+                                required>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="lastName" class="form-label">Apellido</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-icon"><i class="far fa-user"></i></span>
+                            <input type="text" class="form-control" name="lastName" formControlName="lastName" maxlength="60"
+                                required>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="email" class="form-label">Correo</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-icon"><i class="fas fa-dollar-sign"></i></span>
+                            <input type="text" class="form-control" name="email" formControlName="email" maxlength="60"
+                                required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="subtitle">Datos de tienda</h2>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="storeName" class="form-label">Nombre</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-icon"><i class="far fa-user"></i></span>
+                            <input type="text" class="form-control" [class.disabled]="user.rol.nombre != 'Admin'" name="storeName" formControlName="storeName" maxlength="60"
+                                required>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="telephone" class="form-label">Telefono</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-icon"><i class="far fa-user"></i></span>
+                            <input type="text" class="form-control" [class.disabled]="user.rol.nombre != 'Admin'" name="telephone" formControlName="telephone" maxlength="60"
+                                required>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="address" class="form-label">Dirección</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-icon"><i class="fas fa-dollar-sign"></i></span>
+                            <input type="text" class="form-control" [class.disabled]="user.rol.nombre != 'Admin'" name="address" formControlName="address" maxlength="60"
+                                required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="modal-form__actions">
+                    <a class="btn btn-secondary" style="min-width: 172px;"
+                        routerLink="administracion/productos">Cancelar</a>
+                    <button type="submit" class="btn btn-primary" style="min-width: 172px;">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
