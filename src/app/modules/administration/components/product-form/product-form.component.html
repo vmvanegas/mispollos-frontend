@@ -79,7 +79,7 @@
           <div class="alert alert-danger" *ngIf="f.provider.errors.maxlength">
             El nombre del proveedor no puede contener mas de 30 caracteres.
           </div>
-        </div>div
+        </div>
         <!-- Alerta       termina                  -->
 
       </div>
@@ -91,7 +91,6 @@
           <span class="input-group-icon"><i class="far fa-calendar-alt"></i></span>
           <input type="text" class="form-control" name="dueDate" formControlName="dueDate" maxlength="60" required>
         </div>
-
         <!-- Alerta              comienza            -->
         <div *ngIf="f.dueDate.invalid && (f.dueDate.dirty || f.dueDate.touched)">
           <div class="alert alert-danger" *ngIf="f.dueDate.errors.required">
@@ -99,8 +98,6 @@
           </div>
         </div>
         <!-- Alerta       termina                  -->
-
-
       </div>
       <div class="col-md-6">
         <label for="quantity" class="form-label">Cantidad</label>
