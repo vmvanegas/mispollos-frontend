@@ -27,18 +27,57 @@
             <input type="text" class="form-control" name="name" formControlName="name" placeholder="Nombre de cliente"
               maxlength="60" required>
           </div>
+
+          <!-- Alerta              comienza            -->
+          <div *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)">
+
+            <div class="alert alert-danger" *ngIf="f.name.errors.required">
+                Este campo es obligatorio.
+            </div>
+            <div class="alert alert-danger" *ngIf="f.name.errors.maxlength">
+                El Nombre no puede contener mas de 50 caracteres.
+            </div>
+            
+        </div>
+           <!-- Alerta       termina                  -->
           <label for="lastName" class="form-label">Apellido</label>
           <div class="input-group mb-3">
             <span class="input-group-icon"><i class="far fa-user"></i></span>
             <input type="text" class="form-control" name="lastName" formControlName="lastName" placeholder="Apellido del cliente"
               maxlength="60" required>
           </div>
-          <label for="telephone" class="form-label">Telefono</label>
+          <!-- Alerta       comienza                   -->
+          <div *ngIf="f.lastName.invalid && (f.lastName.dirty || f.lastName.touched)">
+
+            <div class="alert alert-danger" *ngIf="f.lastName.errors.required">
+                Este campo es obligatorio.
+            </div>
+            <div class="alert alert-danger" *ngIf="f.lastName.errors.maxlength">
+                El Apellido no puede contener mas de 50 caracteres.
+            </div>
+             
+        </div>
+        <!-- Alerta      termina                    -->
+
+          <label for="telephone" class="form-label">Teléfono</label>
           <div class="input-group mb-3">
             <span class="input-group-icon"><i class="fas fa-phone-alt"></i></span>
             <input type="text" class="form-control" name="telephone" formControlName="telephone"
               placeholder="Telefono del cliente" maxlength="60" required>
           </div>
+
+          <!-- Alerta     comienza                     -->
+          <div *ngIf="f.telephone.invalid && (f.telephone.dirty || f.telephone.touched)">
+
+            <div class="alert alert-danger" *ngIf="f.telephone.errors.required">
+                Este campo es obligatorio.
+            </div>
+            <div class="alert alert-danger" *ngIf="f.telephone.errors.maxlength">
+                El Teléfono no puede contener mas de 60 caracteres.
+            </div>
+            
+        </div>
+               <!-- Alerta         termina                 -->
           <div class="modal-form__actions">
             <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
             <button type="submit" class="btn btn-primary">{{editing? 'Guardar': 'Agregar'}}</button>

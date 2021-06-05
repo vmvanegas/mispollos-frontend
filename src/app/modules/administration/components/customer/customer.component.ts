@@ -28,15 +28,20 @@ export class CustomerComponent implements OnInit {
     private formBuilder: FormBuilder, //Objeto instanciado
   ) { 
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      telephone: ['', [Validators.required]],
+      name: ['', [Validators.required, Validators.maxLength(60)]],
+      lastName: ['', [Validators.required, Validators.maxLength(60) ]],
+      telephone: ['', [Validators.required, Validators.maxLength(30)]],
     })
     this.getList()
   }
 
   ngOnInit(): void {
   }
+
+  get f() {
+    return this.form.controls
+  }
+
 
   public sendCustomer() {
     if (this.form.valid) {
