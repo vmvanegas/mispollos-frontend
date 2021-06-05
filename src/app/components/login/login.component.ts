@@ -22,8 +22,11 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService : AuthService,
     private router: Router,
-    private userInfo: UserInfoService
+    private userInfo: UserInfoService,
     ) { 
+      if(localStorage.getItem("token")) {
+        this.redirectToAdmin()
+      }
     this.loginForm = formBuilder.group({
       email: ['', [Validators.required, Validators.maxLength(60), Validators.email]],
       password: ['', [Validators.required, Validators.maxLength(16), Validators.minLength(8), Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{0,}$")]]
@@ -50,7 +53,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("user", JSON.stringify(response))  
         this.userInfo.User = response
         this.loginForm.reset()     
-        this.showModal()
+        this.redirectToAdmin()
       }, err=>{
         this.wrongUser = true
         this.showModal()

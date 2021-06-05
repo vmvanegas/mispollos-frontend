@@ -5,6 +5,7 @@ import { CategoryComponent } from './components/category/category.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EmployeeComponent } from './components/employee/employee.component';
+import { MyAccountComponent } from './components/my-account/my-account.component';
 import { OrderFormComponent } from './components/order-form/order-form.component';
 import { OrderListComponent } from './components/order-list/order-list.component';
 import { OrderComponent } from './components/order/order.component';
@@ -74,6 +75,10 @@ const routes: Routes = [
       {
         path: 'empleados',
         component: EmployeeComponent
+      },
+      {
+        path: 'mi-cuenta',
+        component: MyAccountComponent
       },
       {
         path: '',
