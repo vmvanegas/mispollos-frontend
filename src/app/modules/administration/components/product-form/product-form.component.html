@@ -6,168 +6,141 @@
     <div class="row">
       <div class="col-md-6">
         <label for="name" class="form-label">Nombre</label>
-          <div class="input-group mb-3">
-            <span class="input-group-icon"><i class="far fa-user"></i></span>
-            <input type="text" class="form-control" name="name" formControlName="name"
-              maxlength="60" required>
-          </div>
+        <div class="input-group mb-3">
+          <span class="input-group-icon"><i class="far fa-user"></i></span>
+          <input type="text" class="form-control" name="name" formControlName="name" maxlength="60" required>
+        </div>
         <!-- Alerta              comienza            -->
-        <span *ngIf="ff.name.invalid && (ff.name.dirty || ff.name.touched)">
+        <div *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)">
 
-          <span class="alert alert-danger" *ngIf="ff.name.errors.required">
-              Este campo es obligatorio.
-          </span>
-          <span class="alert alert-danger" *ngIf="ff.name.errors.maxlength">
-              El Nombre no puede contener mas de 50 caracteres.
-          </span>
-          
-        </span>
-         <!-- Alerta       termina                  -->
+          <div class="alert alert-danger" *ngIf="f.name.errors.required">
+            Este campo es obligatorio.
+          </div>
+          <div class="alert alert-danger" *ngIf="f.name.errors.maxlength">
+            El Nombre no puede contener mas de 50 caracteres.
+          </div>
+
+        </div>
+        <!-- Alerta       termina                  -->
 
 
       </div>
       <div class="col-md-6">
         <label for="category" class="form-label">Categoría</label>
-          <div class="input-group mb-3">
-            <span class="input-group-icon"><i class="fas fa-shapes"></i></span>
-            <select class="form-control" id="exampleFormControlSelect1" name="category" formControlName="category">
-              <option *ngFor="let category of categoryList" value={{category.id}}>{{category.nombre}}</option>
-            </select>
-            <span class="select-arrow"><i class="fas fa-caret-down"></i></span>
+        <div class="input-group mb-3">
+          <span class="input-group-icon"><i class="fas fa-shapes"></i></span>
+          <select class="form-control" id="exampleFormControlSelect1" name="category" formControlName="category">
+            <option *ngFor="let category of categoryList" value={{category.id}}>{{category.nombre}}</option>
+          </select>
+          <span class="select-arrow"><i class="fas fa-caret-down"></i></span>
+        </div>
+        <!-- Alerta              comienza            -->
+        <div *ngIf="f.category.invalid && (f.category.dirty || f.category.touched)">
+          <div class="alert alert-danger" *ngIf="f.category.errors.required">
+            Este campo es obligatorio.
           </div>
-          <!-- Alerta              comienza            -->
-        <span *ngIf="ff.category.invalid && (ff.category.dirty || ff.category.touched)">
-
-          <span class="alert alert-danger" *ngIf="ff.category.errors.required">
-              Este campo es obligatorio.
-          </span>
-          
-          
-        </span>
-         <!-- Alerta       termina                  -->
-        
-
-
+        </div>
+        <!-- Alerta       termina                  -->
       </div>
     </div>
     <div class="row">
       <div class="col-md-6">
         <label for="price" class="form-label">Precio</label>
-          <div class="input-group mb-3">
-            <span class="input-group-icon"><i class="fas fa-dollar-sign"></i></span>
-            <input type="number" class="form-control" name="price" formControlName="price"
-              maxlength="30" required>
+        <div class="input-group mb-3">
+          <span class="input-group-icon"><i class="fas fa-dollar-sign"></i></span>
+          <input type="number" class="form-control" name="price" formControlName="price" maxlength="30" required>
+        </div>
+        <!-- Alerta              comienza            -->
+        <div *ngIf="f.price.invalid && (f.price.dirty || f.price.touched)">
+          <div class="alert alert-danger" *ngIf="f.price.errors.required">
+            Este campo es obligatorio.
           </div>
-           <!-- Alerta              comienza            -->
-        <span *ngIf="ff.price.invalid && (ff.price.dirty || ff.price.touched)">
-
-          <span class="alert alert-danger" *ngIf="ff.price.errors.required">
-              Este campo es obligatorio.
-          </span>
-          <span class="alert alert-danger" *ngIf="ff.price.errors.maxlength">
+          <div class="alert alert-danger" *ngIf="f.price.errors.maxlength">
             El Precio no puede contener mas de 30 caracteres.
-        </span>
-          
-        </span>
-         <!-- Alerta       termina                  -->
-         
+          </div>
+        </div>
+        <!-- Alerta       termina                  -->
       </div>
-       
-
       <div class="col-md-6">
         <label for="provider" class="form-label">Proveedor</label>
-          <div class="input-group mb-3">
-            <span class="input-group-icon"><i class="far fa-building"></i></span>
-            <select class="form-control" id="exampleFormControlSelect1" name="provider" formControlName="provider">
-              <option *ngFor="let provider of providerList" value={{provider.id}}>{{provider.nombre}}</option>
-            </select>
-            <span class="select-arrow"><i class="fas fa-caret-down"></i></span>
+        <div class="input-group mb-3">
+          <span class="input-group-icon"><i class="far fa-building"></i></span>
+          <select class="form-control" id="exampleFormControlSelect1" name="provider" formControlName="provider">
+            <option *ngFor="let provider of providerList" value={{provider.id}}>{{provider.nombre}}</option>
+          </select>
+          <span class="select-arrow"><i class="fas fa-caret-down"></i></span>
+        </div>
+
+        <!-- Alerta              comienza            -->
+        <div *ngIf="f.provider.invalid && (f.provider.dirty || f.provider.touched)">
+          <div class="alert alert-danger" *ngIf="f.provider.errors.required">
+            Este campo es obligatorio.
           </div>
-
-          <!-- Alerta              comienza            -->
-        <span *ngIf="ff.provider.invalid && (ff.provider.dirty || ff.provider.touched)">
-
-          <span class="alert alert-danger" *ngIf="ff.provider.errors.required">
-              Este campo es obligatorio.
-          </span>
-          <span class="alert alert-danger" *ngIf="ff.provider.errors.maxlength">
+          <div class="alert alert-danger" *ngIf="f.provider.errors.maxlength">
             El nombre del proveedor no puede contener mas de 30 caracteres.
-        </span>
-          
-        </span>
-         <!-- Alerta       termina                  -->
-  
+          </div>
+        </div>
+        <!-- Alerta       termina                  -->
+
       </div>
     </div>
     <div class="row">
       <div class="col-md-6">
         <label for="dueDate" class="form-label">Fecha de vencimiento</label>
-          <div class="input-group mb-3">
-            <span class="input-group-icon"><i class="far fa-calendar-alt"></i></span>
-            <input type="text" class="form-control" name="dueDate" formControlName="dueDate"
-              maxlength="60" required>
+        <div class="input-group mb-3">
+          <span class="input-group-icon"><i class="far fa-calendar-alt"></i></span>
+          <input type="text" class="form-control" name="dueDate" formControlName="dueDate" maxlength="60" required>
+        </div>
+        <!-- Alerta              comienza            -->
+        <div *ngIf="f.dueDate.invalid && (f.dueDate.dirty || f.dueDate.touched)">
+          <div class="alert alert-danger" *ngIf="f.dueDate.errors.required">
+            Este campo es obligatorio.
           </div>
-
-           <!-- Alerta              comienza            -->
-        <span *ngIf="ff.dueDate.invalid && (ff.dueDate.dirty || ff.dueDate.touched)">
-
-          <span class="alert alert-danger" *ngIf="ff.dueDate.errors.required">
-              Este campo es obligatorio.
-          </span>
-          
-          
-        </span>
-         <!-- Alerta       termina                  -->
-       
-
+        </div>
+        <!-- Alerta       termina                  -->
       </div>
       <div class="col-md-6">
         <label for="quantity" class="form-label">Cantidad</label>
-          <div class="input-group mb-3">
-            <span class="input-group-icon"><i class="fas fa-sort-amount-up-alt"></i></span>
-            <input type="number" class="form-control" name="quantity" formControlName="quantity"
-              maxlength="60" required>
+        <div class="input-group mb-3">
+          <span class="input-group-icon"><i class="fas fa-sort-amount-up-alt"></i></span>
+          <input type="number" class="form-control" name="quantity" formControlName="quantity" maxlength="60" required>
+        </div>
+
+        <!-- Alerta              comienza            -->
+        <div *ngIf="f.quantity.invalid && (f.quantity.dirty || f.quantity.touched)">
+          <div class="alert alert-danger" *ngIf="f.quantity.errors.required">
+            Este campo es obligatorio.
           </div>
+        </div>
+        <!-- Alerta       termina                  -->
 
-            <!-- Alerta              comienza            -->
-        <span *ngIf="ff.quantity.invalid && (ff.quantity.dirty || ff.quantity.touched)">
-
-          <span class="alert alert-danger" *ngIf="ff.quantity.errors.required">
-              Este campo es obligatorio.
-          </span>
-          
-          
-        </span>
-         <!-- Alerta       termina                  -->
-       
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
         <label for="description" class="form-label">Descripción</label>
-          <div class="input-group mb-3">
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description" formControlName="description"></textarea>
+        <div class="input-group mb-3">
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"
+            formControlName="description"></textarea>
+        </div>
+
+
+        <!-- Alerta              comienza            -->
+        <div *ngIf="f.description.invalid && (f.description.dirty || f.description.touched)">
+          <div class="alert alert-danger" *ngIf="f.description.errors.required">
+            Este campo es obligatorio.
           </div>
+        </div>
+        <!-- Alerta       termina                  -->
 
-          
-           <!-- Alerta              comienza            -->
-        <span *ngIf="ff.description.invalid && (ff.description.dirty || ff.description.touched)">
-
-          <span class="alert alert-danger" *ngIf="ff.description.errors.required">
-              Este campo es obligatorio.
-          </span>
-          
-          
-        </span>
-         <!-- Alerta       termina                  -->
-         
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6 offset-md-3">
+      <div class="col-md-6 ofset-md-3">
         <div class="modal-form__actions">
           <a class="btn btn-secondary" style="min-width: 172px;" routerLink="administracion/productos">Cancelar</a>
-          <button type="submit" class="btn btn-primary" style="min-width: 172px;">{{editing? 'Guardar': 'Agregar'}}</button>
+          <button type="submit" class="btn btn-primary" style="min-width: 172px;">{{editing? 'Guardar':
+            'Agregar'}}</button>
         </div>
       </div>
     </div>

@@ -70,7 +70,7 @@ export class ProductFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  get ff() {
+  get f() {
     return this.productForm.controls
   }
 
