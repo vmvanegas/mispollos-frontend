@@ -12,7 +12,8 @@ export const environment = {
   url_productList: `${url}producto`,
   url_orderList: `${url}pedido`,
   url_customerList: `${url}cliente`,
-  url_validateUser: `${url}user/authenticate`
+  url_validateUser: `${url}user/authenticate`,
+  url_dashboard: `${url}dashboard`
 };
 
 /*

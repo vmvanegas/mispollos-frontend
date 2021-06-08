@@ -1,18 +1,61 @@
 <div class="ms-card-container">
   <div class="ms-card-container__header">
-    <div class="row">
-      <div class="col-md-6">
-        <canvas id="myChart" width="400" height="400">
-        </canvas>
+  </div>
+  <div class="informative-cards row">
+    <div class="col-md-3 col-6 d-flex">
+      <div class="informative-cards__card informative-cards__card--1">
+        <h3>Producto más vendido</h3>
+        <small>esta semana</small>
+        <p>{{bestSellingProduct?.nombre}}</p>
       </div>
-      <div class="col-md-6">
-        <canvas id="myChartLine" width="400" height="400">
-        </canvas>
+    </div>
+    <div class="col-md-3 col-6 d-flex">
+      <div class="informative-cards__card informative-cards__card--2">
+        <h3>Producto menos vendido</h3>
+        <small>esta semana</small>
+        <p>{{leastSoldProduct?.nombre}}</p>
       </div>
-      <div class="col-12">
-        <canvas id="myChartBar" width="400" height="400">
-        </canvas>
+    </div>
+    <div class="col-md-3 col-6 d-flex">
+      <div class="informative-cards__card informative-cards__card--3">
+        <h3>Fecha de vencimiento cercana</h3>
+        <p>{{closeDueDate?.nombre}}</p>
       </div>
+    </div>
+    <div class="col-md-3 col-6 d-flex">
+      <div class="informative-cards__card informative-cards__card--4">
+        <h3>Bajo stock</h3>
+        <p>{{lowStock?.nombre}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row mx-0">
+    <div class="col-md-6">
+      <div class="sales">
+        <h3>Ventas</h3>
+        <small >esta semana</small>
+        <p class="mt-4">Las ventas {{(salesIncreasePercentage?.increase || salesIncreasePercentage?.percent == 0)? "aumentaron": "se redujeron"}} un</p>
+        <span class="percent">
+          {{salesIncreasePercentage?.percent}}% 
+          <i *ngIf="salesIncreasePercentage?.increase && salesIncreasePercentage?.percent != 0" class="fas fa-caret-up"></i>
+          <i *ngIf="!salesIncreasePercentage?.increase && salesIncreasePercentage?.percent != 0" class="fas fa-caret-down"></i>
+        </span>
+        <p class="mb-5">respecto a la semana pasada</p>
+        <div class="row mx-0">
+          <div class="col-md-6">
+            <p>semana pasada</p>
+            <p>{{salesIncreasePercentage?.lastWeek}} ventas</p>
+          </div>
+          <div class="col-md-6">
+            <p>semana actual</p>
+            <p>{{salesIncreasePercentage?.currentWeek}} ventas</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <canvas id="myChartBar">
+      </canvas>
     </div>
   </div>
 </div>
