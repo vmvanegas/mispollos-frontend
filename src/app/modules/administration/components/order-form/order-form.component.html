@@ -76,11 +76,14 @@
                     <label for="product" class="form-label">Producto</label>
                     <div class="input-group mb-3">
                         <span class="input-group-icon"><i class="far fa-user"></i></span>
-                        <select class="form-control" [class.disabled]="editingItem == true" name="product" formControlName="product">
+                        <select class="form-control" [class.disabled]="editingItem == true" name="product" (change)="getSelectedProduct()" formControlName="product">
                             <option *ngFor="let product of productsList" value={{product.id}}>{{product.nombre}}
                             </option>
                         </select>
-                        <span class="select-arrow"><i class="fas fa-caret-down"></i></span>
+                        <span class="select-arrow"><i class="fas fa-caret-down"></i></span>                        
+                    </div>
+                    <div class="alert" style="font-size: .9rem;" *ngIf="selectedProduct">
+                        <small>Cantidad disponible: {{selectedProduct?.stock}}</small>
                     </div>
                     <label for="quantity" class="form-label">Cantidad</label>
                     <div class="input-group mb-3">

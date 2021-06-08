@@ -38,15 +38,14 @@ export class ProductFormComponent implements OnInit {
       price: ["", [Validators.required, Validators.maxLength(120)]],
       provider: ["", [Validators.required, Validators.maxLength(60)]],
       dueDate: ["", [Validators.required, Validators.maxLength(60)]],
-      quantity: ["", [Validators.required, Validators.maxLength(60)]],
-      description: ["", [Validators.required, Validators.maxLength(120)]],
+      quantity: ["", [Validators.required, Validators.maxLength(60)]]
+      /* description: ["", [Validators.required, Validators.maxLength(120)]], */
     })
 
     const productId = this.activatedRoute.snapshot.paramMap.get('id');
 
     if(productId){
       this.getProduct(productId).subscribe(res => {
-        console.log("getproduct")
         
         this.productForm.patchValue({
           name: this.editingProduct.nombre,
@@ -54,8 +53,8 @@ export class ProductFormComponent implements OnInit {
           price: this.editingProduct.precio,
           provider: this.editingProduct.idProveedor,
           dueDate: this.editingProduct.fechaVencimiento,
-          quantity: this.editingProduct.stock,
-          description: this.editingProduct.descripcion,
+          quantity: this.editingProduct.stock
+          /* description: this.editingProduct.descripcion, */
         })
 
         this.getProviderList()
@@ -118,7 +117,7 @@ export class ProductFormComponent implements OnInit {
           IdCategoria: this.productForm.controls['category'].value,
           IdProveedor: this.productForm.controls['provider'].value,
           Nombre: this.productForm.controls['name'].value,
-          Descripcion: this.productForm.controls['description'].value,
+          /* Descripcion: this.productForm.controls['description'].value, */
           Stock: this.productForm.controls['quantity'].value,
           FechaVencimiento: this.productForm.controls['dueDate'].value,
           Precio: this.productForm.controls['price'].value
@@ -141,7 +140,7 @@ export class ProductFormComponent implements OnInit {
           IdCategoria: this.productForm.controls['category'].value,
           IdProveedor: this.productForm.controls['provider'].value,
           Nombre: this.productForm.controls['name'].value,
-          Descripcion: this.productForm.controls['description'].value,
+          /* Descripcion: this.productForm.controls['description'].value, */
           Stock: this.productForm.controls['quantity'].value,
           FechaVencimiento: this.productForm.controls['dueDate'].value,
           Precio: this.productForm.controls['price'].value

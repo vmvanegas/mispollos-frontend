@@ -25,8 +25,8 @@ export class OrderFormComponent implements OnInit {
   public loading = true;
   public form: FormGroup
   public itemForm: FormGroup
-  public idToDelete = ""
-
+  public idToDelete = ""  
+  public selectedProduct
   public customersList = []
   public productsList = []
 
@@ -59,6 +59,10 @@ export class OrderFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  getSelectedProduct() {
+    this.selectedProduct = this.productsList.find(x => x.id == this.itemForm.controls["product"].value)
   }
 
   getCustomers() {
@@ -203,7 +207,7 @@ export class OrderFormComponent implements OnInit {
         }
 
       }
-
+      this.selectedProduct = null
       this.itemForm.reset()
       this.myModal.nativeElement.click()
     }

@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { DatePipeService } from './date-pipe.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,18 +15,33 @@ export class ProductService {
     'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`
   })
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private datePipe: DatePipeService
+    ) {}
 
   getList = () => {
     return this.http.get(`${this.URL_PRODUCTLIST}`, {headers: this.headers})
   }
 
   getById(id) {
-    return this.http.get(`${this.URL_PRODUCTLIST}/${id}`, {headers: this.headers})
+    return this.http.get(`${this.URL_PRODUCTLIST}/${id}`, {headers: this.headers}).pipe(
+      map((item: any) => {
+          item.fechaVencimiento = this.datePipe.transform(item.fechaVencimiento, "yyyy-MM-dd")
+        return item;
+      })
+    )
   }
 
   get(page) {
-    return this.http.get(`${this.URL_PRODUCTLIST}/p/${page}`, {headers: this.headers})
+    return this.http.get(`${this.URL_PRODUCTLIST}/p/${page}`, {headers: this.headers}).pipe(
+      map((data: any) => {
+        data.data.forEach(item => {
+          item.fechaVencimiento = this.datePipe.transform(item.fechaVencimiento, "yyyy-MM-dd")
+        });
+        return data;
+      })
+    )
   }
   create(product) {
     return this.http.post(this.URL_PRODUCTLIST, product, {headers: this.headers})
