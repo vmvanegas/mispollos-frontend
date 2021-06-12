@@ -21,7 +21,7 @@ export class ProviderComponent implements OnInit {
   public idToDelete = ""
   public loading = true;
   public error = false
-  public tableColums = [{ title: "Nombre", field: "nombre" }, { title: "Telefono", field: "telefono" }]
+  public tableColums = [{ title: "Nombre", field: "nombre" }, { title: "Teléfono", field: "telefono" }]
 
 
   form: FormGroup = this.formBuilder.group({

@@ -3,12 +3,12 @@
     <h1>Clientes</h1>
     <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" (click)="resetForm()">Agregar cliente</button>
   </div>
-  <app-table *ngIf="!loading" 
+  <app-table *ngIf="!loading"
   [list]="list"
-  [totalItems]="totalItems" 
-  [page]="page" 
-  [service]="customerService" 
-  [colums]="tableColums" 
+  [totalItems]="totalItems"
+  [page]="page"
+  [service]="customerService"
+  [colums]="tableColums"
   (onEdit)="editItem($event)"
   (onChangePage)="page = $event">
   </app-table>
@@ -33,11 +33,11 @@
             <input type="text" class="form-control" name="lastName" formControlName="lastName" placeholder="Apellido del cliente"
               maxlength="60" required>
           </div>
-          <label for="telephone" class="form-label">Telefono</label>
+          <label for="telephone" class="form-label">Teléfono</label>
           <div class="input-group mb-3">
             <span class="input-group-icon"><i class="fas fa-phone-alt"></i></span>
             <input type="text" class="form-control" name="telephone" formControlName="telephone"
-              placeholder="Telefono del cliente" maxlength="60" required>
+              placeholder="Teléfono del cliente" maxlength="60" required>
           </div>
           <div class="modal-form__actions">
             <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
