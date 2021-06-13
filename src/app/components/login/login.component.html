@@ -14,17 +14,17 @@
                                     <span class="input-group-icon">@</span>
                                     <input type="email" class="form-control" name="email"
                                         formControlName="email" placeholder="example@host.com" maxlength="60" required>
-                                </div>                                
+                                </div>
                                 <div *ngIf="form.email.invalid && (form.email.dirty || form.email.touched)">
 
                                     <div class="alert alert-danger" *ngIf="form.email.errors.required">
                                         Este campo es obligatorio.
                                     </div>
                                     <div class="alert alert-danger" *ngIf="form.email.errors.maxlength">
-                                        El correo no puede contener mas de 60 caracteres.
+                                        El correo no puede contener más de 60 caracteres.
                                     </div>
                                     <div class="alert alert-danger" *ngIf="form.email.errors.email">
-                                        El correo es invalido.
+                                        El correo es inválido.
                                     </div>
                                 </div>
 
@@ -41,19 +41,19 @@
                                         Este campo es obligatorio.
                                     </div>
                                     <div class="alert alert-danger" *ngIf="form.password.errors.maxlength">
-                                        La contraseña solo puede contener maximo 16 caracteres.
+                                        La contraseña solo puede contener máximo 16 caracteres.
                                     </div>
                                     <div class="alert alert-danger" *ngIf="form.password.errors.minlength">
-                                        La contraseña solo puede contener minimo 8 caracteres.
+                                        La contraseña solo puede contener mínimo 8 caracteres.
                                     </div>
                                     <div class="alert alert-danger" *ngIf="form.password.errors.pattern">
-                                        La contraseña debe tener 1 mayuscula 1 minuscula y un numero.
+                                        La contraseña debe tener 1 mayúscula 1 minúscula y un número.
                                     </div>
                                 </div>
 
                                 <div class="form-section__actions">
                                     <input type="submit" class="ms-btn ms-btn-primary" style="min-width: 173px;"
-                                        value="Enviar">                                    
+                                        value="Enviar">
                                 </div>
                             </form>
                             <p class="text-center my-5">¿Aún no tienes cuenta?, creala <a routerLink="/registro"
@@ -65,7 +65,7 @@
                             <div class="presentation-section__content">
                                 <h3 class="mb-5">Bienvenido</h3>
                                 <p>Administra tu negocio de <br>
-                                    forma facil y eficiente</p>
+                                    forma fácil y eficiente</p>
                             </div>
                             <img class="presentation-section__shape" src="../../../assets/img-signup/login-shape-1.svg" draggable="false"
                                 alt="">
@@ -98,7 +98,7 @@
                 <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
                 <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
             </svg>
-          </ng-template>        
+          </ng-template>
           <button *ngIf="!wrongUser; else wrongButton" class="btn btn-primary mt-5" data-dismiss="modal" (click)="redirectToAdmin()" style="min-width: 150px;">OK</button>
           <ng-template #wrongButton>
             <button class="btn btn-primary mt-5" data-dismiss="modal" style="min-width: 150px;">OK</button>

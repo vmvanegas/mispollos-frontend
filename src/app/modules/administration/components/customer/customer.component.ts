@@ -10,7 +10,7 @@ import { CustomerService } from '../../services/customer.service';
 export class CustomerComponent implements OnInit {
 
   @ViewChild('myModal') public myModal: ElementRef;
-  
+
   public page = 1
   public list = []
   public editing: boolean = false
@@ -19,14 +19,14 @@ export class CustomerComponent implements OnInit {
   public loading = true;
   public error = false
   public form: FormGroup
-  public tableColums = [{ title: "Nombre", field: "nombre" }, { title: "Apellido", field: "apellido" }, { title: "Telefono", field: "telefono" }]
+  public tableColums = [{ title: "Nombre", field: "nombre" }, { title: "Apellido", field: "apellido" }, { title: "Teléfono", field: "telefono" }]
 
 
 
   constructor(
     public customerService: CustomerService, //Objeto instanciado
     private formBuilder: FormBuilder, //Objeto instanciado
-  ) { 
+  ) {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(60)]],
       lastName: ['', [Validators.required, Validators.maxLength(60) ]],
@@ -74,7 +74,7 @@ export class CustomerComponent implements OnInit {
           Apellido: this.form.controls['lastName'].value,
           Telefono: this.form.controls['telephone'].value,
         }
-        
+
         this.customerService.update(customer).subscribe(
           res => {
             this.editing = false
@@ -100,7 +100,7 @@ export class CustomerComponent implements OnInit {
        this.list = res.data
        this.totalItems = new Array(Math.ceil(res.total/10))
        this.error = false
-       this.loading = false 
+       this.loading = false
        console.log(this.list);
 
      },err=>{

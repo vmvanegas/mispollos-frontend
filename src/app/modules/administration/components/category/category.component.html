@@ -1,14 +1,14 @@
 <div class="ms-card-container">
     <div class="ms-card-container__header">
-        <h1>Categorias</h1>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" (click)="resetModalForm()">Agregar Categoria</button>
+        <h1>Categorías</h1>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" (click)="resetModalForm()">Agregar Categoría</button>
     </div>
-    <app-table *ngIf="!loading" 
+    <app-table *ngIf="!loading"
     [list]="list"
-    [totalItems]="totalItems" 
-    [page]="page" 
-    [service]="categoryService" 
-    [colums]="tableColums" 
+    [totalItems]="totalItems"
+    [page]="page"
+    [service]="categoryService"
+    [colums]="tableColums"
     (onEdit)="editItem($event)"
     (onChangePage)="page = $event">
     </app-table>
@@ -18,12 +18,12 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-form">
-        <h3>{{editing? 'Editar categoria': 'Agregar categoria'}}</h3>
+        <h3>{{editing? 'Editar categoría': 'Agregar categoría'}}</h3>
         <form action="" [formGroup]="form" (ngSubmit)="sendItem()">
           <label for="email" class="form-label">Nombre</label>
           <div class="input-group mb-3">
             <span class="input-group-icon"><i class="far fa-user"></i></span>
-            <input type="text" class="form-control" name="name" formControlName="name" placeholder="Nombre de la categoria"
+            <input type="text" class="form-control" name="name" formControlName="name" placeholder="Nombre de la categoría"
               maxlength="60" required>
           </div>
           <div *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)">
@@ -32,7 +32,7 @@
                 Este campo es obligatorio.
             </div>
             <div class="alert alert-danger" *ngIf="f.name.errors.maxlength">
-                El correo no puede contener mas de 40 caracteres.
+                El correo no puede contener más de 40 caracteres.
             </div>
         </div>
           <div class="modal-form__actions">
