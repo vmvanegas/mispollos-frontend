@@ -3,8 +3,15 @@
         <h1>Mi cuenta</h1>
     </div>
     <form class="ms-form" [formGroup]="form">
+        <div class="d-flex justify-content-center">
+            <div class="tabs mb-5" (resize)="initializeTab()">
+                <button class="tab active" (click)="setTabActive($event, userInfo)">Datos de usuario</button>
+                <button class="tab" (click)="setTabActive($event, storeInfo)">Datos de tienda</button>
+                <div class="active-bar" #activeBar></div>
+            </div>
+        </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 offset-md-3 info active" #userInfo>
                 <div class="row">
                     <div class="col-md-12">
                         <h2 class="subtitle">Datos de usuario</h2>
@@ -35,7 +42,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 offset-md-3 info" #storeInfo>
                 <div class="row">
                     <div class="col-md-12">
                         <h2 class="subtitle">Datos de tienda</h2>
@@ -44,7 +51,7 @@
                         <label for="storeName" class="form-label">Nombre</label>
                         <div class="input-group mb-3">
                             <span class="input-group-icon"><i class="far fa-user"></i></span>
-                            <input type="text" class="form-control" [class.disabled]="user.rol.nombre != 'Admin'" name="storeName" formControlName="storeName" maxlength="60"
+                            <input type="text" class="form-control" [class.disabled]="user?.rol.nombre != 'Admin'" name="storeName" formControlName="storeName" maxlength="60"
                                 required>
                         </div>
                     </div>
@@ -52,7 +59,7 @@
                         <label for="telephone" class="form-label">Telefono</label>
                         <div class="input-group mb-3">
                             <span class="input-group-icon"><i class="far fa-user"></i></span>
-                            <input type="text" class="form-control" [class.disabled]="user.rol.nombre != 'Admin'" name="telephone" formControlName="telephone" maxlength="60"
+                            <input type="text" class="form-control" [class.disabled]="user?.rol.nombre != 'Admin'" name="telephone" formControlName="telephone" maxlength="60"
                                 required>
                         </div>
                     </div>
@@ -60,14 +67,14 @@
                         <label for="address" class="form-label">Dirección</label>
                         <div class="input-group mb-3">
                             <span class="input-group-icon"><i class="fas fa-dollar-sign"></i></span>
-                            <input type="text" class="form-control" [class.disabled]="user.rol.nombre != 'Admin'" name="address" formControlName="address" maxlength="60"
+                            <input type="text" class="form-control" [class.disabled]="user?.rol.nombre != 'Admin'" name="address" formControlName="address" maxlength="60"
                                 required>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-5">
             <div class="col-md-6 offset-md-3">
                 <div class="modal-form__actions">
                     <a class="btn btn-secondary" style="min-width: 172px;"

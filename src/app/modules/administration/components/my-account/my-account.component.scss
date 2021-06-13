@@ -1,3 +1,11 @@
 :host {
     width: 100%;
 }
+
+
+.info {
+    display: none;          
+    &.active {
+        display: flex;
+    }
+}

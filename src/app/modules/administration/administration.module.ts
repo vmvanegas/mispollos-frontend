@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
-
+import { CommonModule } from '@angular/common';
 import { AdministrationRoutingModule } from './administration-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+
 import { ProductsComponent } from './components/products/products.component';
 import { AdministrationComponent } from './administration.component';
 import { CategoryComponent } from './components/category/category.component';
 import { ProviderComponent } from './components/provider/provider.component';
 import { OrderComponent } from './components/order/order.component';
 import { CustomerComponent } from './components/customer/customer.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EmployeeComponent } from './components/employee/employee.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
@@ -17,6 +18,7 @@ import { TableComponent } from './components/table/table.component';
 import { OrderListComponent } from './components/order-list/order-list.component';
 import { OrderFormComponent } from './components/order-form/order-form.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
+import { AutocompleteComponent } from './components/autocomplete/autocomplete.component';
 
 @NgModule({
   declarations: [
@@ -30,12 +32,17 @@ import { MyAccountComponent } from './components/my-account/my-account.component
     DashboardComponent, 
     ProductFormComponent, 
     ProductsListComponent, 
-    TableComponent, OrderListComponent, OrderFormComponent, MyAccountComponent    
+    TableComponent,
+     OrderListComponent,
+     OrderFormComponent,
+     MyAccountComponent,
+     AutocompleteComponent 
   ],
   imports: [
     CommonModule,
     AdministrationRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   bootstrap: [AdministrationComponent]
 })
