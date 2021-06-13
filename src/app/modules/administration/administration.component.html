@@ -1,9 +1,18 @@
 <div class="administration" #admin (window:resize)="resize()">
     <header class="ms-header">
         <button class="btn btn-toggle" #btnToggle (click)="toggleSideBar()"><i class="fas fa-bars"></i></button>
-        <div class="ms-header__menu">
-            <span>Nombre de usuario</span>
-            <button class="btn"(click)="logout()">Salir</button>
+        <div class="ms-header__menu" (mouseenter)="mouseEnter()"  (mouseleave)="mouseLeave()">
+            <button class="btn dropdown-toggle">{{user.nombre}}</button>
+            <div class="dropdown" #myDropDown>
+                <ul>
+                    <li>
+                        <a class="btn" routerLink="/administracion/mi-cuenta">Mi cuenta</a>
+                    </li>
+                    <li>
+                        <button class="btn"(click)="logout()">Salir</button>
+                    </li>
+                </ul>
+            </div>
         </div>
     </header>
 
@@ -12,12 +21,13 @@
             <img src="../../../assets/img-signup/logo-mispollos.svg" width="160px" height="80px" alt="">
         </div>
         <ul class="side-nav__menu">
+            <li><a routerLink="dashboard" routerLinkActive="active">Dashboard</a></li>
             <li><a routerLink="productos" routerLinkActive="active">Productos</a></li>
             <li><a routerLink="pedidos" routerLinkActive="active">Pedidos</a></li>
             <li><a routerLink="categorias" routerLinkActive="active">Categorías</a></li>
             <li><a routerLink="clientes" routerLinkActive="active">Clientes</a></li>
             <li><a routerLink="proveedores" routerLinkActive="active">Proveedores</a></li>
-            <li><a routerLink="empleados" routerLinkActive="active">Empleados</a></li>
+            <li *ngIf="user.rol == 'Admin'"><a routerLink="empleados" routerLinkActive="active">Empleados</a></li>
         </ul>
         <div class="side-nav__copy">
             <p>Mis Pollos © 2020</p>

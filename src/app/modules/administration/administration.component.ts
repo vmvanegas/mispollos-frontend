@@ -12,15 +12,30 @@ export class AdministrationComponent implements OnInit {
   @ViewChild('btnToggle') btnToggle: ElementRef
   @ViewChild('sideNav') sideNav: ElementRef
   @ViewChild('bgShadow') bgShadow: ElementRef
+  @ViewChild('myDropDown') myDropDown: ElementRef
+  public user
   
-
-  public innerWidth
-
   constructor(
     private authService : AuthService,
-  ) { }
+  ) { 
+    this.user = JSON.parse(localStorage.getItem('user'))
+    console.log(this.user)
+  }
 
   ngOnInit(): void {    
+  }
+
+  mouseEnter() {
+    this.myDropDown.nativeElement.style.maxHeight = this.myDropDown.nativeElement.scrollHeight + "px"
+  }
+
+  mouseLeave() {
+    this.myDropDown.nativeElement.style.maxHeight = 0
+  }
+
+
+  configDropDown() {
+    this.myDropDown.nativeElement
   }
 
 

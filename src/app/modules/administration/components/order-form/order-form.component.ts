@@ -14,21 +14,25 @@ import { QuantityValidator } from '../../../../utils/hasStock'
 export class OrderFormComponent implements OnInit {
 
   @ViewChild('myModal') public myModal: ElementRef;
+  @ViewChild('myModalCustomer') public myModalCustomer: ElementRef;
   @ViewChild('alertToggle') public alertToggle: ElementRef;
 
   public page = 1
   public list = []
   public editingItem: boolean = false
   public editingOrder: boolean = false
+  public showAutoCompleteResults: boolean = false
   public orderId: string
   public totalItems = []
   public loading = true;
   public form: FormGroup
   public itemForm: FormGroup
+  public formCustomer: FormGroup
   public idToDelete = ""
-
+  public selectedProduct
   public customersList = []
   public productsList = []
+  public autoCompleteResults = []
 
   set setIdToDelete(id) {
     this.idToDelete = id
@@ -42,7 +46,7 @@ export class OrderFormComponent implements OnInit {
     private router: Router,
     private quantityValidator: QuantityValidator,
     private activatedRoute: ActivatedRoute
-  ) {  
+  ) {
     this.orderId = this.activatedRoute.snapshot.paramMap.get('id');
 
     this.form = this.formBuilder.group({
@@ -54,11 +58,35 @@ export class OrderFormComponent implements OnInit {
       quantity: ['', [Validators.required]],
     }, { asyncValidators: this.quantityValidator.validate })
 
-    this.getCustomers()    
+    this.formCustomer = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.maxLength(60)]],
+      lastName: ['', [Validators.required, Validators.maxLength(60)]],
+      telephone: ['', [Validators.required, Validators.maxLength(30)]],
+    })
+
+    this.getCustomers()
 
   }
 
+  get f() {
+    return this.formCustomer.controls
+  }
+
+  get formControls() {
+    return this.form.controls
+  }
+
+  get formItems() {
+    return this.itemForm.controls
+  }
+
+
+
   ngOnInit(): void {
+  }
+
+  getSelectedProduct() {
+    this.selectedProduct = this.productsList.find(x => x.id == this.itemForm.controls["product"].value)
   }
 
   getCustomers() {
@@ -75,9 +103,11 @@ export class OrderFormComponent implements OnInit {
   getProducts() {
     this.productService.getList().subscribe(
       (res: any) => {
-        this.productsList = res.data        
-        if(this.orderId) {
+        this.productsList = res.data
+        if (this.orderId) {
           this.loadListOfProducts()
+        } else {
+          this.loading = false
         }
       },
       err => {
@@ -88,7 +118,7 @@ export class OrderFormComponent implements OnInit {
   loadListOfProducts() {
     this.editingOrder = true
     this.orderService.getById(this.orderId).subscribe(
-      (res: any)=>{
+      (res: any) => {
         res.pedidoProducto.forEach(x => {
           const product = this.productsList.find(p => p.id == x.idProducto)
           this.list.push({
@@ -101,8 +131,9 @@ export class OrderFormComponent implements OnInit {
         this.form.patchValue({
           customer: res.idCliente
         })
-      }, 
-      err=>{
+        this.loading = false
+      },
+      err => {
         console.log(err)
       })
   }
@@ -129,16 +160,16 @@ export class OrderFormComponent implements OnInit {
           IdUsuario: userId,
           IdCliente: customer.value,
           ListaProductos: productList
-        }        
+        }
 
-        if(!this.editingOrder) {
+        if (!this.editingOrder) {
           console.log(order)
           this.orderService.create(order).subscribe(
             res => {
               this.form.reset()
               this.list = []
               this.router.navigate(['/administracion/pedidos'])
-  
+
             },
             err => {
               console.log(err)
@@ -151,14 +182,14 @@ export class OrderFormComponent implements OnInit {
               this.form.reset()
               this.list = []
               this.router.navigate(['/administracion/pedidos'])
-  
+
             },
             err => {
               console.log(err)
             })
         }
 
-        
+
       }
     }
   }
@@ -203,7 +234,7 @@ export class OrderFormComponent implements OnInit {
         }
 
       }
-
+      this.selectedProduct = null
       this.itemForm.reset()
       this.myModal.nativeElement.click()
     }
@@ -225,10 +256,35 @@ export class OrderFormComponent implements OnInit {
     }
   }
 
+  public sendCustomer() {
+    if (this.formCustomer.valid) {
+
+      const customer = {
+        IdTienda: JSON.parse(localStorage.getItem('user')).idTienda,
+        Nombre: this.formCustomer.controls['name'].value,
+        Apellido: this.formCustomer.controls['lastName'].value,
+        Telefono: this.formCustomer.controls['telephone'].value,
+      }
+
+      this.customerService.create(customer).subscribe(
+        (res: any) => {
+          this.formCustomer.reset()
+          this.myModalCustomer.nativeElement.click();
+          this.getCustomers()
+          this.form.patchValue({
+            customer: res.id
+          })
+        },
+        err => {
+          console.log(err)
+        }
+      )
+    }
+  }
+
   resetModalForm() {
     this.editingItem = false
     this.itemForm.reset()
-  }
-
+  }  
 
 }

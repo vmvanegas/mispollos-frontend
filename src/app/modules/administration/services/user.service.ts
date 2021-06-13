@@ -20,6 +20,10 @@ export class UserService {
     return this.http.get(`${this.URL_USERLIST}/p/${page}`, {headers: this.headers})
   }
 
+  getById = (id) => {    
+    return this.http.get(`${this.URL_USERLIST}/${id}`, {headers: this.headers})
+  }
+
   createUser(user) {
     return this.http.post(this.URL_USERLIST, user, {headers: this.headers})
   }

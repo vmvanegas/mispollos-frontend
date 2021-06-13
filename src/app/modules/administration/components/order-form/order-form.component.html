@@ -1,7 +1,8 @@
 <div class="ms-card-container">
     <div class="ms-card-container__header">
         <h1>{{editingOrder? "Editar pedido" : "Crear pedido"}}</h1>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#myModalForm" (click)="resetModalForm()">Agregar producto</button>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#myModalForm"
+            (click)="resetModalForm()">Agregar producto</button>
     </div>
     <div class="table-responsive-md">
         <table class="table">
@@ -19,10 +20,10 @@
                     <td>{{item.price}}</td>
                     <td>{{item.quantity}}</td>
                     <td class="text-right">
-                        <button class="btn btn-edit" data-toggle="modal" data-target="#myModalForm" (click)="editItem(item)"><i
-                                class="far fa-edit"></i></button>
-                        <button class="btn btn-delete" data-toggle="modal" data-target="#myModalQuestion" (click)="setIdToDelete = item.id"><i
-                                class="fas fa-trash-alt"></i></button>
+                        <button class="btn btn-edit" data-toggle="modal" data-target="#myModalForm"
+                            (click)="editItem(item)"><i class="far fa-edit"></i></button>
+                        <button class="btn btn-delete" data-toggle="modal" data-target="#myModalQuestion"
+                            (click)="setIdToDelete = item.id"><i class="fas fa-trash-alt"></i></button>
                     </td>
                 </tr>
                 <tr *ngIf="list.length == 0">
@@ -36,20 +37,25 @@
     <div class="ms-form">
         <form action="" [formGroup]="form" (ngSubmit)="send()">
             <label for="customer" class="form-label">Cliente</label>
-            <div class="row">
+            <div class="row">                
                 <div class="col-md-4">
-                    <div class="input-group mb-3">
-                        <span class="input-group-icon"><i class="far fa-user"></i></span>
-                        <select class="form-control" name="customer" formControlName="customer">
-                            <option *ngFor="let customer of customersList" value={{customer.id}}>{{customer.nombre}}
-                            </option>
-                        </select>
-                        <span class="select-arrow"><i class="fas fa-caret-down"></i></span>
+                    <app-autocomplete 
+                    *ngIf="!loading" 
+                    [list]="customersList" 
+                    [selectedItem]="formControls.customer.value" 
+                    [form]="form" 
+                    [controlName]="'customer'" >
+                    </app-autocomplete>
+                    <div *ngIf="formControls.customer.invalid && formControls.customer.touched">
+                        <div class="alert alert-danger" *ngIf="formControls.customer.errors.required">
+                            Este campo es obligatorio.
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <p>
-                        ¿No encuentras a tu cliente? crealo <a class="ms-hightlight" routerLink="/administracion/clientes">aquí</a>
+                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                            data-target="#myModalCustomer">Agregar cliente</button>
                     </p>
 
                 </div>
@@ -74,13 +80,26 @@
                 <h3>{{editingItem? 'Editar proveedor': 'Agregar producto'}}</h3>
                 <form action="" [formGroup]="itemForm" (ngSubmit)="addItem()">
                     <label for="product" class="form-label">Producto</label>
-                    <div class="input-group mb-3">
+                    <!-- <div class="input-group mb-3">
                         <span class="input-group-icon"><i class="far fa-user"></i></span>
-                        <select class="form-control" [class.disabled]="editingItem == true" name="product" formControlName="product">
+                        <select class="form-control" [class.disabled]="editingItem == true" name="product"
+                            (change)="getSelectedProduct()" formControlName="product">
                             <option *ngFor="let product of productsList" value={{product.id}}>{{product.nombre}}
                             </option>
                         </select>
                         <span class="select-arrow"><i class="fas fa-caret-down"></i></span>
+                    </div> -->
+                    <app-autocomplete 
+                    *ngIf="!loading" 
+                    [list]="productsList" 
+                    [selectedItem]="formItems.product.value" 
+                    [form]="itemForm" 
+                    [controlName]="'product'"
+                    [disabled]="editingItem"
+                    (onSelect)="getSelectedProduct()">
+                    </app-autocomplete>
+                    <div class="alert" style="font-size: .9rem;" *ngIf="selectedProduct">
+                        <small>Cantidad disponible: {{selectedProduct?.stock}}</small>
                     </div>
                     <label for="quantity" class="form-label">Cantidad</label>
                     <div class="input-group mb-3">
@@ -96,6 +115,79 @@
                     <div class="modal-form__actions">
                         <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-primary">{{editingItem? 'Guardar': 'Agregar'}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="myModalCustomer" #myModalCustomer>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-form">
+                <h3>Agregar cliente</h3>
+                <form action="" [formGroup]="formCustomer" (ngSubmit)="sendCustomer()">
+                    <label for="name" class="form-label">Nombre</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-icon"><i class="far fa-user"></i></span>
+                        <input type="text" class="form-control" name="name" formControlName="name"
+                            placeholder="Nombre de cliente" maxlength="60" required>
+                    </div>
+
+                    <!-- Alerta              comienza            -->
+                    <div *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)">
+
+                        <div class="alert alert-danger" *ngIf="f.name.errors.required">
+                            Este campo es obligatorio.
+                        </div>
+                        <div class="alert alert-danger" *ngIf="f.name.errors.maxlength">
+                            El Nombre no puede contener mas de 50 caracteres.
+                        </div>
+
+                    </div>
+                    <!-- Alerta       termina                  -->
+                    <label for="lastName" class="form-label">Apellido</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-icon"><i class="far fa-user"></i></span>
+                        <input type="text" class="form-control" name="lastName" formControlName="lastName"
+                            placeholder="Apellido del cliente" maxlength="60" required>
+                    </div>
+                    <!-- Alerta       comienza                   -->
+                    <div *ngIf="f.lastName.invalid && (f.lastName.dirty || f.lastName.touched)">
+
+                        <div class="alert alert-danger" *ngIf="f.lastName.errors.required">
+                            Este campo es obligatorio.
+                        </div>
+                        <div class="alert alert-danger" *ngIf="f.lastName.errors.maxlength">
+                            El Apellido no puede contener mas de 50 caracteres.
+                        </div>
+
+                    </div>
+                    <!-- Alerta      termina                    -->
+
+                    <label for="telephone" class="form-label">Teléfono</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-icon"><i class="fas fa-phone-alt"></i></span>
+                        <input type="text" class="form-control" name="telephone" formControlName="telephone"
+                            placeholder="Telefono del cliente" maxlength="60" required>
+                    </div>
+
+                    <!-- Alerta     comienza                     -->
+                    <div *ngIf="f.telephone.invalid && (f.telephone.dirty || f.telephone.touched)">
+
+                        <div class="alert alert-danger" *ngIf="f.telephone.errors.required">
+                            Este campo es obligatorio.
+                        </div>
+                        <div class="alert alert-danger" *ngIf="f.telephone.errors.maxlength">
+                            El Teléfono no puede contener mas de 60 caracteres.
+                        </div>
+
+                    </div>
+                    <!-- Alerta         termina                 -->
+                    <div class="modal-form__actions">
+                        <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Agregar</button>
                     </div>
                 </form>
             </div>
@@ -130,7 +222,8 @@
                 <h3>¿Estas seguro que deseas eliminar este producto?</h3>
                 <div class="modal-alert__actions">
                     <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-danger" data-dismiss="modal" (click)="deleteItem(idToDelete)" >Eliminar</button>
+                    <button type="submit" class="btn btn-danger" data-dismiss="modal"
+                        (click)="deleteItem(idToDelete)">Eliminar</button>
                 </div>
             </div>
         </div>

@@ -40,7 +40,7 @@ export class EmployeeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  get f(){
+  get f() {
 
     return this.form.controls
 
@@ -85,11 +85,12 @@ export class EmployeeComponent implements OnInit {
         this.employeeService.update(employee).subscribe(
           res => {
             this.editing = false
+            this.form.get('password').setValidators([Validators.required, Validators.maxLength(16), Validators.minLength(8), Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{0,}$")]);
+            this.form.get('password').updateValueAndValidity();
             this.editingItem = {}
             this.form.reset()
             this.myModal.nativeElement.click();
             this.getList()
-            console.log("editado?")
           },
           err => {
             console.log(err)
@@ -103,31 +104,33 @@ export class EmployeeComponent implements OnInit {
   public getList = () => {
     return this.employeeService.get(this.page).subscribe(
 
-       (res:any) =>{
-       this.list = res.data
-       this.totalItems = new Array(Math.ceil(res.total/10))
-       this.error = false
-       this.loading = false
-       console.log(this.list);
+      (res: any) => {
+        this.list = res.data
+        this.totalItems = new Array(Math.ceil(res.total / 10))
+        this.error = false
+        this.loading = false
+        console.log(this.list);
 
-     },err=>{
+      }, err => {
 
-       (console.log(err))
-       this.loading= false
-       this.error = true
+        (console.log(err))
+        this.loading = false
+        this.error = true
 
-     })
+      })
 
   }
 
   public editItem(employee) {
     this.editing = true
     this.editingItem = employee
+    this.form.get('password').clearValidators();
+    this.form.get('password').setValidators([Validators.maxLength(16), Validators.minLength(8), Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{0,}$")]);
+    this.form.get('password').updateValueAndValidity();
     this.form.patchValue({
       name: employee.nombre,
       lastName: employee.apellido,
-      email: employee.correo,
-      password: employee.clave,
+      email: employee.correo
     })
   }
 

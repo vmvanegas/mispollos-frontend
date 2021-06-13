@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import Chart from 'chart.js/auto';
+import { DashboardService } from '../../services/dashboard.service';
 
 
 @Component({
@@ -11,85 +12,94 @@ export class DashboardComponent implements OnInit {
 
   @ViewChild('myChart') myChart: ElementRef
 
-  constructor() {}
+  public bestSellingProduct
+  public leastSoldProduct
+  public salesIncreasePercentage
+  public lowStock
+  public closeDueDate
+
+  constructor(
+    private dashboardService: DashboardService
+  ) { }
 
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
 
   ngAfterViewInit() {
-    this.initPieCanvas()
-    this.initLineCanvas()
-    this.initBarCanvas()
-  }
+    let labels = []
+    let data = []
 
-  initPieCanvas() {
-    const canvas = <HTMLCanvasElement> document.getElementById('myChart')
-    const ctx = canvas.getContext('2d');
-    const myChart = new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: [
-          'Red',
-          'Blue',
-          'Yellow'
-        ],
-        datasets: [{
-          label: 'My First Dataset',
-          data: [300, 50, 100],
-          backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)'
-          ],
-          hoverOffset: 4
-        }]
+    this.dashboardService.getLastWeek().subscribe(
+      (res: any) => {
+        labels = res.labels
+        data = res.data
+        console.log("labels", labels)
+        console.log("data", data)
+        this.initBarCanvas(labels, data)
+        this.getBestSellingProduct()
       },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
+      err => { })
+
   }
 
-  initLineCanvas() {
-    const canvas = <HTMLCanvasElement> document.getElementById('myChartLine')
-    const ctx = canvas.getContext('2d');
-    const myChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"],
-        datasets: [{
-          label: 'My First Dataset',
-          data: [65, 59, 80, 81, 56, 55, 40],
-          fill: false,
-          borderColor: 'rgb(75, 192, 192)',
-          tension: 0.1
-        }]
+
+  getBestSellingProduct() {
+    this.dashboardService.getBestSellingProduct().subscribe(
+      res => {
+        this.bestSellingProduct = res
+        this.getLeastSoldProduct()
       },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
+      err => { })
   }
 
-  initBarCanvas() {
-    const canvas = <HTMLCanvasElement> document.getElementById('myChartBar')
+  getLeastSoldProduct() {
+    this.dashboardService.getLeastSoldProduct().subscribe(
+      res => {
+        this.leastSoldProduct = res
+        this.getSalesIncreasePercentage()
+      },
+      err => { })
+  }
+
+  getSalesIncreasePercentage() {
+    this.dashboardService.getSalesIncreasePercentage().subscribe(
+      res => {
+        this.salesIncreasePercentage = res
+        this.getLowStock()
+      },
+      err => { })
+  }
+
+  getLowStock() {
+    this.dashboardService.getLowStock().subscribe(
+      res => {
+        this.lowStock = res
+        this.getCloseDueDate()
+      },
+      err => { })
+  }
+
+  getCloseDueDate() {
+    this.dashboardService.getCloseDueDate().subscribe(
+      res => {
+        this.closeDueDate = res
+      },
+      err => { })
+  }
+
+  initBarCanvas(labels, data) {
+    console.clear()
+
+    const canvas = <HTMLCanvasElement>document.getElementById('myChartBar')
     const ctx = canvas.getContext('2d');
     const myChart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"],
+        labels: labels,
         datasets: [{
-          label: 'My First Dataset',
-          data: [65, 59, 80, 81, 56, 55, 40],
+          label: 'Pedidos realizados',
+          data: data,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(255, 159, 64, 0.2)',

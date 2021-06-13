@@ -4,4 +4,69 @@
 
 canvas {
     max-width: 100%;
+    width: 100%;
+}
+
+.informative-cards {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between;
+    margin: 0;
+    margin-bottom: 2rem;
+    @media (max-width: 576px) {
+        font-size: 12px;
+    }
+    &__card {
+        width: 100%;
+        min-width: 135px;
+        padding: 1rem;
+        background-color: #FFFFFF;        
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.10);
+        color: #999999;
+        margin-bottom: 2rem;
+
+        &--1 {
+            border-left: 10px solid violet;
+        }
+        &--2 {
+            border-left: 10px solid greenyellow;
+        }
+        &--3 {
+            border-left: 10px solid blue;
+        }
+        &--4 {
+            border-left: 10px solid red;
+        }
+        h3 {
+            font-size: 1.2em;
+            color: #333333;
+            font-weight: bold;
+            margin: 0;            
+        }            
+        p {
+            
+            font-size: 1em;
+        }
+    }   
+}
+
+.sales {    
+    text-align: center;   
+    padding: 1rem 0;
+    small{
+        color: #999999;
+    }
+    h3 {
+        color: #333333;
+        font-weight: 700;
+        margin: 0;
+    } 
+    .percent {
+        font-size: 40px;
+        font-weight: 700;
+        color: #333333;
+    }
+    .fa-caret-up {color: #00c200;}
+    .fa-caret-down  {color: #C62632;}
 }
