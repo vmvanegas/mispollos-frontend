@@ -1,0 +1,11 @@
+<div class="autocomplete">
+    <div class="input-group mb-3">
+        <span class="input-group-icon"><i class="far fa-user"></i></span>
+        <input class="form-control" [(ngModel)]="inputText" [placeholder]="placeholder" autocomplete="off" [class.disabled]="disabled"
+            (focusout)="hideResults($event)" (input)="autoComplete($event)" (keydown)="validateBackSpace($event)" name="autocomplete" #myInput>
+    </div>
+    <ul class="results" *ngIf="showAutoCompleteResults" #results>
+        <li class="item" *ngFor="let item of autoCompleteResults" (mousedown)="selectItem(item)">
+            {{item.nombre}}</li>
+    </ul>
+</div>

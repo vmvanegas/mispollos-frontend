@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 
@@ -8,6 +8,8 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./my-account.component.scss']
 })
 export class MyAccountComponent implements OnInit {
+
+  @ViewChild('activeBar') activeBar : ElementRef
 
   public form: FormGroup
   public idUser
@@ -34,6 +36,34 @@ export class MyAccountComponent implements OnInit {
     
   }
 
+  ngAfterViewInit() {
+    this.initializeTab()
+  }
+
+  initializeTab() {
+    console.log("resize D:")
+    let activeTab = <any>document.querySelector(".tab.active")
+    this.activeBar.nativeElement.style.width = activeTab.offsetWidth + "px"
+    this.activeBar.nativeElement.style.left = activeTab.offsetLeft + "px"
+  }
+
+  setTabActive(e, elementToActive) {
+    let element = e.target
+    let tabs = <any>document.querySelectorAll(".tab")
+    tabs.forEach(tab => {
+      tab.classList.remove("active")
+    });
+    element.classList.add("active")
+    this.activeBar.nativeElement.style.width = element.offsetWidth + "px"
+    this.activeBar.nativeElement.style.left = element.offsetLeft + "px"
+
+    let sections = <any>document.querySelectorAll(".info")
+    sections.forEach(section => {
+      section.classList.remove("active")
+    });
+
+    elementToActive.classList.add("active")
+  }
 
   getInfo() {
     this.userService.getById(this.idUser).subscribe(

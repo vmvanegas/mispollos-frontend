@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
+import { RecoverPasswordComponent } from './components/recover-password/recover-password.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { AuthGuard } from './services/auth.guard';
 import { CanEnterGuard } from './services/can-enter.guard';
@@ -8,6 +9,7 @@ import { CanEnterGuard } from './services/can-enter.guard';
 
 const routes: Routes = [
   { path:'registro', component: SignupComponent},
+  { path:'recuperar-clave/:token', component: RecoverPasswordComponent},
   { path:'login', component: LoginComponent, canActivate: [CanEnterGuard]},
   {
     path: 'administracion',

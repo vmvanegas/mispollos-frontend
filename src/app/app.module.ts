@@ -9,6 +9,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { AuthGuard } from './services/auth.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtModule } from "@auth0/angular-jwt";
+import { RecoverPasswordComponent } from './components/recover-password/recover-password.component';
 
 
 
@@ -16,7 +17,8 @@ import { JwtModule } from "@auth0/angular-jwt";
   declarations: [
     AppComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    RecoverPasswordComponent
   ],
   imports: [
     BrowserModule,

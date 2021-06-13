@@ -38,4 +38,8 @@ export class AuthService {
     this.router.navigate(['/login'])
   }
 
+  getUserByToken(token) {
+    return this.http.get<any>(`${this.URL_USERLIST}/recuperar-clave/${token}`)
+  }
+
 }
