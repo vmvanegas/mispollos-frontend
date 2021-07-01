@@ -16,6 +16,10 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
+  getList = () => {    
+    return this.http.get(`${this.URL_USERLIST}`, {headers: this.headers})
+  }
+
   get = (page) => {    
     return this.http.get(`${this.URL_USERLIST}/p/${page}`, {headers: this.headers})
   }

@@ -19,8 +19,12 @@ export class ProviderService {
     return this.http.get(this.URL_PROVIDERLIST, {headers: this.headers})
   }
 
-  get(page) {
-    return this.http.get(`${this.URL_PROVIDERLIST}/p/${page}`, {headers: this.headers})
+  get(page, search = null) {
+    if(search==null){
+      return this.http.get(`${this.URL_PROVIDERLIST}/p/${page}`, {headers: this.headers})
+    } else {
+      return this.http.get(`${this.URL_PROVIDERLIST}/p/${page}?search=${search}`, {headers: this.headers})
+    }    
   }
 
   create(provider) {

@@ -21,6 +21,7 @@ export class OrderFormComponent implements OnInit {
   public list = []
   public editingItem: boolean = false
   public editingOrder: boolean = false
+  public editingOrderObject = null
   public showAutoCompleteResults: boolean = false
   public orderId: string
   public totalItems = []
@@ -113,7 +114,7 @@ export class OrderFormComponent implements OnInit {
       err => {
         console.log(err)
       })
-  }
+  }  
 
   loadListOfProducts() {
     this.editingOrder = true
@@ -132,10 +133,19 @@ export class OrderFormComponent implements OnInit {
           customer: res.idCliente
         })
         this.loading = false
+        this.getOrderById()
       },
       err => {
         console.log(err)
       })
+  }
+
+  getOrderById(){
+    this.orderService.getById(this.orderId).subscribe(
+      res=>{
+        this.editingOrderObject = res
+      }, 
+      err=>{ console.log(err)}) 
   }
 
   send() {
@@ -176,6 +186,7 @@ export class OrderFormComponent implements OnInit {
             })
         } else {
           order.id = this.orderId
+          order.CreateOn = this.editingOrderObject.createdOn
           console.log("editando orden!!!" + JSON.stringify(order))
           this.orderService.update(order).subscribe(
             res => {
@@ -263,7 +274,7 @@ export class OrderFormComponent implements OnInit {
         IdTienda: JSON.parse(localStorage.getItem('user')).idTienda,
         Nombre: this.formCustomer.controls['name'].value,
         Apellido: this.formCustomer.controls['lastName'].value,
-        Telefono: this.formCustomer.controls['telephone'].value,
+        Telefono: this.formCustomer.controls['telephone'].value
       }
 
       this.customerService.create(customer).subscribe(

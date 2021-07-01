@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -40,6 +40,10 @@ export class AuthService {
 
   getUserByToken(token) {
     return this.http.get<any>(`${this.URL_USERLIST}/recuperar-clave/${token}`)
+  }
+
+  recoverPassword(email) {
+    return this.http.post<any>(`${this.URL_USERLIST}/recuperar-cuenta`, email)
   }
 
 }

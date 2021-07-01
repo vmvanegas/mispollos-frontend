@@ -80,6 +80,7 @@ export class EmployeeComponent implements OnInit {
           Apellido: this.form.controls['lastName'].value,
           Correo: this.form.controls['email'].value,
           Clave: this.form.controls['password'].value,
+          CreatedOn: this.editingItem.createdOn
         }
 
         this.employeeService.update(employee).subscribe(

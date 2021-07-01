@@ -19,8 +19,12 @@ export class CategoryService {
     return this.http.get(this.URL_CATEGORYLIST, {headers: this.headers})
   }
 
-  get(page) {
-    return this.http.get(`${this.URL_CATEGORYLIST}/p/${page}`, {headers: this.headers})
+  get(page, search = null) {
+    if(search==null){
+      return this.http.get(`${this.URL_CATEGORYLIST}/p/${page}`, {headers: this.headers})
+    } else {
+      return this.http.get(`${this.URL_CATEGORYLIST}/p/${page}?search=${search}`, {headers: this.headers})
+    }
   }//LEER CATEGORIA
 
   create(category) {

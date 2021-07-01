@@ -87,7 +87,8 @@ export class ProviderComponent implements OnInit {
         const provider = {
           Id: this.editingItem.id,
           Nombre: this.form.controls['name'].value,
-          Telefono: this.form.controls['telephone'].value
+          Telefono: this.form.controls['telephone'].value,
+          CreatedOn: this.editingItem.createdOn
         }
 
         console.log("editado?")

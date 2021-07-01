@@ -1,21 +1,50 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="modal-form">
+      <form [formGroup]="form" class="form-inline" (ngSubmit)="search()">
+        <div class="input-group">
+          <span class="input-group-icon"><i class="fas fa-search"></i></span>
+          <input type="text" class="form-control" name="search" formControlName="search"
+            placeholder="Buscar..." maxlength="60">
+        </div>        
+        <div class="modal-form__actions">
+          <!-- <button type="button" class="btn" (click)="clearSearch()">Cancelar</button>
+          <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button> -->
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="p-3">
+      <button class="btn btn-green" (click)="exportData()">Exportar</button>
+    </div>
+  </div>
+</div>
 <div class="table-responsive-md">
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col" *ngFor="let thead of colums">{{thead.title}}</th>
-            <th scope="col" *ngIf="actions" class="text-right">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of list">
-            <td *ngFor="let data of colums">{{getField(data.field, item)}}</td>
-            <td *ngIf="actions" class="text-right">
-              <button class="btn btn-edit" data-toggle="modal" data-target="#myModal" (click)="editItem(item)" ><i class="far fa-edit"></i></button>
-              <button class="btn btn-delete" data-toggle="modal" data-target="#myModalQuestion" (click)="setIdToDelete(item.id)"><i class="fas fa-trash-alt"></i></button>
-            </td>
-          </tr>
-        </tbody>
-    </table>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col" *ngFor="let thead of colums">{{thead.title}}</th>
+        <th scope="col" *ngIf="actions" class="text-right">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of list">
+        <td *ngFor="let data of colums">{{getField(data.field, item)}}</td>
+        <td *ngIf="actions" class="text-right">
+          <button class="btn btn-edit" data-toggle="modal" data-target="#myModal" (click)="editItem(item)"><i
+              class="far fa-edit"></i></button>
+          <button class="btn btn-delete" data-toggle="modal" data-target="#myModalQuestion"
+            (click)="setIdToDelete(item.id)"><i class="fas fa-trash-alt"></i></button>
+        </td>
+      </tr>
+      <tr *ngIf="list.length == 0">
+        <td colspan="100%">
+            <p>No se han encontrado resultados</p>
+        </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
 
 <div class="table-pagination">
@@ -28,7 +57,8 @@
         </a>
       </li>
       <li class="page-item" *ngFor="let item of totalItems; let i = index"><a class="page-link"
-          [attr.disabled]="loading" [class.active]="i == page-1" [class.disabled]="loading" (click)="changePage(i+1)">{{i +
+          [attr.disabled]="loading" [class.active]="i == page-1" [class.disabled]="loading"
+          (click)="changePage(i+1)">{{i +
           1}}</a></li>
       <li class="page-item">
         <a class="page-link" [class.disabled]="page == totalItems.length || loading" aria-label="Next"

@@ -1,0 +1,11 @@
+<nav aria-label="breadcrumb">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item" *ngFor="let route of routes; let i = index"
+                [attr.aria-current]="(i == routes.length -1)? 'page' : ''" [class.active]="i == routes.length -1">
+                <a [routerLink]="route" *ngIf="i != routes.length -1">{{capitalizeFirstLetter(route)}}</a>
+                {{((i == routes.length -1)? capitalizeFirstLetter(route): '')}}
+            </li>
+        </ol>
+    </nav>
+</nav>

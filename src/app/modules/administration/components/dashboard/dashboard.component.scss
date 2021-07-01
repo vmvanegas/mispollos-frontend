@@ -39,14 +39,18 @@ canvas {
             border-left: 10px solid red;
         }
         h3 {
-            font-size: 1.2em;
-            color: #333333;
-            font-weight: bold;
-            margin: 0;            
-        }            
-        p {
-            
             font-size: 1em;
+            color: #333333;
+            margin: 0;            
+        }   
+        small {
+            display: block;
+            color: #333333;
+        }         
+        p {
+            font-weight: bold;
+            color: #333333;
+            font-size: 1.5em;
         }
     }   
 }
