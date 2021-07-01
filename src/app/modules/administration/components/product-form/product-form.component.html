@@ -90,12 +90,16 @@
         <label for="dueDate" class="form-label">Fecha de vencimiento</label>
         <div class="input-group mb-3">
           <span class="input-group-icon"><i class="far fa-calendar-alt"></i></span>
-          <input type="text" class="form-control" name="dueDate" formControlName="dueDate" maxlength="60" required>
+          <input type="date" class="form-control" name="dueDate" formControlName="dueDate" maxlength="60" required #myDate>
+          <span class="input-group-icon"><i class="far fa-calendar-alt"></i></span>
         </div>
         <!-- Alerta              comienza            -->
         <div *ngIf="f.dueDate.invalid && (f.dueDate.dirty || f.dueDate.touched)">
           <div class="alert alert-danger" *ngIf="f.dueDate.errors.required">
             Este campo es obligatorio.
+          </div>
+          <div class="alert alert-danger" *ngIf="f.dueDate.errors.invalidDate">
+            Fecha invalida.
           </div>
         </div>
         <!-- Alerta       termina                  -->

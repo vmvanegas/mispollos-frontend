@@ -1,0 +1,12 @@
+.modal-form {
+    padding: 1rem 0;
+    .form-inline {
+        padding: 0;
+    }
+    &__actions {
+        margin: 0;
+        .btn {
+            min-width: 50px;
+        }
+    }
+}

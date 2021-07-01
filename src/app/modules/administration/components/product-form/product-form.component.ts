@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CategoryService } from '../../services/category.service';
 import { ProductService } from '../../services/product.service';
 import { ProviderService } from '../../services/provider.service';
+import { setValidationDates } from 'src/app/utils/setValidationDate';
+import { dateValidator } from 'src/app/utils/dateValidation';
 
 @Component({
   selector: 'app-product-form',
@@ -13,6 +15,7 @@ import { ProviderService } from '../../services/provider.service';
 })
 export class ProductFormComponent implements OnInit {
 
+  @ViewChild('myDate') myDate: ElementRef
 
   editing = false
   editingProduct: any = {}
@@ -37,7 +40,7 @@ export class ProductFormComponent implements OnInit {
       category: ["", [Validators.required, Validators.maxLength(60)]],
       price: ["", [Validators.required, Validators.maxLength(120)]],
       provider: ["", [Validators.required, Validators.maxLength(60)]],
-      dueDate: ["", [Validators.required, Validators.maxLength(60)]],
+      dueDate: ["", [Validators.required, Validators.maxLength(60), dateValidator]],
       quantity: ["", [Validators.required, Validators.maxLength(60)]]
       /* description: ["", [Validators.required, Validators.maxLength(120)]], */
     })
@@ -67,6 +70,12 @@ export class ProductFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
+  }
+
+  ngAfterViewInit() {
+    let min = new Date(Date.now())
+    setValidationDates(this.myDate.nativeElement,min, "min")
   }
 
   get f() {
@@ -143,7 +152,8 @@ export class ProductFormComponent implements OnInit {
           /* Descripcion: this.productForm.controls['description'].value, */
           Stock: this.productForm.controls['quantity'].value,
           FechaVencimiento: this.productForm.controls['dueDate'].value,
-          Precio: this.productForm.controls['price'].value
+          Precio: this.productForm.controls['price'].value,
+          CreatedOn: this.editingProduct.createdOn
         }
 
         this.productService.update(product).subscribe(

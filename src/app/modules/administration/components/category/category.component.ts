@@ -90,7 +90,8 @@ export class CategoryComponent implements OnInit {
         const category = {
           Id: this.editingCategory.id,
           Nombre: this.form.controls['name'].value,
-          IdTienda: JSON.parse(localStorage.getItem('user')).idTienda
+          IdTienda: JSON.parse(localStorage.getItem('user')).idTienda,
+          CreatedOn: this.editingCategory.createdOn
         }
 
         console.log("editado?")

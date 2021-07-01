@@ -1,7 +1,7 @@
 <div class="administration" #admin (window:resize)="resize()">
     <header class="ms-header">
         <button class="btn btn-toggle" #btnToggle (click)="toggleSideBar()"><i class="fas fa-bars"></i></button>
-        <div class="ms-header__menu" (mouseenter)="mouseEnter()"  (mouseleave)="mouseLeave()">
+        <div class="ms-header__menu" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()">
             <button class="btn dropdown-toggle">{{user.nombre}}</button>
             <div class="dropdown" #myDropDown>
                 <ul>
@@ -9,7 +9,7 @@
                         <a class="btn" routerLink="/administracion/mi-cuenta">Mi cuenta</a>
                     </li>
                     <li>
-                        <button class="btn"(click)="logout()">Salir</button>
+                        <button class="btn" (click)="logout()">Salir</button>
                     </li>
                 </ul>
             </div>
@@ -35,6 +35,7 @@
     </nav>
 
     <div class="administration-content">
+        <app-breadcrumb></app-breadcrumb>
         <router-outlet></router-outlet>
     </div>
 
@@ -52,7 +53,8 @@
                 <div class="d-flex justify-content-center">
                     <div class="ms-footer__column">
                         <h3 class="title">Sobre nosotros</h3>
-                        <p class="info"><a href="">Misión</a> | <a href="">Visión</a> | <a href="">Términos y condiciones</a></p>
+                        <p class="info"><a href="">Misión</a> | <a href="">Visión</a> | <a href="">Términos y
+                                condiciones</a></p>
                     </div>
                 </div>
             </div>

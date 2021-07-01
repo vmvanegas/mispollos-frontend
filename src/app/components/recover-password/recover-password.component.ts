@@ -54,6 +54,7 @@ export class RecoverPasswordComponent implements OnInit {
       (res: any) => {
         if (res) {
           this.user = res
+          console.log(this.user)
           let tokenExpiration = new Date(this.user.tokenExpiration)
           let nowDate = new Date()
           if (nowDate > tokenExpiration) {
@@ -75,11 +76,9 @@ export class RecoverPasswordComponent implements OnInit {
         Nombre: this.user.nombre,
         Apellido: this.user.apellido,
         Correo: this.user.correo,
-        Clave: this.form.controls['password'].value,
-        Token: null,
-        tokenExpiration: null
+        Clave: this.form.controls['password'].value
       }
-
+      console.log(employee)
       this.userService.update(employee).subscribe(
         res => {
           this.form.reset()

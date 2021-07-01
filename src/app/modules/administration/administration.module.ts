@@ -19,6 +19,7 @@ import { OrderListComponent } from './components/order-list/order-list.component
 import { OrderFormComponent } from './components/order-form/order-form.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { AutocompleteComponent } from './components/autocomplete/autocomplete.component';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { AutocompleteComponent } from './components/autocomplete/autocomplete.co
      OrderListComponent,
      OrderFormComponent,
      MyAccountComponent,
-     AutocompleteComponent 
+     AutocompleteComponent,
+     BreadcrumbComponent
   ],
   imports: [
     CommonModule,

@@ -24,9 +24,6 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private userInfo: UserInfoService,
     ) { 
-      if(localStorage.getItem("token")) {
-        this.redirectToAdmin()
-      }
     this.loginForm = formBuilder.group({
       email: ['', [Validators.required, Validators.maxLength(60), Validators.email]],
       password: ['', [Validators.required, Validators.maxLength(16), Validators.minLength(8), Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{0,}$")]]

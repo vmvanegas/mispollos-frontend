@@ -73,6 +73,7 @@ export class CustomerComponent implements OnInit {
           Nombre: this.form.controls['name'].value,
           Apellido: this.form.controls['lastName'].value,
           Telefono: this.form.controls['telephone'].value,
+          CreatedOn: this.editingItem.createdOn
         }
 
         this.customerService.update(customer).subscribe(

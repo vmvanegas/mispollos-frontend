@@ -71,6 +71,7 @@ export class OrderListComponent implements OnInit {
           Apellido: this.form.controls['lastName'].value,
           Correo: this.form.controls['email'].value,
           Clave: this.form.controls['password'].value,
+          CreatedOn: this.editingItem.createdOn
         }
         
         this.orderService.update(employee).subscribe(

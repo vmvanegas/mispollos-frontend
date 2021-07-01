@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ExcelService } from '../../services/excel.service';
 
 @Component({
   selector: 'app-table',
@@ -21,17 +24,72 @@ export class TableComponent implements OnInit {
 
   public loading = true;
   public idToDelete
+  public form: FormGroup
+  public searchString: string = null
 
   constructor(
-    private http: HttpClient
-  ) { }
+    private http: HttpClient,
+    private excelService: ExcelService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) { 
+    this.form = this.formBuilder.group({
+      search: ['', [Validators.maxLength(40)]]
+    })
+  }
+
+  get f() {
+    return this.form.controls
+  }
 
   ngOnInit(): void {
     this.getList()
+    console.log("cargando componente")
+  }
+
+  public search() {
+    this.searchString = this.f.search.value
+    if (this.searchString) {
+      console.log("query?")      
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: {
+          search: this.searchString
+        },
+        queryParamsHandling: 'merge',
+        // preserve the existing query params in the route
+        // do not trigger navigation
+      });
+      this.getList();
+    } else {
+      this.clearSearch()
+    }
+  }
+
+  clearSearch() {
+    this.router.navigate([], {relativeTo: this.route,});
+    this.form.reset()
+    this.searchString = null
+    this.getList();
+  }
+
+  async exportData() {
+    this.service.getList().subscribe(
+      res => {
+        this.excelService.exportAsExcelFile(res.data, 'data');
+      }, 
+      err => { console.log(err) })
+    
+  }
+
+
+  sortByDate(list) {
+    return list.sort((a, b) => (new Date(a.updatedOn) > new Date(b.updatedOn)) ? 1 : ((new Date(b.updatedOn) > new Date(a.updatedOn)) ? -1 : 0))
   }
 
   public getList() {
-    this.service.get(this.page).subscribe(
+    this.service.get(this.page, this.searchString).subscribe(
       (res: any) => {
         this.list = res.data
         this.totalItems = new Array(Math.ceil(res.total / 10))

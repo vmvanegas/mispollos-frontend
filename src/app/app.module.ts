@@ -10,6 +10,7 @@ import { AuthGuard } from './services/auth.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtModule } from "@auth0/angular-jwt";
 import { RecoverPasswordComponent } from './components/recover-password/recover-password.component';
+import { ForgottenPasswordComponent } from './components/forgotten-password/forgotten-password.component';
 
 
 
@@ -18,7 +19,8 @@ import { RecoverPasswordComponent } from './components/recover-password/recover-
     AppComponent,
     LoginComponent,
     SignupComponent,
-    RecoverPasswordComponent
+    RecoverPasswordComponent,
+    ForgottenPasswordComponent
   ],
   imports: [
     BrowserModule,
