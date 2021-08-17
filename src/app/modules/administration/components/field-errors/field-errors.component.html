@@ -1,0 +1,14 @@
+<div *ngIf="formField.invalid && (formField.dirty || formField.touched)">
+    <div class="alert alert-danger" *ngIf="formField.errors.required">
+        Este campo es obligatorio.
+    </div>
+    <div class="alert alert-danger" *ngIf="formField.errors.maxlength">
+        Este campo solo puede contener maximo {{formField.errors.maxlength.requiredLength}} caracteres
+    </div>
+    <div class="alert alert-danger" *ngIf="formField.errors.minlength">
+        Este campo solo puede contener mínimo {{formField.errors.minlength.requiredLength}} caracteres.
+    </div>      
+    <div class="alert alert-danger" *ngIf="formField.errors.email">
+        El correo no cumple con el formato correcto.
+    </div>  
+</div> 

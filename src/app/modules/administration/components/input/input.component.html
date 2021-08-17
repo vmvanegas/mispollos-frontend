@@ -1,0 +1,17 @@
+<div>
+    <label [for]="fieldName" class="form-label">{{label}}</label>
+    <div class="input-group mb-3">
+        <span class="input-group-icon"><i class="far fa-user"></i></span>
+        <input class="form-control"
+        [id]="fieldName"
+        [name]="fieldName"
+        [value]="value" 
+        [placeholder]="placeholder"
+        [disabled]="isDisabled" 
+        (input)="changed($event.target.value)"
+        (blur)="touched()">
+    </div>  
+    <app-field-errors
+    [formField]="formField"
+    ></app-field-errors>        
+</div>

@@ -1,8 +1,8 @@
 <div class="ms-card-container">
     <div class="ms-card-container__header">
         <h1>{{editingOrder? "Editar pedido" : "Crear pedido"}}</h1>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#myModalForm"
-            (click)="resetModalForm()">Agregar producto</button>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#myModalForm" (click)="resetModalForm()"><i
+                class="fas fa-plus mr-2"></i>Agregar producto</button>
     </div>
     <div class="table-responsive-md">
         <table class="table">
@@ -11,65 +11,83 @@
                     <th scope="col">Nombre</th>
                     <th scope="col">Precio</th>
                     <th scope="col">Cantidad</th>
+                    <th scope="col">Total</th>
                     <th scope="col" class="text-right">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let item of list">
                     <td>{{item.name}}</td>
-                    <td>{{item.price}}</td>
-                    <td>{{item.quantity}}</td>
+                    <td>{{item.price | currency: '': '$': '1.0-0'}}</td>
+
+                    <td>
+                        <div class="quantity">
+                            <div class="value">{{item.quantity}}</div>
+                            <input type="number" value="{{item.quantity}}">
+                            <button class="btn" (click)="editItem(item, $event)"><i class="far fa-edit"></i><i class="fas fa-check"></i></button>
+                        </div>
+                    </td>
+
+                    <td>{{item.total | currency: '': '$': '1.0-0'}}</td>
                     <td class="text-right">
-                        <button class="btn btn-edit" data-toggle="modal" data-target="#myModalForm"
-                            (click)="editItem(item)"><i class="far fa-edit"></i></button>
+                       <!--  <button class="btn btn-edit" data-toggle="modal" data-target="#myModalForm"
+                            (click)="editItem(item)"><i class="far fa-edit"></i></button> -->
                         <button class="btn btn-delete" data-toggle="modal" data-target="#myModalQuestion"
                             (click)="setIdToDelete = item.id"><i class="fas fa-trash-alt"></i></button>
                     </td>
                 </tr>
                 <tr *ngIf="list.length == 0">
-                    <td colspan="4">
+                    <td colspan="5">
                         <p>Aún no has agregado productos da click en el botón "Agregar Producto"</p>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="ms-form">
-        <form action="" [formGroup]="form" (ngSubmit)="send()">
-            <label for="customer" class="form-label">Cliente</label>
-            <div class="row">                
-                <div class="col-md-4">
-                    <app-autocomplete 
-                    *ngIf="!loading" 
-                    [list]="customersList" 
-                    [selectedItem]="formControls.customer.value" 
-                    [form]="form" 
-                    [controlName]="'customer'" >
-                    </app-autocomplete>
-                    <div *ngIf="formControls.customer.invalid && formControls.customer.touched">
-                        <div class="alert alert-danger" *ngIf="formControls.customer.errors.required">
-                            Este campo es obligatorio.
+    <div class="row mx-0">
+        <div class="col-md-6">
+            <div class="ms-form">
+                <form action="" [formGroup]="form" (ngSubmit)="send()">
+                    <label for="customer" class="form-label">Cliente</label>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <app-autocomplete *ngIf="!loading" [list]="customersList"
+                                [selectedItem]="formControls.customer.value" [form]="form" [controlName]="'customer'">
+                            </app-autocomplete>
+                            <div *ngIf="formControls.customer.invalid && formControls.customer.touched">
+                                <div class="alert alert-danger" *ngIf="formControls.customer.errors.required">
+                                    Este campo es obligatorio.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <p>
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#myModalCustomer">Agregar cliente nuevo</button>
+                            </p>
+
                         </div>
                     </div>
-                </div>
-                <div class="col-md-12">
-                    <p>
-                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                            data-target="#myModalCustomer">Agregar cliente</button>
-                    </p>
-
-                </div>
-            </div>
-            <div class="row mt-5">
-                <div class="col-md-12">
-                    <div class="ms-form__actions">
-                        <button type="button" class="btn btn-secondary"
-                            routerLink="/administracion/pedidos">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">{{editingOrder? 'Guardar': 'Realizar pedido'}}</button>
+                    <div class="row mt-5">
+                        <div class="col-md-12">
+                            <div class="ms-form__actions">
+                                <button type="button" class="btn btn-secondary"
+                                    routerLink="/administracion/pedidos">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">{{editingOrder? 'Guardar': 'Realizar pedido'}}</button>
+                            </div>
+                        </div>
                     </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6 m-auto">
+            <div class="d-flex">
+                <div class="total m-auto">
+                    <h2>Total:</h2>
+                    <span>{{total | currency: '': '$': '1.0-0'}}</span>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 
@@ -80,23 +98,9 @@
                 <h3>{{editingItem? 'Editar proveedor': 'Agregar producto'}}</h3>
                 <form action="" [formGroup]="itemForm" (ngSubmit)="addItem()">
                     <label for="product" class="form-label">Producto</label>
-                    <!-- <div class="input-group mb-3">
-                        <span class="input-group-icon"><i class="far fa-user"></i></span>
-                        <select class="form-control" [class.disabled]="editingItem == true" name="product"
-                            (change)="getSelectedProduct()" formControlName="product">
-                            <option *ngFor="let product of productsList" value={{product.id}}>{{product.nombre}}
-                            </option>
-                        </select>
-                        <span class="select-arrow"><i class="fas fa-caret-down"></i></span>
-                    </div> -->
-                    <app-autocomplete 
-                    *ngIf="!loading" 
-                    [list]="productsList" 
-                    [selectedItem]="formItems.product.value" 
-                    [form]="itemForm" 
-                    [controlName]="'product'"
-                    [disabled]="editingItem"
-                    (onSelect)="getSelectedProduct()">
+                    <app-autocomplete *ngIf="!loading" [list]="productsList" [selectedItem]="formItems.product.value"
+                        [form]="itemForm" [controlName]="'product'" [disabled]="editingItem"
+                        (onSelect)="getSelectedProduct()">
                     </app-autocomplete>
                     <div class="alert" style="font-size: .9rem;" *ngIf="selectedProduct">
                         <small>Cantidad disponible: {{selectedProduct?.stock}}</small>
@@ -128,63 +132,15 @@
             <div class="modal-form">
                 <h3>Agregar cliente</h3>
                 <form action="" [formGroup]="formCustomer" (ngSubmit)="sendCustomer()">
-                    <label for="name" class="form-label">Nombre</label>
-                    <div class="input-group mb-3">
-                        <span class="input-group-icon"><i class="far fa-user"></i></span>
-                        <input type="text" class="form-control" name="name" formControlName="name"
-                            placeholder="Nombre de cliente" maxlength="60" required>
-                    </div>
-
-                    <!-- Alerta              comienza            -->
-                    <div *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)">
-
-                        <div class="alert alert-danger" *ngIf="f.name.errors.required">
-                            Este campo es obligatorio.
-                        </div>
-                        <div class="alert alert-danger" *ngIf="f.name.errors.maxlength">
-                            El Nombre no puede contener mas de 50 caracteres.
-                        </div>
-
-                    </div>
-                    <!-- Alerta       termina                  -->
-                    <label for="lastName" class="form-label">Apellido</label>
-                    <div class="input-group mb-3">
-                        <span class="input-group-icon"><i class="far fa-user"></i></span>
-                        <input type="text" class="form-control" name="lastName" formControlName="lastName"
-                            placeholder="Apellido del cliente" maxlength="60" required>
-                    </div>
-                    <!-- Alerta       comienza                   -->
-                    <div *ngIf="f.lastName.invalid && (f.lastName.dirty || f.lastName.touched)">
-
-                        <div class="alert alert-danger" *ngIf="f.lastName.errors.required">
-                            Este campo es obligatorio.
-                        </div>
-                        <div class="alert alert-danger" *ngIf="f.lastName.errors.maxlength">
-                            El Apellido no puede contener mas de 50 caracteres.
-                        </div>
-
-                    </div>
-                    <!-- Alerta      termina                    -->
-
-                    <label for="telephone" class="form-label">Teléfono</label>
-                    <div class="input-group mb-3">
-                        <span class="input-group-icon"><i class="fas fa-phone-alt"></i></span>
-                        <input type="text" class="form-control" name="telephone" formControlName="telephone"
-                            placeholder="Telefono del cliente" maxlength="60" required>
-                    </div>
-
-                    <!-- Alerta     comienza                     -->
-                    <div *ngIf="f.telephone.invalid && (f.telephone.dirty || f.telephone.touched)">
-
-                        <div class="alert alert-danger" *ngIf="f.telephone.errors.required">
-                            Este campo es obligatorio.
-                        </div>
-                        <div class="alert alert-danger" *ngIf="f.telephone.errors.maxlength">
-                            El Teléfono no puede contener mas de 60 caracteres.
-                        </div>
-
-                    </div>
-                    <!-- Alerta         termina                 -->
+                    <app-input [parentForm]="formCustomer" label="Nombre" fieldName="name"
+                        placeholder="Nombre del cliente" formControlName="name">
+                    </app-input>
+                    <app-input [parentForm]="formCustomer" label="Apellido" fieldName="lastName"
+                        placeholder="Apellido del cliente" formControlName="lastName">
+                    </app-input>
+                    <app-input [parentForm]="formCustomer" label="Teléfono" fieldName="telephone"
+                        placeholder="Telefono del cliente" formControlName="telephone">
+                    </app-input>
                     <div class="modal-form__actions">
                         <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-primary">Agregar</button>

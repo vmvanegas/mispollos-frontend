@@ -1,6 +1,7 @@
 <div class="administration" #admin (window:resize)="resize()">
     <header class="ms-header">
         <button class="btn btn-toggle" #btnToggle (click)="toggleSideBar()"><i class="fas fa-bars"></i></button>
+        <img class="ms-header__logo" src="../../../assets/img-signup/logo-mispollos.svg" width="100px" alt="">
         <div class="ms-header__menu" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()">
             <button class="btn dropdown-toggle">{{user.nombre}}</button>
             <div class="dropdown" #myDropDown>
@@ -18,16 +19,16 @@
 
     <nav class="side-nav" #sideNav (window:click)="closeSideBar($event)">
         <div class="side-nav__logo">
-            <img src="../../../assets/img-signup/logo-mispollos.svg" width="160px" height="80px" alt="">
+            <img src="../../../assets/img-signup/logo-mispollos.svg" width="160px" alt="">
         </div>
         <ul class="side-nav__menu">
-            <li><a routerLink="dashboard" routerLinkActive="active">Dashboard</a></li>
-            <li><a routerLink="productos" routerLinkActive="active">Productos</a></li>
-            <li><a routerLink="pedidos" routerLinkActive="active">Pedidos</a></li>
-            <li><a routerLink="categorias" routerLinkActive="active">Categorías</a></li>
-            <li><a routerLink="clientes" routerLinkActive="active">Clientes</a></li>
-            <li><a routerLink="proveedores" routerLinkActive="active">Proveedores</a></li>
-            <li *ngIf="user.rol == 'Admin'"><a routerLink="empleados" routerLinkActive="active">Empleados</a></li>
+            <li><a routerLink="dashboard" routerLinkActive="active"><i class="fas fa-chart-line mr-2"></i>Dashboard</a></li>
+            <li><a routerLink="productos" routerLinkActive="active"><i class="fas fa-boxes mr-2"></i>Productos</a></li>
+            <li><a routerLink="pedidos" routerLinkActive="active"><i class="far fa-file-alt mr-2"></i>Pedidos</a></li>
+            <li><a routerLink="categorias" routerLinkActive="active"><i class="fas fa-th-large mr-2"></i>Categorías</a></li>
+            <li><a routerLink="clientes" routerLinkActive="active"><i class="fas fa-users mr-2"></i>Clientes</a></li>
+            <li><a routerLink="proveedores" routerLinkActive="active"><i class="fas fa-users-cog mr-2"></i>Proveedores</a></li>
+            <li *ngIf="user.rol == 'Admin'"><a routerLink="empleados" routerLinkActive="active"><i class="fas fa-user-tie mr-2"></i>Empleados</a></li>
         </ul>
         <div class="side-nav__copy">
             <p>Mis Pollos © 2020</p>
@@ -35,7 +36,7 @@
     </nav>
 
     <div class="administration-content">
-        <app-breadcrumb></app-breadcrumb>
+        <!-- <app-breadcrumb></app-breadcrumb> -->
         <router-outlet></router-outlet>
     </div>
 

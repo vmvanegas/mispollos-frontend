@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { UserInfoService } from '../../services/user-info.service';
 
@@ -14,24 +15,27 @@ export class ProductsListComponent implements OnInit {
   @ViewChild('myModalQuestion') myModalQuestion: ElementRef
 
 
-  public products = [];//GENERAR FILAS  DINAMICAS
+  public list = [];//GENERAR FILAS  DINAMICAS
   public page = 1;
   public editing: boolean = false
   public editingProducts: any = {}
-  public totalProducts = []
+  public totalItems = []
   public idToDelete = ""
   public loading = true;
   public error = false
+  public tableColums = [{ title: "Nombre", field: "nombre" }, { title: "Categoria", field: "categoria.nombre" }, { title: "Precio", field: "precio" }, { title: "Proveedor", field: "proveedor.nombre" }, { title: "Fecha de vencimiento", field: "fechaVencimiento" }, { title: "Cantidad", field: "stock" }]
 
-  productForm: FormGroup = this.formBuilder.group({
+
+  form: FormGroup = this.formBuilder.group({
     name: ['', [Validators.required]]
   })
 
   constructor(
-    private productsService: ProductService,
+    public productsService: ProductService,
     private formBuilder: FormBuilder,
     private elementRef : ElementRef,
-    private userInfo : UserInfoService
+    private userInfo : UserInfoService,
+    private router: Router
   ) {
     console.log(this.userInfo.User)
     this.getProductsList()
@@ -43,9 +47,9 @@ export class ProductsListComponent implements OnInit {
   getProductsList() {
     this.productsService.get(this.page).subscribe(
       (res: any) => {
-        this.products = res.data
-        this.totalProducts = new Array(Math.ceil(res.total / 10))
-        console.log(this.products);
+        this.list = res.data
+        this.totalItems = new Array(Math.ceil(res.total / 10))
+        console.log(this.list);
         this.error = false
         this.loading = false;
       },
@@ -54,6 +58,11 @@ export class ProductsListComponent implements OnInit {
         this.loading = false;
         this.error = true
     })
+  }
+
+  editItem(event){
+    console.log(event.id)
+    this.router.navigate(['/administracion/productos/editar', event.id])
   }
 
 
@@ -77,12 +86,12 @@ export class ProductsListComponent implements OnInit {
 
   public changePage(page) {
     this.loading = true
-    if (page <= this.totalProducts.length && page > 0) {
+    if (page <= this.totalItems.length && page > 0) {
       this.page = page
       this.setTableNavigationLinkActive()
       this.productsService.get(this.page).subscribe(
         (res: any) => {
-          this.products = res.data
+          this.list = res.data
           this.loading = false
         },
         err => {

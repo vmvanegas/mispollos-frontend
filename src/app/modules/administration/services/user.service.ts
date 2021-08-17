@@ -20,8 +20,12 @@ export class UserService {
     return this.http.get(`${this.URL_USERLIST}`, {headers: this.headers})
   }
 
-  get = (page) => {    
-    return this.http.get(`${this.URL_USERLIST}/p/${page}`, {headers: this.headers})
+  get(page, search = null) {
+    if(search==null){
+      return this.http.get(`${this.URL_USERLIST}/p/${page}`, {headers: this.headers})
+    } else {
+      return this.http.get(`${this.URL_USERLIST}/p/${page}?search=${search}`, {headers: this.headers})
+    }    
   }
 
   getById = (id) => {    

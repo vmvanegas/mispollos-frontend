@@ -16,6 +16,8 @@ export class OrderFormComponent implements OnInit {
   @ViewChild('myModal') public myModal: ElementRef;
   @ViewChild('myModalCustomer') public myModalCustomer: ElementRef;
   @ViewChild('alertToggle') public alertToggle: ElementRef;
+  @ViewChild('quantityElement') public quantityElement: ElementRef;
+  @ViewChild('quantityInput') public quantityInput: ElementRef;
 
   public page = 1
   public list = []
@@ -34,6 +36,7 @@ export class OrderFormComponent implements OnInit {
   public customersList = []
   public productsList = []
   public autoCompleteResults = []
+  public total: number = 0
 
   set setIdToDelete(id) {
     this.idToDelete = id
@@ -65,7 +68,7 @@ export class OrderFormComponent implements OnInit {
       telephone: ['', [Validators.required, Validators.maxLength(30)]],
     })
 
-    this.getCustomers()
+    this.getCustomers()    
 
   }
 
@@ -93,7 +96,7 @@ export class OrderFormComponent implements OnInit {
   getCustomers() {
     this.customerService.getList().subscribe(
       (res: any) => {
-        this.customersList = res.data
+        this.customersList = res
         this.getProducts()
       },
       err => {
@@ -104,7 +107,8 @@ export class OrderFormComponent implements OnInit {
   getProducts() {
     this.productService.getList().subscribe(
       (res: any) => {
-        this.productsList = res.data
+        this.productsList = res
+        console.log("this.productsList ", this.productsList)
         if (this.orderId) {
           this.loadListOfProducts()
         } else {
@@ -206,6 +210,13 @@ export class OrderFormComponent implements OnInit {
   }
 
 
+  getTotal(){
+    this.total = 0
+    this.list.forEach(item => {
+      this.total += item.total
+    });
+  }
+
 
   addItem() {
     if (this.itemForm.valid) {
@@ -218,7 +229,8 @@ export class OrderFormComponent implements OnInit {
         id: productFromList.id,
         name: productFromList.nombre,
         price: productFromList.precio,
-        quantity: quantity.value
+        quantity: quantity.value,
+        total: productFromList.precio * quantity.value
       }
 
       if (!this.editingItem) {
@@ -232,11 +244,12 @@ export class OrderFormComponent implements OnInit {
           if ((this.list[repeatedProduct].quantity + item.quantity) <= productFromList.stock) {
 
             this.list[repeatedProduct].quantity += item.quantity
+            this.list[repeatedProduct].total = this.list[repeatedProduct].price * this.list[repeatedProduct].quantity
           } else {
             this.alertToggle.nativeElement.click()
           }
 
-        }
+        }        
       } else {
         const repeatedProduct = this.list.findIndex(product => product.id == item.id)
         if (item.quantity <= productFromList.stock) {
@@ -245,18 +258,41 @@ export class OrderFormComponent implements OnInit {
         }
 
       }
+      this.getTotal()
       this.selectedProduct = null
       this.itemForm.reset()
       this.myModal.nativeElement.click()
     }
   }
 
-  editItem(item) {
+  /* editItem(item) {
     this.editingItem = true
     this.itemForm.patchValue({
       product: item.id,
       quantity: item.quantity
     })
+  } */
+
+  editItem(item, e) {
+    
+    const parent = e.target.parentElement
+    const input = e.target.previousElementSibling
+    if(this.editingItem){
+      parent.classList.remove("editing")      
+      if(input.value > 0){
+        const product = this.list.findIndex(product => product.id == item.id)
+        this.list[product].quantity = parseInt(input.value)
+        this.list[product].total = this.list[product].price * this.list[product].quantity
+      }
+      this.getTotal()
+      this.editingItem = false
+      console.log(this.list)
+    } else {
+      this.editingItem = true
+      parent.classList.add("editing")      
+      input.focus()
+    }       
+    
   }
 
   deleteItem(id) {
@@ -265,6 +301,7 @@ export class OrderFormComponent implements OnInit {
       this.list.splice(index, 1);
       this.setIdToDelete = ""
     }
+    this.getTotal()
   }
 
   public sendCustomer() {

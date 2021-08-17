@@ -39,7 +39,6 @@ export class AutocompleteComponent implements OnInit {
       this.inputText = ""
     }
 
-
   }
 
   ngAfterViewInit() {

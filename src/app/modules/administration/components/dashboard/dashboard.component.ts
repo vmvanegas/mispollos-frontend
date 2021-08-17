@@ -44,6 +44,11 @@ export class DashboardComponent implements OnInit {
   }
 
 
+  isNaN(number: number): boolean{
+    return this.isNaN(number)
+  }
+
+
   getBestSellingProduct() {
     this.dashboardService.getBestSellingProduct().subscribe(
       res => {
