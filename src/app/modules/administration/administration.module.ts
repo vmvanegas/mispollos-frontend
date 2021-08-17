@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdministrationRoutingModule } from './administration-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+
 
 import { ProductsComponent } from './components/products/products.component';
 import { AdministrationComponent } from './administration.component';
@@ -20,25 +21,35 @@ import { OrderFormComponent } from './components/order-form/order-form.component
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { AutocompleteComponent } from './components/autocomplete/autocomplete.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import { InputComponent } from './components/input/input.component';
+import { FieldErrorsComponent } from './components/field-errors/field-errors.component';
+
+// Implementado locale de colombia para fechas y currencies
+import { registerLocaleData } from '@angular/common';
+import localeCo from '@angular/common/locales/es-CO'
+registerLocaleData(localeCo, 'es-CO');
+
 
 @NgModule({
   declarations: [
-    ProductsComponent, 
-    AdministrationComponent, 
-    CategoryComponent, 
-    ProviderComponent, 
-    OrderComponent, 
-    CustomerComponent, 
-    EmployeeComponent, 
-    DashboardComponent, 
-    ProductFormComponent, 
-    ProductsListComponent, 
+    ProductsComponent,
+    AdministrationComponent,
+    CategoryComponent,
+    ProviderComponent,
+    OrderComponent,
+    CustomerComponent,
+    EmployeeComponent,
+    DashboardComponent,
+    ProductFormComponent,
+    ProductsListComponent,
     TableComponent,
-     OrderListComponent,
-     OrderFormComponent,
-     MyAccountComponent,
-     AutocompleteComponent,
-     BreadcrumbComponent
+    OrderListComponent,
+    OrderFormComponent,
+    MyAccountComponent,
+    AutocompleteComponent,
+    BreadcrumbComponent,
+    InputComponent,
+    FieldErrorsComponent
   ],
   imports: [
     CommonModule,
@@ -46,6 +57,11 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
     ReactiveFormsModule,
     FormsModule
   ],
-  bootstrap: [AdministrationComponent]
+  bootstrap: [AdministrationComponent],
+  providers: [{
+    provide: LOCALE_ID,
+    useValue: 'es-CO' // 'de-DE' for Germany, 'fr-FR' for France ...
+  },
+  ]
 })
 export class AdministrationModule { }

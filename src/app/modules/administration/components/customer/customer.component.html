@@ -1,16 +1,11 @@
 <div class="ms-card-container">
   <div class="ms-card-container__header">
     <h1>Clientes</h1>
-    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" (click)="resetForm()">Agregar cliente</button>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" (click)="resetForm()"><i class="fas fa-plus mr-2"></i>Agregar
+      cliente</button>
   </div>
-  <app-table *ngIf="!loading"
-  [list]="list"
-  [totalItems]="totalItems"
-  [page]="page"
-  [service]="customerService"
-  [colums]="tableColums"
-  (onEdit)="editItem($event)"
-  (onChangePage)="page = $event">
+  <app-table *ngIf="!loading" [list]="list" [totalItems]="totalItems" [page]="page" [service]="customerService"
+    [colums]="tableColums" (onEdit)="editItem($event)" (onChangePage)="page = $event">
   </app-table>
 </div>
 
@@ -21,62 +16,34 @@
       <div class="modal-form">
         <h3>{{editing? 'Editar cliente': 'Agregar cliente'}}</h3>
         <form action="" [formGroup]="form" (ngSubmit)="sendCustomer()">
-          <label for="name" class="form-label">Nombre</label>
-          <div class="input-group mb-3">
-            <span class="input-group-icon"><i class="far fa-user"></i></span>
-            <input type="text" class="form-control" name="name" formControlName="name" placeholder="Nombre de cliente"
-              maxlength="60" required>
-          </div>
-
-          <!-- Alerta              comienza            -->
-          <div *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)">
-
-            <div class="alert alert-danger" *ngIf="f.name.errors.required">
-                Este campo es obligatorio.
-            </div>
-            <div class="alert alert-danger" *ngIf="f.name.errors.maxlength">
-                El Nombre no puede contener mas de 50 caracteres.
-            </div>
-            
-        </div>
-           <!-- Alerta       termina                  -->
-          <label for="lastName" class="form-label">Apellido</label>
-          <div class="input-group mb-3">
-            <span class="input-group-icon"><i class="far fa-user"></i></span>
-            <input type="text" class="form-control" name="lastName" formControlName="lastName" placeholder="Apellido del cliente"
-              maxlength="60" required>
-          </div>
-          <!-- Alerta       comienza                   -->
-          <div *ngIf="f.lastName.invalid && (f.lastName.dirty || f.lastName.touched)">
-
-            <div class="alert alert-danger" *ngIf="f.lastName.errors.required">
-                Este campo es obligatorio.
-            </div>
-            <div class="alert alert-danger" *ngIf="f.lastName.errors.maxlength">
-                El Apellido no puede contener mas de 50 caracteres.
-            </div>
-             
-        </div>
-        <!-- Alerta      termina                    -->
-          <label for="telephone" class="form-label">Teléfono</label>
-          <div class="input-group mb-3">
-            <span class="input-group-icon"><i class="fas fa-phone-alt"></i></span>
-            <input type="text" class="form-control" name="telephone" formControlName="telephone"
-              placeholder="Teléfono del cliente" maxlength="60" required>
-          </div>
-
-          <!-- Alerta     comienza                     -->
-          <div *ngIf="f.telephone.invalid && (f.telephone.dirty || f.telephone.touched)">
-
-            <div class="alert alert-danger" *ngIf="f.telephone.errors.required">
-                Este campo es obligatorio.
-            </div>
-            <div class="alert alert-danger" *ngIf="f.telephone.errors.maxlength">
-                El Teléfono no puede contener mas de 60 caracteres.
-            </div>
-            
-        </div>
-               <!-- Alerta         termina                 -->
+          <app-input 
+            [parentForm]="form" 
+            label="Nombre" 
+            fieldName="name" 
+            placeholder="Nombre de cliente"
+            formControlName="name">
+        </app-input>    
+        <app-input 
+            [parentForm]="form" 
+            label="Apellido" 
+            fieldName="lastName" 
+            placeholder="Apellido del cliente"
+            formControlName="lastName">
+        </app-input>   
+        <app-input 
+            [parentForm]="form" 
+            label="Correo" 
+            fieldName="email" 
+            placeholder="example@host.com"
+            formControlName="email">
+        </app-input>     
+        <app-input 
+            [parentForm]="form" 
+            label="Teléfono" 
+            fieldName="telephone" 
+            placeholder="Teléfono del cliente"
+            formControlName="telephone">
+        </app-input>         
           <div class="modal-form__actions">
             <button type="button" class="btn" data-dismiss="modal">Cancelar</button>
             <button type="submit" class="btn btn-primary">{{editing? 'Guardar': 'Agregar'}}</button>

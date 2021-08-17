@@ -6,14 +6,14 @@
       <div class="informative-cards__card informative-cards__card--1">
         <h3>Producto más vendido</h3>
         <small>esta semana</small>
-        <p>{{bestSellingProduct?.nombre}}</p>
+        <p>{{bestSellingProduct?.nombre || "Ninguno"}}</p>
       </div>
     </div>
     <div class="col-md-3 col-6 d-flex">
       <div class="informative-cards__card informative-cards__card--2">
         <h3>Producto menos vendido</h3>
         <small>esta semana</small>
-        <p>{{leastSoldProduct?.nombre}}</p>
+        <p>{{leastSoldProduct?.nombre || "Ninguno"}}</p>
       </div>
     </div>
     <div class="col-md-3 col-6 d-flex">
@@ -33,14 +33,19 @@
     <div class="col-md-6">
       <div class="sales">
         <h3>Ventas</h3>
-        <small >esta semana</small>
-        <p class="mt-4">Las ventas {{(salesIncreasePercentage?.increase || salesIncreasePercentage?.percent == 0)? "aumentaron": "se redujeron"}} un</p>
-        <span class="percent">
-          {{salesIncreasePercentage?.percent}}% 
-          <i *ngIf="salesIncreasePercentage?.increase && salesIncreasePercentage?.percent != 0" class="fas fa-caret-up"></i>
-          <i *ngIf="!salesIncreasePercentage?.increase && salesIncreasePercentage?.percent != 0" class="fas fa-caret-down"></i>
-        </span>
-        <p class="mb-5">respecto a la semana pasada</p>
+        <small>esta semana</small>
+        <div *ngIf="salesIncreasePercentage?.percent != -1">
+          <p class="mt-4">Las ventas {{(salesIncreasePercentage?.increase || salesIncreasePercentage?.percent == 0)?
+            "aumentaron": "se redujeron"}} un</p>
+          <span class="percent">
+            {{salesIncreasePercentage?.percent}}%
+            <i *ngIf="salesIncreasePercentage?.increase && salesIncreasePercentage?.percent != 0"
+              class="fas fa-caret-up"></i>
+            <i *ngIf="!salesIncreasePercentage?.increase && salesIncreasePercentage?.percent != 0"
+              class="fas fa-caret-down"></i>
+          </span>
+          <p class="mb-5">respecto a la semana pasada</p>
+        </div>
         <div class="row mx-0">
           <div class="col-md-6">
             <p>semana pasada</p>

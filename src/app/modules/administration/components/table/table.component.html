@@ -1,5 +1,5 @@
-<div class="row">
-  <div class="col-md-6">
+<div class="row mx-0">
+  <div class="col-md-6 px-0">
     <div class="modal-form">
       <form [formGroup]="form" class="form-inline" (ngSubmit)="search()">
         <div class="input-group">
@@ -8,15 +8,13 @@
             placeholder="Buscar..." maxlength="60">
         </div>        
         <div class="modal-form__actions">
-          <!-- <button type="button" class="btn" (click)="clearSearch()">Cancelar</button>
-          <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button> -->
         </div>
       </form>
     </div>
   </div>
-  <div class="col-md-6">
-    <div class="p-3">
-      <button class="btn btn-green" (click)="exportData()">Exportar</button>
+  <div class="col-md-6 px-0">
+    <div class="py-3 text-right">
+      <button class="btn btn-green" (click)="exportData()"><i class="fas fa-file-export mr-2"></i>Exportar</button>
     </div>
   </div>
 </div>

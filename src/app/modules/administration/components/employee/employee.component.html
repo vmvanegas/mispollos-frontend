@@ -1,7 +1,7 @@
 <div class="ms-card-container">
   <div class="ms-card-container__header">
     <h1>Empleados</h1>
-    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" (click)="resetModalForm()">Agregar empleado</button>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" (click)="resetModalForm()"><i class="fas fa-plus mr-2"></i>Agregar empleado</button>
   </div>
   <app-table *ngIf="!loading"
   [list]="list"

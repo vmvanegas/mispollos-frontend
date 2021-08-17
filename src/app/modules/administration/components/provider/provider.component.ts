@@ -25,8 +25,8 @@ export class ProviderComponent implements OnInit {
 
 
   form: FormGroup = this.formBuilder.group({
-    name: ['', [Validators.required]],
-    telephone: ['', [Validators.required]]
+    name: ['', [Validators.required, Validators.maxLength(60)]],
+    telephone: ['', [Validators.required, Validators.maxLength(60)]]
   })
 
   constructor(
@@ -36,6 +36,9 @@ export class ProviderComponent implements OnInit {
     this.getList()
   }
 
+  get f (){
+    return this.form.controls
+  }
 
   ngOnInit(): void {
   }

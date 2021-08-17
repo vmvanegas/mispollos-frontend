@@ -1,7 +1,7 @@
 <div class="ms-card-container">
     <div class="ms-card-container__header">
       <h1>Pedidos</h1>
-      <a class="btn btn-primary" routerLink="crear">Agregar pedido</a>
+      <a class="btn btn-primary" routerLink="crear"><i class="fas fa-plus mr-2"></i>Agregar pedido</a>
     </div>
     <app-table *ngIf="!loading" 
     [list]="list"

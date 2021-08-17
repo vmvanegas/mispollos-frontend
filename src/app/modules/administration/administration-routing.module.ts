@@ -82,11 +82,11 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'productos'
+        redirectTo: 'dashboard'
       },
       {
         path: '**',
-        redirectTo: 'productos'
+        redirectTo: 'dashboard'
       }
     ]
   }

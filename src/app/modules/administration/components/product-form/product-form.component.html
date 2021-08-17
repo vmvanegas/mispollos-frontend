@@ -90,7 +90,7 @@
         <label for="dueDate" class="form-label">Fecha de vencimiento</label>
         <div class="input-group mb-3">
           <span class="input-group-icon"><i class="far fa-calendar-alt"></i></span>
-          <input type="date" class="form-control" name="dueDate" formControlName="dueDate" maxlength="60" required #myDate>
+          <input type="date" class="form-control" name="dueDate" formControlName="dueDate" required #myDate>
           <span class="input-group-icon"><i class="far fa-calendar-alt"></i></span>
         </div>
         <!-- Alerta              comienza            -->
@@ -138,7 +138,7 @@
     <div class="row">
       <div class="col-md-6 ofset-md-3">
         <div class="modal-form__actions">
-          <a class="btn btn-secondary" style="min-width: 172px;" routerLink="administracion/productos">Cancelar</a>
+          <a class="btn btn-secondary" style="min-width: 172px;" routerLink="/administracion/productos">Cancelar</a>
           <button type="submit" class="btn btn-primary" style="min-width: 172px;">{{editing? 'Guardar':
             'Agregar'}}</button>
         </div>

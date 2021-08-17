@@ -19,7 +19,7 @@ export class CustomerComponent implements OnInit {
   public loading = true;
   public error = false
   public form: FormGroup
-  public tableColums = [{ title: "Nombre", field: "nombre" }, { title: "Apellido", field: "apellido" }, { title: "Teléfono", field: "telefono" }]
+  public tableColums = [{ title: "Nombre", field: "nombre" }, { title: "Apellido", field: "apellido" }, { title: "Teléfono", field: "telefono" }, { title: "Correo", field: "correo" }]
 
 
 
@@ -30,6 +30,7 @@ export class CustomerComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(60)]],
       lastName: ['', [Validators.required, Validators.maxLength(60) ]],
+      email: ['', [Validators.required, Validators.maxLength(60), Validators.email ]],
       telephone: ['', [Validators.required, Validators.maxLength(30)]],
     })
     this.getList()
@@ -53,6 +54,7 @@ export class CustomerComponent implements OnInit {
           Nombre: this.form.controls['name'].value,
           Apellido: this.form.controls['lastName'].value,
           Telefono: this.form.controls['telephone'].value,
+          Correo: this.form.controls['email'].value
         }
 
         this.customerService.create(customer).subscribe(
@@ -73,7 +75,8 @@ export class CustomerComponent implements OnInit {
           Nombre: this.form.controls['name'].value,
           Apellido: this.form.controls['lastName'].value,
           Telefono: this.form.controls['telephone'].value,
-          CreatedOn: this.editingItem.createdOn
+          Correo: this.form.controls['email'].value,
+          CreatedOn: this.editingItem.createdOn          
         }
 
         this.customerService.update(customer).subscribe(
@@ -120,7 +123,8 @@ export class CustomerComponent implements OnInit {
     this.form.patchValue({
       name: customer.nombre,
       lastName: customer.apellido,
-      telephone: customer.telefono
+      telephone: customer.telefono,
+      email: customer.correo
     })
   }
 

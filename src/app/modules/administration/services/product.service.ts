@@ -1,3 +1,4 @@
+import { formatCurrency } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
@@ -33,16 +34,32 @@ export class ProductService {
     )
   }
 
-  get(page) {
-    return this.http.get(`${this.URL_PRODUCTLIST}/p/${page}`, {headers: this.headers}).pipe(
-      map((data: any) => {
-        data.data.forEach(item => {
-          item.fechaVencimiento = this.datePipe.transform(item.fechaVencimiento, "yyyy-MM-dd")
-        });
-        return data;
-      })
-    )
+  get(page, search = null) {   
+
+    if(search==null){
+      return this.http.get(`${this.URL_PRODUCTLIST}/p/${page}`, {headers: this.headers})
+      .pipe(
+        map((data: any) => {
+          data.data.forEach(item => {
+            item.fechaVencimiento = this.datePipe.transform(item.fechaVencimiento, "yyyy-MM-dd")
+            item.precio = formatCurrency(item.precio, "es-CO", "$", "", "1.0-1")
+          });
+          return data;
+        })
+      )
+    } else {
+      return this.http.get(`${this.URL_PRODUCTLIST}/p/${page}?search=${search}`, {headers: this.headers}).pipe(
+        map((data: any) => {
+          data.data.forEach(item => {
+            item.fechaVencimiento = this.datePipe.transform(item.fechaVencimiento, "yyyy-MM-dd")
+            item.precio = formatCurrency(item.precio, "es-CO", "$", "", "1.0-1")
+          });
+          return data;
+        })
+      )
+    }  
   }
+
   create(product) {
     return this.http.post(this.URL_PRODUCTLIST, product, {headers: this.headers})
   }

@@ -96,7 +96,7 @@ export class ProductFormComponent implements OnInit {
   getProviderList() {
     this.providerService.getList().subscribe(
       (res :any) => {
-        this.providerList = res.data
+        this.providerList = res
         this.getCategoryList()
       }, 
       err => {
@@ -108,7 +108,7 @@ export class ProductFormComponent implements OnInit {
   getCategoryList() {
     this.categoryService.getList().subscribe(
       (res :any) => {
-        this.categoryList = res.data
+        this.categoryList = res
       }, 
       err => {
         console.log(err)
