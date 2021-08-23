@@ -2,16 +2,16 @@
     <div class="ms-card-container__header">
         <h1>Mi cuenta</h1>
     </div>
-    <form class="ms-form" [formGroup]="form">
+    <form class="ms-form" [formGroup]="form" (ngSubmit)="send()">
         <div class="d-flex justify-content-center">
             <div class="tabs mb-5" (resize)="initializeTab()">
-                <button class="tab active" (click)="setTabActive($event, userInfo)">Datos de usuario</button>
-                <button class="tab" (click)="setTabActive($event, storeInfo)">Datos de tienda</button>
+                <button type="button" class="tab active" (click)="setTabActive($event, userInfo)">Datos de usuario</button>
+                <button type="button" class="tab" (click)="setTabActive($event, storeInfo)">Datos de tienda</button>
                 <div class="active-bar" #activeBar></div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 offset-md-3 info active" #userInfo>
+            <div class="col-md-6 offset-md-3 info userinfo active" #userInfo>
                 <div class="row">
                     <div class="col-md-12">
                         <h2 class="subtitle">Datos de usuario</h2>
@@ -23,6 +23,17 @@
                             <input type="text" class="form-control" name="name" formControlName="name" maxlength="60"
                                 required>
                         </div>
+                        <div *ngIf="f.name.invalid && (f.name.dirty && f.name.touched)">
+                            <div class="alert alert-danger" *ngIf="f.name.errors.required">
+                                Este campo es obligatorio.
+                            </div>
+                            <div class="alert alert-danger" *ngIf="f.name.errors.maxlength">
+                                Este campo no puede contener más de 40 caracteres.
+                            </div>
+                            <div class="alert alert-danger" *ngIf="f.name.errors.pattern">
+                                Este campo solo puede contener letras.
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-12">
                         <label for="lastName" class="form-label">Apellido</label>
@@ -30,6 +41,17 @@
                             <span class="input-group-icon"><i class="far fa-user"></i></span>
                             <input type="text" class="form-control" name="lastName" formControlName="lastName" maxlength="60"
                                 required>
+                        </div>
+                        <div *ngIf="f.lastName.invalid && (f.lastName.dirty && f.lastName.touched)">
+                            <div class="alert alert-danger" *ngIf="f.lastName.errors.required">
+                                Este campo es obligatorio.
+                            </div>
+                            <div class="alert alert-danger" *ngIf="f.lastName.errors.maxlength">
+                                Este campo no puede contener más de 40 caracteres.
+                            </div>
+                            <div class="alert alert-danger" *ngIf="f.lastName.errors.pattern">
+                                Este campo solo puede contener letras.
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -39,10 +61,21 @@
                             <input type="text" class="form-control" name="email" formControlName="email" maxlength="60"
                                 required>
                         </div>
+                        <div *ngIf="f.email.invalid && (f.email.dirty && f.email.touched)">
+                            <div class="alert alert-danger" *ngIf="f.email.errors.required">
+                                Este campo es obligatorio.
+                            </div>
+                            <div class="alert alert-danger" *ngIf="f.email.errors.maxlength">
+                                Este campo no puede contener más de 60 caracteres.
+                            </div>
+                            <div class="alert alert-danger" *ngIf="f.email.errors.email">
+                                El correo es invalido.
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 offset-md-3 info" #storeInfo>
+            <div class="col-md-6 offset-md-3 info storeinfo" #storeInfo>
                 <div class="row">
                     <div class="col-md-12">
                         <h2 class="subtitle">Datos de tienda</h2>
@@ -54,6 +87,14 @@
                             <input type="text" class="form-control" [class.disabled]="user?.rol.nombre != 'Admin'" name="storeName" formControlName="storeName" maxlength="60"
                                 required>
                         </div>
+                        <div *ngIf="f.storeName.invalid && (f.storeName.dirty && f.storeName.touched)">
+                            <div class="alert alert-danger" *ngIf="f.storeName.errors.required">
+                                Este campo es obligatorio.
+                            </div>
+                            <div class="alert alert-danger" *ngIf="f.storeName.errors.maxlength">
+                                Este campo no puede contener más de 60 caracteres.
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-12">
                         <label for="telephone" class="form-label">Telefono</label>
@@ -61,6 +102,14 @@
                             <span class="input-group-icon"><i class="far fa-user"></i></span>
                             <input type="text" class="form-control" [class.disabled]="user?.rol.nombre != 'Admin'" name="telephone" formControlName="telephone" maxlength="60"
                                 required>
+                        </div>
+                        <div *ngIf="f.telephone.invalid && (f.telephone.dirty && f.telephone.touched)">
+                            <div class="alert alert-danger" *ngIf="f.telephone.errors.required">
+                                Este campo es obligatorio.
+                            </div>
+                            <div class="alert alert-danger" *ngIf="f.telephone.errors.maxlength">
+                                Este campo no puede contener más de 60 caracteres.
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -70,6 +119,14 @@
                             <input type="text" class="form-control" [class.disabled]="user?.rol.nombre != 'Admin'" name="address" formControlName="address" maxlength="60"
                                 required>
                         </div>
+                        <div *ngIf="f.address.invalid && (f.address.dirty && f.address.touched)">
+                            <div class="alert alert-danger" *ngIf="f.address.errors.required">
+                                Este campo es obligatorio.
+                            </div>
+                            <div class="alert alert-danger" *ngIf="f.address.errors.maxlength">
+                                Este campo no puede contener más de 20 caracteres.
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -78,10 +135,31 @@
             <div class="col-md-6 offset-md-3">
                 <div class="modal-form__actions">
                     <a class="btn btn-secondary" style="min-width: 172px;"
-                        routerLink="administracion/productos">Cancelar</a>
+                        routerLink="administracion/dashboard">Cancelar</a>
                     <button type="submit" class="btn btn-primary" style="min-width: 172px;">Guardar</button>
                 </div>
             </div>
         </div>
     </form>
+</div>
+
+
+<button type="button" #myModal data-toggle="modal" [hidden]="true" data-target="#myModal"></button>
+<div class="modal fade" tabindex="-1" id="myModal" data-backdrop="static" #myModal>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-form text-center">
+                <h3>Datos actualizados</h3>
+                <div>
+                    <svg version="1.1" class="svg-modal" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                        <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10"
+                            cx="65.1" cy="65.1" r="62.1" />
+                        <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6"
+                            stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " />
+                    </svg>
+                </div>
+                <button type="button" class="btn btn-primary mt-5" data-dismiss="modal" style="min-width: 150px;">OK</button>
+            </div>
+        </div>
+    </div>
 </div>

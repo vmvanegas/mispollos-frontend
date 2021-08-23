@@ -3,64 +3,253 @@
   </div>
   <div class="informative-cards row">
     <div class="col-md-3 col-6 d-flex">
-      <div class="informative-cards__card informative-cards__card--1">
-        <h3>Producto más vendido</h3>
-        <small>esta semana</small>
-        <p>{{bestSellingProduct?.nombre || "Ninguno"}}</p>
+      <div class="informative-card informative-card--1">
+        <div class="informative-card__icon">
+          <i class="fas fa-dolly-flatbed"></i>
+        </div>
+        <div class="informative-card__content">
+          <h3>Pedidos</h3>
+          <p>562</p>
+        </div>
       </div>
     </div>
     <div class="col-md-3 col-6 d-flex">
-      <div class="informative-cards__card informative-cards__card--2">
-        <h3>Producto menos vendido</h3>
-        <small>esta semana</small>
-        <p>{{leastSoldProduct?.nombre || "Ninguno"}}</p>
+      <div class="informative-card informative-card--2">
+        <div class="informative-card__icon">
+          <i class="fas fa-user-friends"></i>
+        </div>
+        <div class="informative-card__content">
+          <h3>Clientes</h3>
+          <p>265</p>
+        </div>
       </div>
     </div>
     <div class="col-md-3 col-6 d-flex">
-      <div class="informative-cards__card informative-cards__card--3">
-        <h3>Fecha de vencimiento cercana</h3>
-        <p>{{closeDueDate?.nombre}}</p>
+      <div class="informative-card informative-card--3">
+        <div class="informative-card__icon">
+          <i class="fas fa-users-cog mr-2"></i>
+        </div>
+        <div class="informative-card__content">
+          <h3>Proveedores</h3>
+          <p>30</p>
+        </div>
       </div>
     </div>
     <div class="col-md-3 col-6 d-flex">
-      <div class="informative-cards__card informative-cards__card--4">
-        <h3>Bajo stock</h3>
-        <p>{{lowStock?.nombre}}</p>
+      <div class="informative-card informative-card--4">
+        <div class="informative-card__icon">
+          <i class="fas fa-user-tie mr-2"></i>
+        </div>
+        <div class="informative-card__content">
+          <h3>Empleados</h3>
+          <p>12</p>
+        </div>
       </div>
     </div>
   </div>
   <div class="row mx-0">
     <div class="col-md-6">
-      <div class="sales">
-        <h3>Ventas</h3>
-        <small>esta semana</small>
-        <div *ngIf="salesIncreasePercentage?.percent != -1">
-          <p class="mt-4">Las ventas {{(salesIncreasePercentage?.increase || salesIncreasePercentage?.percent == 0)?
-            "aumentaron": "se redujeron"}} un</p>
-          <span class="percent">
-            {{salesIncreasePercentage?.percent}}%
-            <i *ngIf="salesIncreasePercentage?.increase && salesIncreasePercentage?.percent != 0"
-              class="fas fa-caret-up"></i>
-            <i *ngIf="!salesIncreasePercentage?.increase && salesIncreasePercentage?.percent != 0"
-              class="fas fa-caret-down"></i>
-          </span>
-          <p class="mb-5">respecto a la semana pasada</p>
-        </div>
-        <div class="row mx-0">
-          <div class="col-md-6">
-            <p>semana pasada</p>
-            <p>{{salesIncreasePercentage?.lastWeek}} ventas</p>
+      <div class="sales h-100">
+        <div class="card h-100">
+          <div class="card-header">
+            <h2>Ventas realizadas esta semana</h2>
           </div>
-          <div class="col-md-6">
-            <p>semana actual</p>
-            <p>{{salesIncreasePercentage?.currentWeek}} ventas</p>
+          <div class="content">
+            <div class="icon my-4">
+              <i class="fas fa-cash-register"></i>
+            </div>
+            <div class="text">
+              <h2>68 ventas
+                realizadas
+              </h2>
+              <p>42,86% <i class="fas fa-caret-up"></i></p>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <!--  <div class="sales">
+        <div class="card">
+          <div class="current-week-sales">
+            <h3>Ventas</h3>
+            <small>esta semana</small>
+            <div class="text-center" *ngIf="salesIncreasePercentage?.percent != -1">
+              <p class="mt-4">Las ventas {{(salesIncreasePercentage?.increase || salesIncreasePercentage?.percent == 0)?
+                "aumentaron": "se redujeron"}} un</p>
+              <span class="percent">
+                {{salesIncreasePercentage?.percent}}%
+                <i *ngIf="salesIncreasePercentage?.increase && salesIncreasePercentage?.percent != 0"
+                  class="fas fa-caret-up"></i>
+                <i *ngIf="!salesIncreasePercentage?.increase && salesIncreasePercentage?.percent != 0"
+                  class="fas fa-caret-down"></i>
+              </span>
+              <p class="mb-5">respecto a la semana pasada</p>
+            </div>
+          </div>
+          <div class="row mx-0">
+            <div class="col-md-6 text-center">
+              <p>semana pasada</p>
+              <p>{{salesIncreasePercentage?.lastWeek}} ventas</p>
+            </div>
+            <div class="col-md-6 text-center">
+              <p>semana actual</p>
+              <p>{{salesIncreasePercentage?.currentWeek}} ventas</p>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <canvas id="myChartBar">
+        </canvas>
+      </div>
+    </div>
+  </div>
+  <div class="row mx-0 my-5">
+    <div class="col-md-6">
+      <div class="best-selling-products">
+        <div class="card">
+          <div class="card-header">
+            <h2>Productos mas vendidos</h2>
+          </div>
+          <div class="table-responsive-md">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Producto</th>
+                  <th scope="col">Cantidad vendida</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="active">
+                  <td>1</td>
+                  <td>Arroz blanco 500g</td>
+                  <td>105</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Azucar 500g</td>
+                  <td>99</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Pechuga de pollo 250g</td>
+                  <td>93</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Carne de res 250g</td>
+                  <td>90</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>Leche 1L</td>
+                  <td>85</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
     <div class="col-md-6">
-      <canvas id="myChartBar">
-      </canvas>
+      <div class="least-sold-products">
+        <div class="card">
+          <div class="card-header">
+            <h2>Productos menos vendidos</h2>
+          </div>
+          <div class="table-responsive-md">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Producto</th>
+                  <th scope="col">Cantidad vendida</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="active">
+                  <td>1</td>
+                  <td>Arroz blanco 500g</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Azucar 500g</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Pechuga de pollo 250g</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Carne de res 250g</td>
+                  <td>13</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>Leche 1L</td>
+                  <td>15</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mx-0 mt-5">
+    <div class="col-md-6 mb-5">
+      <div class="card-warning h-100">
+        <div class="card h-100">
+          <div class="card-header">
+            <h2>Fecha de vencimiento cercana</h2>
+          </div>
+          <div class="content">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="text">
+                  <h2>Pechuga de pollo</h2>
+                  <p>vence en 2 días</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="icon">
+                  <i class="fas fa-exclamation-triangle"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-5">
+      <div class="card-warning h-100">
+        <div class="card h-100">
+          <div class="card-header">
+            <h2>Bajo stock</h2>
+          </div>
+          <div class="content">
+            <div class="row mx-0">
+              <div class="col-md-8">
+                <div class="text">
+                  <h2>Arroz blanco 250g</h2>
+                  <p>2 unidades restantes</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="icon">
+                  <i class="fas fa-exclamation-triangle"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

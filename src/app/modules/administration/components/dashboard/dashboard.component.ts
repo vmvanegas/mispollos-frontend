@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  isNaN(number: number): boolean{
+  isNaN(number: number): boolean {
     return this.isNaN(number)
   }
 
@@ -103,16 +103,18 @@ export class DashboardComponent implements OnInit {
       data: {
         labels: labels,
         datasets: [{
+          barPercentage: 1,
           label: 'Pedidos realizados',
-          data: data,
+          /* data: data, */
+          data: [10, 15, 20, 18, 16, 25, 19],
           backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 205, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(201, 203, 207, 0.2)'
+            'rgb(255, 99, 132)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 205, 86)',
+            'rgb(75, 192, 192)',
+            'rgb(54, 162, 235)',
+            'rgb(153, 102, 255)',
+            'rgb(201, 203, 207)'
           ],
           borderColor: [
             'rgb(255, 99, 132)',
@@ -123,15 +125,47 @@ export class DashboardComponent implements OnInit {
             'rgb(153, 102, 255)',
             'rgb(201, 203, 207)'
           ],
-          borderWidth: 1
+          borderWidth: 0
         }]
       },
       options: {
         scales: {
+          x: {
+            grid: {
+              display: false,
+              
+            },
+            ticks: {
+              color: "#99abb4",
+              font: {
+                size: 14,
+                family: "'Open Sans', sans-serif"
+            }
+            }
+          },
+
           y: {
-            beginAtZero: true
+            ticks: {
+              color: "#99abb4",
+              font: {
+                size: 14,
+                family: "'Open Sans', sans-serif"
+            }
+            }
           }
-        }
+        },
+        plugins: {
+          legend: {
+              labels: {
+                  // This more specific font property overrides the global property
+                  font: {
+                      
+                      size: 14,
+                      family: "'Open Sans', sans-serif"
+                  }
+              }
+          }
+      }
       }
     });
   }
