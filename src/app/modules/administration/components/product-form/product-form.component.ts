@@ -36,7 +36,7 @@ export class ProductFormComponent implements OnInit {
     private router: Router
   ) {
     this.productForm = this.formBuilder.group({
-      name: ["", [Validators.required, Validators.maxLength(50)]],
+      name: ["", [Validators.required, Validators.maxLength(100)]],
       category: ["", [Validators.required, Validators.maxLength(60)]],
       price: ["", [Validators.required, Validators.maxLength(120)]],
       provider: ["", [Validators.required, Validators.maxLength(60)]],

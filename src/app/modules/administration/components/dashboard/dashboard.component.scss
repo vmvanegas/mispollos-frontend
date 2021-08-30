@@ -121,6 +121,14 @@ canvas {
                 color: #4bc0c0;
             }
         }
+        .decrease {
+            p {
+                color: #ff5478;
+                .fa-caret-up {
+                    transform: rotateX(-180deg);
+                }
+            }
+        }
         .icon{
             padding: 0 10%;
             width: 100%;

@@ -41,4 +41,17 @@ export class DashboardService {
     return this.http.get(`${this.URL_DASHBOARD}/low-stock`, { headers: this.headers })
   }
 
+  totalOrders = () => {
+    return this.http.get(`${this.URL_DASHBOARD}/total-orders`, { headers: this.headers })
+  }
+  totalCustomers = () => {
+    return this.http.get(`${this.URL_DASHBOARD}/total-customers`, { headers: this.headers })
+  }
+  totalProviders = () => {
+    return this.http.get(`${this.URL_DASHBOARD}/total-providers`, { headers: this.headers })
+  }
+  totalEmployees = () => {
+    return this.http.get(`${this.URL_DASHBOARD}/total-employees`, { headers: this.headers })
+  }
+
 }

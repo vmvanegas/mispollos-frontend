@@ -9,7 +9,7 @@
         </div>
         <div class="informative-card__content">
           <h3>Pedidos</h3>
-          <p>562</p>
+          <p>{{totalOrders}}</p>
         </div>
       </div>
     </div>
@@ -20,7 +20,7 @@
         </div>
         <div class="informative-card__content">
           <h3>Clientes</h3>
-          <p>265</p>
+          <p>{{totalCustomers}}</p>
         </div>
       </div>
     </div>
@@ -31,7 +31,7 @@
         </div>
         <div class="informative-card__content">
           <h3>Proveedores</h3>
-          <p>30</p>
+          <p>{{totalProviders}}</p>
         </div>
       </div>
     </div>
@@ -42,7 +42,7 @@
         </div>
         <div class="informative-card__content">
           <h3>Empleados</h3>
-          <p>12</p>
+          <p>{{totalEmployee}}</p>
         </div>
       </div>
     </div>
@@ -58,11 +58,11 @@
             <div class="icon my-4">
               <i class="fas fa-cash-register"></i>
             </div>
-            <div class="text">
-              <h2>68 ventas
+            <div class="text" [class.decrease]="salesIncreasePercentage?.increase == false">
+              <h2>{{salesIncreasePercentage?.currentWeek}} ventas
                 realizadas
               </h2>
-              <p>42,86% <i class="fas fa-caret-up"></i></p>
+              <p>{{salesIncreasePercentage?.percent}}% <i class="fas fa-caret-up"></i></p>
             </div>
             
           </div>
@@ -113,7 +113,7 @@
           <div class="card-header">
             <h2>Productos mas vendidos</h2>
           </div>
-          <div class="table-responsive-md">
+          <div class="table-responsive">
             <table class="table">
               <thead>
                 <tr>
@@ -123,30 +123,10 @@
                 </tr>
               </thead>
               <tbody>
-                <tr class="active">
-                  <td>1</td>
-                  <td>Arroz blanco 500g</td>
-                  <td>105</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Azucar 500g</td>
-                  <td>99</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Pechuga de pollo 250g</td>
-                  <td>93</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>Carne de res 250g</td>
-                  <td>90</td>
-                </tr>
-                <tr>
-                  <td>5</td>
-                  <td>Leche 1L</td>
-                  <td>85</td>
+                <tr *ngFor="let product of bestSellingProduct let i = index" [class.active]="i == 0">
+                  <td>{{i + 1}}</td>
+                  <td>{{product.product.nombre}}</td>
+                  <td>{{product.quantity}}</td>
                 </tr>
               </tbody>
             </table>
@@ -160,7 +140,7 @@
           <div class="card-header">
             <h2>Productos menos vendidos</h2>
           </div>
-          <div class="table-responsive-md">
+          <div class="table-responsive">
             <table class="table">
               <thead>
                 <tr>
@@ -170,30 +150,10 @@
                 </tr>
               </thead>
               <tbody>
-                <tr class="active">
-                  <td>1</td>
-                  <td>Arroz blanco 500g</td>
-                  <td>1</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Azucar 500g</td>
-                  <td>5</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>Pechuga de pollo 250g</td>
-                  <td>10</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>Carne de res 250g</td>
-                  <td>13</td>
-                </tr>
-                <tr>
-                  <td>5</td>
-                  <td>Leche 1L</td>
-                  <td>15</td>
+                <tr *ngFor="let product of leastSoldProduct let i = index" [class.active]="i == 0">
+                  <td>{{i + 1}}</td>
+                  <td>{{product.product.nombre}}</td>
+                  <td>{{product.quantity}}</td>
                 </tr>
               </tbody>
             </table>
@@ -213,8 +173,8 @@
             <div class="row">
               <div class="col-md-8">
                 <div class="text">
-                  <h2>Pechuga de pollo</h2>
-                  <p>vence en 2 días</p>
+                  <h2>{{closeDueDate?.nombre}}</h2>
+                  <p>vence en {{closeDueDate?.fechaVencimiento}} días</p>
                 </div>
               </div>
               <div class="col-md-4">
@@ -237,8 +197,8 @@
             <div class="row mx-0">
               <div class="col-md-8">
                 <div class="text">
-                  <h2>Arroz blanco 250g</h2>
-                  <p>2 unidades restantes</p>
+                  <h2>{{lowStock?.nombre}}</h2>
+                  <p>{{lowStock?.stock}} unidades restantes</p>
                 </div>
               </div>
               <div class="col-md-4">

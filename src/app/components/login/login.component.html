@@ -63,11 +63,13 @@
                                         class="ms-hightlight">¿Olvidaste
                                         tu
                                         contraseña?</a></p>
-                                <p class="text-center mt-5 d-md-none">¿Aún no tienes cuenta?, creala <a routerLink="/registro"
-                                        class="ms-hightlight">aquí</a></p>
-                                <p class="text-center mt-5 mb-0">Mis Pollos © 2020</p>
+                                <p class="text-center mt-5 d-md-none">¿Aún no tienes cuenta?, creala <a
+                                        routerLink="/registro" class="ms-hightlight">aquí</a></p>
+                                <p class="text-center mt-5 mb-0">Mis Pollos © {{currentYear()}}</p>
                             </div>
                         </section>
+
+                        <!-- FORMULARIO DE REGISTRO -->
                         <section class="signup-section">
                             <div class="overlay">
                                 <h3 class="text-center title">Registro</h3>
@@ -125,6 +127,61 @@
                                                     El apellido solo puede contener letras.
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <label for="storeName" class="form-label">Nombre de tienda</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-icon"><i class="far fa-building"></i></span>
+                                        <input type="text" class="form-control" pattern="[a-zA-Z ]{0,}" maxlength="60"
+                                            name="storeName" formControlName="storeName" placeholder="Nombre de tienda"
+                                            required>
+                                    </div>
+                                    <div
+                                        *ngIf="signupForm.storeName.invalid && (signupForm.storeName.dirty && signupForm.storeName.touched)">
+                                        <div class="alert alert-danger" *ngIf="signupForm.storeName.errors.required">
+                                            Este campo es obligatorio.
+                                        </div>
+                                        <div class="alert alert-danger" *ngIf="signupForm.storeName.errors.maxlength">
+                                            El nombre de la tienda no puede contener más de 60 caracteres.
+                                        </div>
+                                        <div class="alert alert-danger" *ngIf="signupForm.storeName.errors.pattern">
+                                            El nombre de la tienda solo puede contener letras.
+                                        </div>
+                                    </div>
+
+
+                                    <label for="address" class="form-label">Dirección</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-icon"><i class="fas fa-map-marker-alt"></i></span>
+                                        <input type="text" class="form-control" name="address" formControlName="address"
+                                            maxlength="60" placeholder="Dirección de tienda" required>
+                                    </div>
+
+                                    <div
+                                        *ngIf="signupForm.storeName.invalid && (signupForm.storeName.dirty && signupForm.storeName.touched)">
+                                        <div class="alert alert-danger" *ngIf="signupForm.storeName.errors.required">
+                                            Este campo es obligatorio.
+                                        </div>
+                                        <div class="alert alert-danger" *ngIf="signupForm.storeName.errors.maxlength">
+                                            La dirección no puede contener más de 60 caracteres.
+                                        </div>
+                                    </div>
+
+                                    <label for="password" class="form-label">Teléfono</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-icon"><i class="fas fa-phone-alt"></i></span>
+                                        <input type="tel" class="form-control" name="telephone"
+                                            formControlName="telephone" maxlength="20" placeholder="7777777"
+                                            maxlength="20" required>
+                                    </div>
+
+                                    <div
+                                        *ngIf="signupForm.telephone.invalid && (signupForm.telephone.dirty && signupForm.telephone.touched)">
+                                        <div class="alert alert-danger" *ngIf="signupForm.telephone.errors.required">
+                                            Este campo es obligatorio.
+                                        </div>
+                                        <div class="alert alert-danger" *ngIf="signupForm.telephone.errors.maxlength">
+                                            La dirección no puede contener más de 20 caracteres.
                                         </div>
                                     </div>
 
@@ -252,70 +309,16 @@
                                         </div>
                                     </div>
 
-                                    <label for="storeName" class="form-label">Nombre de tienda</label>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-icon"><i class="far fa-building"></i></span>
-                                        <input type="text" class="form-control" pattern="[a-zA-Z ]{0,}" maxlength="60"
-                                            name="storeName" formControlName="storeName" placeholder="Nombre de tienda"
-                                            required>
-                                    </div>
-                                    <div
-                                        *ngIf="signupForm.storeName.invalid && (signupForm.storeName.dirty && signupForm.storeName.touched)">
-                                        <div class="alert alert-danger" *ngIf="signupForm.storeName.errors.required">
-                                            Este campo es obligatorio.
-                                        </div>
-                                        <div class="alert alert-danger" *ngIf="signupForm.storeName.errors.maxlength">
-                                            El nombre de la tienda no puede contener más de 60 caracteres.
-                                        </div>
-                                        <div class="alert alert-danger" *ngIf="signupForm.storeName.errors.pattern">
-                                            El nombre de la tienda solo puede contener letras.
-                                        </div>
-                                    </div>
-
-
-                                    <label for="address" class="form-label">Dirección</label>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-icon"><i class="fas fa-map-marker-alt"></i></span>
-                                        <input type="text" class="form-control" name="address" formControlName="address"
-                                            maxlength="60" placeholder="Dirección de tienda" required>
-                                    </div>
-
-                                    <div
-                                        *ngIf="signupForm.storeName.invalid && (signupForm.storeName.dirty && signupForm.storeName.touched)">
-                                        <div class="alert alert-danger" *ngIf="signupForm.storeName.errors.required">
-                                            Este campo es obligatorio.
-                                        </div>
-                                        <div class="alert alert-danger" *ngIf="signupForm.storeName.errors.maxlength">
-                                            La dirección no puede contener más de 60 caracteres.
-                                        </div>
-                                    </div>
-
-                                    <label for="password" class="form-label">Teléfono</label>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-icon"><i class="fas fa-phone-alt"></i></span>
-                                        <input type="tel" class="form-control" name="telephone"
-                                            formControlName="telephone" maxlength="20" placeholder="7777777"
-                                            maxlength="20" required>
-                                    </div>
-
-                                    <div
-                                        *ngIf="signupForm.telephone.invalid && (signupForm.telephone.dirty && signupForm.telephone.touched)">
-                                        <div class="alert alert-danger" *ngIf="signupForm.telephone.errors.required">
-                                            Este campo es obligatorio.
-                                        </div>
-                                        <div class="alert alert-danger" *ngIf="signupForm.telephone.errors.maxlength">
-                                            La dirección no puede contener más de 20 caracteres.
-                                        </div>
-                                    </div>
-
                                     <div class="signup-section__actions">
-                                        <a routerLink="/login" class="ms-btn d-md-none" style="min-width: 173px;">Regresar</a>
-                                        <input type="submit" class="ms-btn btn btn-primary" style="min-width: 173px;"
-                                            value="Registrar">
+                                        <a routerLink="/login" class="ms-btn d-md-none"
+                                            style="min-width: 173px;">Regresar</a>
+                                        <button type="submit" class="ms-btn btn btn-primary" style="min-width: 173px;">Registrar</button>
                                     </div>
                                 </form>
                             </div>
                         </section>
+                        <!-- FORMULARIO DE REGISTRO FIN-->
+
                         <section class="presentation-section text-center ms-bg-primary text-white">
                             <img class="presentation-section__image"
                                 src="../../../assets/img-signup/logo-mispollos-white.svg" alt="">
@@ -371,6 +374,40 @@
                 </ng-template>
                 <button *ngIf="!wrongUser; else wrongButton" class="btn btn-primary mt-5" data-dismiss="modal"
                     (click)="redirectToAdmin()" style="min-width: 150px;">OK</button>
+                <ng-template #wrongButton>
+                    <button class="btn btn-primary mt-5" data-dismiss="modal" style="min-width: 150px;">OK</button>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button type="button" #modalToggleSignUp data-toggle="modal" [hidden]="true" data-target="#myModalSignUp"></button>
+<div class="modal fade" tabindex="-1" id="myModalSignUp" data-backdrop="static" #myModalSignUp>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-form text-center">
+                <h3>{{error? 'El correo ya esta en uso': '¡Cuenta registrada!'}}</h3>
+                <div *ngIf="!error; else elseBlock">
+                    <svg version="1.1" class="svg-modal" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                        <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10"
+                            cx="65.1" cy="65.1" r="62.1" />
+                        <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6"
+                            stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " />
+                    </svg>
+                </div>
+                <ng-template #elseBlock>
+                    <svg class="svg-modal" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                        <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10"
+                            cx="65.1" cy="65.1" r="62.1" />
+                        <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round"
+                            stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3" />
+                        <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round"
+                            stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2" />
+                    </svg>
+                </ng-template>
+                <button *ngIf="!error; else wrongButton" class="btn btn-primary mt-5" data-dismiss="modal"
+                    (click)="redirectToLogin()" style="min-width: 150px;">OK</button>
                 <ng-template #wrongButton>
                     <button class="btn btn-primary mt-5" data-dismiss="modal" style="min-width: 150px;">OK</button>
                 </ng-template>

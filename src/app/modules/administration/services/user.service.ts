@@ -45,6 +45,6 @@ export class UserService {
   }
 
   update(user) {
-    return this.http.put(`${this.URL_USERLIST}/${user.id}`, user, {headers: this.headers})
+    return this.http.put(`${this.URL_USERLIST}/${user.Id}`, user, {headers: this.headers})
   }
 }

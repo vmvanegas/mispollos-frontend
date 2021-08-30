@@ -13,6 +13,12 @@ import { MustMatch } from 'src/app/utils/MustMatch';
 
 export class LoginComponent implements OnInit {
 
+  @ViewChild('modalToggleSignUp') 
+  modalToggleSignUp: ElementRef
+
+  @ViewChild('myModalSignUp') 
+  myModalSignUp: ElementRef
+
   @ViewChild('modalToggle') 
   modalToggle: ElementRef
 
@@ -54,6 +60,11 @@ export class LoginComponent implements OnInit {
         validators: Validators.compose([MustMatch('email', 'emailConfirmation'), MustMatch('password', 'passwordConfirmation')])
       }
     )
+  }
+
+
+  currentYear(){
+    return new Date().getFullYear()
   }
 
   ngOnInit(): void {
@@ -104,13 +115,14 @@ export class LoginComponent implements OnInit {
         }
       }
 
-      this.authService.createUser(body).subscribe(response=>{
+      this.authService.createUser(body).subscribe(
+        response=>{
         this.profileForm.reset()
-        this.showModal()
         this.error = false
+        this.showModalSignUp()
       }, err=>{
         this.error = true
-        this.showModal()
+        this.showModalSignUp()
         console.log(err)
       })
     }
@@ -122,9 +134,17 @@ export class LoginComponent implements OnInit {
     this.modalToggle.nativeElement.click()
   }
 
+  showModalSignUp() {
+    this.modalToggleSignUp.nativeElement.click()
+  }
+
 
   redirectToAdmin() {
     this.router.navigate(['/administracion/dashboard'])
+  }
+
+  redirectToLogin() {
+    this.router.navigate(['/login'])
   }
 
 
