@@ -31,7 +31,7 @@
             <li *ngIf="user.rol == 'Admin'"><a routerLink="empleados" routerLinkActive="active"><i class="fas fa-user-tie mr-2"></i>Empleados</a></li>
         </ul>
         <div class="side-nav__copy">
-            <p>Mis Pollos © 2020</p>
+            <p>Mis Pollos © {{currentYear()}}</p>
         </div>
     </nav>
 

@@ -25,6 +25,10 @@ export class AdministrationComponent implements OnInit {
   ngOnInit(): void {    
   }
 
+  currentYear(){
+    return new Date().getFullYear()
+  }
+
   mouseEnter() {
     this.myDropDown.nativeElement.style.maxHeight = this.myDropDown.nativeElement.scrollHeight + "px"
   }
