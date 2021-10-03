@@ -14,8 +14,15 @@
     display: flex;
     align-items: center;
     input, .fas.fa-check{
+        color: #F24C36;
         display: none;
     }    
+
+    input {
+        color: #99abb4;
+        border: 1px solid #99abb4;
+        border-radius: 5px;
+    }
 }
 
 .editing {

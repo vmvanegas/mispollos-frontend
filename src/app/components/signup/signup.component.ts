@@ -29,7 +29,7 @@ export class SignupComponent implements OnInit {
       emailConfirmation: ['', [Validators.required, Validators.maxLength(60), Validators.email]],
       password: ['', [Validators.required, Validators.maxLength(16), Validators.minLength(8) ,Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{0,}$")]],
       passwordConfirmation: ['', [Validators.required, Validators.maxLength(16), Validators.minLength(8) ,Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{0,}$")]],
-      storeName: ['', [Validators.required, Validators.maxLength(60), Validators.pattern("[a-zA-Z ]{0,}")]],
+      storeName: ['', [Validators.required, Validators.maxLength(60)]],
       address: ['', [Validators.required, Validators.maxLength(60)]],
       telephone: ['', [Validators.required, Validators.maxLength(20)]],
     }, 

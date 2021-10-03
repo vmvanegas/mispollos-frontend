@@ -77,7 +77,7 @@ export class TableComponent implements OnInit {
   async exportData() {
     this.service.getList().subscribe(
       res => {
-        this.excelService.exportAsExcelFile(res.data, 'data');
+        this.excelService.exportAsExcelFile(res, 'data');
       }, 
       err => { console.log(err) })
     

@@ -26,7 +26,7 @@ export class MyAccountComponent implements OnInit {
       name: ["", [Validators.required, Validators.maxLength(40), Validators.minLength(2), Validators.pattern("[a-zA-Z ]{0,}")]],
       lastName: ["", [Validators.required, Validators.maxLength(40), Validators.minLength(2), Validators.pattern("[a-zA-Z ]{0,}")]],
       email: ["", [Validators.required, Validators.maxLength(60), Validators.email]],
-      storeName: ["", [Validators.required, Validators.maxLength(60), Validators.pattern("[a-zA-Z ]{0,}")]],
+      storeName: ["", [Validators.required, Validators.maxLength(60)]],
       telephone: ["", [Validators.required, Validators.maxLength(60)]],
       address: ["", [Validators.required, Validators.maxLength(20)]]
     })

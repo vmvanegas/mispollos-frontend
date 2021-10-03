@@ -130,26 +130,20 @@ export class OrderFormComponent implements OnInit {
             id: x.idProducto,
             name: product.nombre,
             price: product.precio,
-            quantity: x.cantidad
+            quantity: x.cantidad,
+            total: product.precio * x.cantidad
           })
         });
         this.form.patchValue({
           customer: res.idCliente
         })
         this.loading = false
-        this.getOrderById()
+        this.editingOrderObject = res
+        this.getTotal()
       },
       err => {
         console.log(err)
       })
-  }
-
-  getOrderById(){
-    this.orderService.getById(this.orderId).subscribe(
-      res=>{
-        this.editingOrderObject = res
-      }, 
-      err=>{ console.log(err)}) 
   }
 
   send() {
@@ -215,6 +209,7 @@ export class OrderFormComponent implements OnInit {
     this.list.forEach(item => {
       this.total += item.total
     });
+    console.log("total", this.total)
   }
 
 
@@ -265,16 +260,15 @@ export class OrderFormComponent implements OnInit {
     }
   }
 
-  /* editItem(item) {
+  editItem(item) {
     this.editingItem = true
     this.itemForm.patchValue({
       product: item.id,
       quantity: item.quantity
     })
-  } */
+  }
 
-  editItem(item, e) {
-    
+/*   editItem(item, e) {
     const parent = e.target.parentElement
     const input = e.target.previousElementSibling
     if(this.editingItem){
@@ -293,7 +287,7 @@ export class OrderFormComponent implements OnInit {
       input.focus()
     }       
     
-  }
+  } */
 
   deleteItem(id) {
     const index = this.list.findIndex(product => product.id == id)
