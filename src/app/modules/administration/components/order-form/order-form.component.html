@@ -21,17 +21,18 @@
                     <td>{{item.price | currency: '': '$': '1.0-0'}}</td>
 
                     <td>
-                        <div class="quantity">
+                        {{item.quantity}}
+                        <!-- <div class="quantity">
                             <div class="value">{{item.quantity}}</div>
                             <input type="number" value="{{item.quantity}}">
                             <button class="btn" (click)="editItem(item, $event)"><i class="far fa-edit"></i><i class="fas fa-check"></i></button>
-                        </div>
+                        </div> -->
                     </td>
 
                     <td>{{item.total | currency: '': '$': '1.0-0'}}</td>
                     <td class="text-right">
-                       <!--  <button class="btn btn-edit" data-toggle="modal" data-target="#myModalForm"
-                            (click)="editItem(item)"><i class="far fa-edit"></i></button> -->
+                        <button class="btn btn-edit" data-toggle="modal" data-target="#myModalForm"
+                            (click)="editItem(item)"><i class="far fa-edit"></i></button>
                         <button class="btn btn-delete" data-toggle="modal" data-target="#myModalQuestion"
                             (click)="setIdToDelete = item.id"><i class="fas fa-trash-alt"></i></button>
                     </td>
@@ -62,7 +63,7 @@
                         </div>
                         <div class="col-md-12">
                             <p>
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                <button type="button" class="btn btn-outline-primary" data-toggle="modal"
                                     data-target="#myModalCustomer">Agregar cliente nuevo</button>
                             </p>
 

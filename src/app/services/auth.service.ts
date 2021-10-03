@@ -10,7 +10,6 @@ export class AuthService {
 
   URL_USERLIST = environment.url_userList
   URL_VALIDATEUSER = environment.url_validateUser
-
   constructor(
     private http: HttpClient,
     private router: Router

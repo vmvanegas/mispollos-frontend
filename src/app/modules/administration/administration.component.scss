@@ -143,6 +143,7 @@
             a {
                 display: block;
                 padding: 1rem 1.5rem;
+                padding-left: 2rem;
                 text-decoration: none;
                 color: #455a64;
                 transition: all .2s ease-in;                
@@ -150,8 +151,20 @@
                     background-color: #f0f0f0;
                 }
                 &.active{
-                    background-color: #F24C36;
-                    color: #fff;
+                    background-color: #fff;
+                    color: #F24C36;
+                    position: relative;
+                    &::before {
+                        content: "";
+                        display: block;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        background-color: #F24C36;
+                        width: 10px;
+                        height: 100%;
+                        border-radius: 0 10px 10px 0;
+                    }
                 }
 
                 i {
@@ -174,7 +187,7 @@
     align-items: stretch;
     flex: 1;
     padding: 2rem;
-    background-color: #f9fbfd;
+    background-color: #f4f6fa;
     @media (max-width: 991px) {
         padding: 1rem;
     }

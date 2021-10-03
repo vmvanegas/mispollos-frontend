@@ -55,7 +55,39 @@ export class DashboardComponent implements OnInit {
   getBestSellingProduct() {
     this.dashboardService.getBestSellingProduct().subscribe(
       res => {
-        this.bestSellingProduct = res
+        /* this.bestSellingProduct = res */
+        this.bestSellingProduct = [
+          {
+            product: {
+              nombre: "Jamon de cerdo sin conserv pietrán 431 Gramos"
+            },
+            quantity: 100
+          },
+          {
+            product: {
+              nombre: "Yogurt original melocotón botella ALPINA 1750 gr"
+            },
+            quantity: 84
+          },
+          {
+            product: {
+              nombre: "Jamon de cerdo sin conserv pietrán 431 Gramos"
+            },
+            quantity: 65
+          },
+          {
+            product: {
+              nombre: "Queso Mozarella bloque ALPINA"
+            },
+            quantity: 50
+          },
+          {
+            product: {
+              nombre: "Leche Alqueria Deslactosada Sixpack x 1300 Ml c.u"
+            },
+            quantity: 49
+          },
+        ]
         console.log("this.bestSellingProduct", this.bestSellingProduct)
         this.getLeastSoldProduct()
       },
@@ -65,7 +97,39 @@ export class DashboardComponent implements OnInit {
   getLeastSoldProduct() {
     this.dashboardService.getLeastSoldProduct().subscribe(
       res => {
-        this.leastSoldProduct = res
+        /*  this.leastSoldProduct = res */
+        this.leastSoldProduct = [
+          {
+            product: {
+              nombre: "Lomo Ancho Ancla & Viento 450 Gr"
+            },
+            quantity: 1
+          },
+          {
+            product: {
+              nombre: "Pollo con visceras x 1800 Gramo"
+            },
+            quantity: 2
+          },
+          {
+            product: {
+              nombre: "Pierna pernil de pollo marinado Frescampo x 1000 g"
+            },
+            quantity: 5
+          },
+          {
+            product: {
+              nombre: "Nuggets de pollo apanados frescampo x 20 Unds"
+            },
+            quantity: 7
+          },
+          {
+            product: {
+              nombre: "Filete pechuga de pollo"
+            },
+            quantity: 10
+          },
+        ]
         this.getSalesIncreasePercentage()
       },
       err => { })
@@ -74,8 +138,14 @@ export class DashboardComponent implements OnInit {
   getSalesIncreasePercentage() {
     this.dashboardService.getSalesIncreasePercentage().subscribe(
       res => {
-        console.log(res)
-        this.salesIncreasePercentage = res
+        console.log("getSalesIncreasePercentage", res)
+        /* this.salesIncreasePercentage = res */
+        this.salesIncreasePercentage = {
+          currentWeek: 35,
+          increase: true,
+          lastWeek: 18,
+          percent: 94.44
+        }
         this.getLowStock()
       },
       err => { })
@@ -100,46 +170,46 @@ export class DashboardComponent implements OnInit {
       err => { })
   }
 
-  getTotalCardsInfo(){
+  getTotalCardsInfo() {
     this.getTotalOrders()
     this.getTotalCustomers()
     this.getTotalProviders()
     this.getTotalEmployees()
   }
 
-  getTotalCustomers(){
+  getTotalCustomers() {
     this.dashboardService.totalCustomers().subscribe(
       res => {
         this.totalCustomers = res
-      }, 
-      err => {}
+      },
+      err => { }
     )
   }
 
-  getTotalProviders(){
+  getTotalProviders() {
     this.dashboardService.totalProviders().subscribe(
       res => {
         this.totalProviders = res
-      }, 
-      err => {}
+      },
+      err => { }
     )
   }
 
-  getTotalEmployees(){
+  getTotalEmployees() {
     this.dashboardService.totalEmployees().subscribe(
       res => {
         this.totalEmployee = res
-      }, 
-      err => {}
+      },
+      err => { }
     )
   }
 
-  getTotalOrders(){
+  getTotalOrders() {
     this.dashboardService.totalOrders().subscribe(
       res => {
         this.totalOrders = res
-      }, 
-      err => {}
+      },
+      err => { }
     )
   }
 
@@ -153,8 +223,8 @@ export class DashboardComponent implements OnInit {
         datasets: [{
           barPercentage: 1,
           label: 'Pedidos realizados',
-          data: data,
-          /* data: [10, 15, 20, 18, 16, 25, 19], */
+          /* data: data, */
+          data: [10, 15, 20, 18, 16, 25, 19],
           backgroundColor: [
             'rgb(255, 99, 132)',
             'rgb(255, 159, 64)',
@@ -181,14 +251,14 @@ export class DashboardComponent implements OnInit {
           x: {
             grid: {
               display: false,
-              
+
             },
             ticks: {
               color: "#99abb4",
               font: {
                 size: 14,
                 family: "'Open Sans', sans-serif"
-            }
+              }
             }
           },
 
@@ -198,22 +268,22 @@ export class DashboardComponent implements OnInit {
               font: {
                 size: 14,
                 family: "'Open Sans', sans-serif"
-            }
+              }
             }
           }
         },
         plugins: {
           legend: {
-              labels: {
-                  // This more specific font property overrides the global property
-                  font: {
-                      
-                      size: 14,
-                      family: "'Open Sans', sans-serif"
-                  }
+            labels: {
+              // This more specific font property overrides the global property
+              font: {
+
+                size: 14,
+                family: "'Open Sans', sans-serif"
               }
+            }
           }
-      }
+        }
       }
     });
   }
